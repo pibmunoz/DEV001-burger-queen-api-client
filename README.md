@@ -452,7 +452,7 @@ La aplicación debe hacer uso de `npm-scripts` y contar con scripts `start`,
 `test`, `build` y `deploy`, que se encarguen de arrancar, correr las pruebas,
 empaquetar y desplegar la aplicación respectivamente.
 
-Los tests unitarios deben cubrir un mínimo del 90% de _statements_, _functions_,
+Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_,
 _lines_ y _branches_.
 
 Por otro lado, deberás definir la estructura de carpetas y archivos que consideres
@@ -785,3 +785,10 @@ yarn start
 * [Usando Service Workers - MDN](https://developer.mozilla.org/es/docs/Web/API/Service_Worker_API/Using_Service_Workers)
 
 ## 7. Para considerar Project Feedback
+
+* [ ] Cumplir con 4 historias de _backlog_ que agrega el Product Owner.
+* [ ] La aplicación debe adaptarse y estar optimizada para usarse en una tablet, no debe ser una app nativa, sino una web app que sea mobile-first.
+* [ ] Pruebas unitarias cubren un mínimo del 70% de statements, functions, lines, y branches.
+* [ ] Pasa tests (y linters) (`npm test`).
+* [ ] La aplicación esta desplegada en una plataforma de hosting tal como: GitHub Pages, Firebase Hosting, Netlify, Vercel, etc.
+* [ ] La aplicación desplegada debe tener 80% o más de las puntuaciones de Performance, Progressive Web App, Accessibility y Best Practices de Lighthouse.
