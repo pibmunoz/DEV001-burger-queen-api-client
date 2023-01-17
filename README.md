@@ -8,6 +8,7 @@
 * [4. Consideraciones](#4-consideraciones)
 * [5. Criterios de aceptación del proyecto](#5-criterios-de-aceptación-del-proyecto)
 * [6. Pistas / tips](#6-pistas--tips)
+* [7. Para considerar Project Feedback](#7-para-considerar-project-feedback)
 
 ***
 
@@ -98,7 +99,7 @@ Ahí puedes encontrar todos los detalles de los _endpoints_, como por ejemplo
 qué parámetros esperan, qué deben responder, etc.
 
 El objetivo principal de es aprender a construir una _interfaz web_ usando
-el _framework_ elegido (React, Angular o Vue). Todos estos frameworks de
+el _framework_ elegido (React o Angular). Estos frameworks de
 Front-end tratan de solucionar el mismo problema: **cómo mantener la interfaz
 y el estado sincronizados**. Así que esta experiencia espera familiarizarte con
 el concepto de _estado de pantalla_, y como cada cambio sobre el estado se va
@@ -397,78 +398,6 @@ Reflexiona y luego marca los objetivos que has llegado a entender y aplicar en t
   * [Quick Start - Documentación oficial (en inglés)](https://reactrouter.com/web/guides/quick-start)
 </p></details>
 
-### Vue
-
-- [ ] **Instancia de Vue.js**
-
-  <details><summary>Links</summary><p>
-
-  * [La instancia Vue - Documentación oficial](https://es.vuejs.org/v2/guide/instance.html)
-</p></details>
-
-- [ ] **Datos y métodos**
-
-  <details><summary>Links</summary><p>
-
-  * [Datos y Métodos - Documentación oficial](https://es.vuejs.org/v2/guide/instance.html#Datos-y-Metodos)
-</p></details>
-
-- [ ] **Uso y creación de componentes**
-
-  <details><summary>Links</summary><p>
-
-  * [Conceptos Básicos de Componentes - Documentación oficial](https://es.vuejs.org/v2/guide/components.html)
-</p></details>
-
-- [ ] **Props**
-
-  <details><summary>Links</summary><p>
-
-  * [Pasando datos a componentes secundarios con Props - Documentación oficial](https://es.vuejs.org/v2/guide/components.html#Pasando-datos-a-componentes-secundarios-con-Props)
-</p></details>
-
-- [ ] **Directivas (v-bind | v-model)**
-
-  <details><summary>Links</summary><p>
-
-  * [v-bind - Documentación oficial](https://es.vuejs.org/v2/api/#v-bind)
-  * [Binding en Formularios - Documentación oficial](https://es.vuejs.org/v2/guide/forms.html)
-</p></details>
-
-- [ ] **Iteración (v-for)**
-
-  <details><summary>Links</summary><p>
-
-  * [Mapeando una matriz a elementos con v-for - Documentación oficial](https://es.vuejs.org/v2/guide/list.html#Mapeando-una-matriz-a-elementos-con-v-for)
-</p></details>
-
-- [ ] **Eventos (v-on)**
-
-  <details><summary>Links</summary><p>
-
-  * [Manejo de eventos - Documentación oficial](https://es.vuejs.org/v2/guide/events.html)
-</p></details>
-
-- [ ] **Propiedades Computadas y Observadores**
-
-  <details><summary>Links</summary><p>
-
-  * [Propiedades Computadas y Observadores](https://es.vuejs.org/v2/guide/computed.html)
-</p></details>
-
-- [ ] **Routing**
-
-  <details><summary>Links</summary><p>
-
-  * [Getting Started - Documentación oficial de Vue Router](https://router.vuejs.org/guide/#html)
-</p></details>
-
-- [ ] **Clases y Estilos**
-
-  <details><summary>Links</summary><p>
-
-  * [Enlace Clases y Estilos - Documentación oficial](https://es.vuejs.org/v2/guide/class-and-style.html)
-</p></details>
 
 ### Centrado en el usuario
 
@@ -680,6 +609,161 @@ para mantener actualizado el menú.
 
 ## 6. Pistas / Tips
 
+### Despliegue
+
+En esta sección revisamos algunas opciones para desplegar
+el backend y frontend de tu app.
+Si usas firebase con reglas de firestore, índices, cloud functions,
+necesitas desplegar el backend con firebase-cli.
+
+Puedes desplegar el frontend con Firebase hosting.
+Hay otras opciones como Github Pages (que ya estan familiarizadas),
+Netlify, Vercel, entre otras.
+
+Netlify es un servicio para desplegar tu web app - backend y
+frontend - y no esta limitado a usar solamente Firebase.
+Por ejemplo, puedes desplegar un app MySQL/Express/React.
+
+#### Build para production
+
+Cada framework incluye su propio _pipeline_ de _construcción_ o _build_. Con
+esto nos referimos a que para _construir_ nuestro proyecto y producir un
+_artefacto_ que podamos desplegar vamos a usar un script que normalmente
+configuramos como una tarea de `npm-scripts` con el nombre `build` e invocamos
+así:
+
+```sh
+npm run build
+```
+
+Una vez hayamos _construido_ la aplicación, tendremos un directorio que contiene
+la app lista para desplegar. Dependiendo del framework que uses y tu
+configuración en particular, esa carpeta puede tener un nombre distinto;
+normalmente `build` o `dist`.
+
+##### Firebase
+
+La herramienta de línea de comando de Firebase (`firebase-tools`) incluye un
+comando que nos permite desplegar nuestro proyecto a Firebase:
+`firebase deploy`. A la hora de ejecutar este comando, se usará la configuración
+que tenemos en el archivo `firebase.json`. En ese archivo asegúrate de que la
+_propiedad_ `public` del _objeto_ `hosting` tenga la ruta correcta a la carpeta
+donde hemos _construido_ la aplicación. En este ejemplo es implemente `build`,
+asumiendo que la carpeta `build` es una subcarpeta del directorio donde se
+encuentra nuestro `firebase.json`.
+
+```json
+  ...
+  "hosting": {
+    "public": "build",
+    ...
+  },
+  ...
+```
+
+Finalmente, estás lista para desplegar tu proyecto a Firebase :rocket::fire:!
+
+```sh
+firebase deploy
+```
+
+##### Netlify
+
+[Netlify](http://netlify.com) es un servicio de hosting
+para sitios web estáticos.
+Para usarlo primero necesitas crear una cuenta en
+[Netlify](http://netlify.com) y después puedes conectar tu repo.
+
+* [Netlify y Angular](https://www.netlify.com/blog/2019/09/23/first-steps-using-netlify-angular/)
+* [Netlify y React](https://www.netlify.com/blog/2016/07/22/deploy-react-apps-in-less-than-30-seconds/)
+
+Para desplegar tu aplicación en netlify seleccionas acceder con GitHub
+y luego concedes los permisos para que Netlify acceda a tus repositorios y
+generar la clave para poder realizar el despliegue continuo.
+
+Una vez terminado el registro bastará con compilar tu aplicación para
+producción y arrastrar tu carpeta (dist, build) a la parte de sites
+dentro de netlify.
+
+![netlify-sites](https://user-images.githubusercontent.com/21324865/128918519-04336a77-9c34-4266-a711-9975917e8f87.png)
+
+Al terminar de cargar los archivos podras ver el nombre de la aplicación dentro
+de Netlify junto al link del app ya hosteada.
+
+###### netlify cli
+
+Hay un `netlify-cli` si prefieres hacer el despliegue por linea de comando.
+Para usarlo, hay que instalar el cli en tu proyecto y authorizarlo.
+
+Puedes checar la [documentación](https://docs.netlify.com/cli/get-started/)
+o seguir con los siguentes comandos:
+
+```sh
+npm install netlify-cli --save-dev
+netlify login
+```
+
+Esto va a crear un `config.json` en tu proyecto.
+
+Puedes usar `netlify` con continuous deployment (despliegue continuo) y así
+cada vez que agregues un commit se va a compilar y desplegar tu app con
+los nuevos cambios. Alternativamente, también puedes hacer depliegue manual.
+
+Para continuous deployment corre `netlify init`  y sigue las instrucciones
+para conectar un repo de tu github.
+Puedes configurar deploy settings (comando para el build, directorio de la
+carpeta y la rama para producción) en "deploy settings" de tu site en netlify.
+
+Para desplegar manualmente puedes usar `netlify deploy`. También por defecto
+busca un directorio `build` en tu proyecto para desplegarlo. Si tu proyecto
+tiene un directorio de otro nombre puedes usar la opción `--dir`.
+
+```sh
+netlify deploy --dir=dist`
+```
+
+#### GitHub Pages
+
+* [GitHub Pages y Vue](https://cli.vuejs.org/guide/deployment.html#github-pages)
+* [GitHub Pages y Angular](https://angular.io/guide/deployment#deploy-to-github-pages)
+* [GitHub Pages y React](https://create-react-app.dev/docs/deployment/#github-pages-https-pagesgithubcom)
+
+### :information_source: Nota para estudiantes que elijan React y `create-react-app`
+
+Si tratas de usar [`create-react-app`](https://reactjs.org/docs/create-a-new-react-app.html)
+en el directorio del proyecto recibirás un error diciendo que hay archivos que
+podrían presentar un conflicto. Para evitar este problema puedes crear una nueva
+app usando `create-react-app` y de ahí _mezclarla_ con la carpeta del proyecto:
+
+```sh
+# Si estabas en la carpeta del proyecto, salimos a la carpeta de más arriba
+cd ..
+
+# Creamos una nueva aplicación con `create-react-app` en la carpeta
+# `burger-queen-tmp`
+npx create-react-app burger-queen-tmp
+
+# Copiamos el _boilerplate_ del proyecto _encima_ de la aplicación creada con
+# `create-react-app`
+cp -r <cohort-id>-burger-queen/* burger-queen-tmp/
+
+# Copiamos el contenido de la aplicación creada con `create-react-app` de vuelta
+# al repo del proyecto (teniendo en cuenta el archivo _oculto_ `.gitignore`).
+cp -r burger-queen-tmp/.gitignore burger-queen-tmp/* <cohort-id>-burger-queen/
+
+# Ya podemos borrar la instalación _temporal_ y quedarnos solo con el repo del
+# proyecto, con el que partimos.
+rm -rf burger-queen-tmp
+
+# Volvemos a entrar en el directorio del proyecto y ya deberíamos estar listas
+# para comenzar.
+cd <cohort-id>-burger-queen
+
+# Para confirmar que todo fue bien arranca la aplicación con el siguinte comando
+# y verifica que la interfaz se abre en el navegador.
+yarn start
+```
+
 ### Frameworks / libraries
 
 * [React](https://reactjs.org/)
@@ -699,3 +783,5 @@ para mantener actualizado el menú.
 * [Tu primera Progressive Web App - Google developers](https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/?hl=es)
 * [Progressive Web Apps - codigofacilito.com](https://codigofacilito.com/articulos/progressive-apps)
 * [Usando Service Workers - MDN](https://developer.mozilla.org/es/docs/Web/API/Service_Worker_API/Using_Service_Workers)
+
+## 7. Para considerar Project Feedback
