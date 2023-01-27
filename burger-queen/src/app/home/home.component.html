@@ -11,21 +11,22 @@
 </head>
 
 <body class="bodyHome">
-    <img src="../assets/img/papas01.png" class=" z-n0 position-absolute top-50 end-0 img-fluid" alt="logo" width="300">
-    <img src="../assets/img/papas02.png" class=" z-n0 position-absolute top-50 start-0 img-fluid" alt="logo" width="300">
+    
 	<section class="h-100">
 		<div class="container h-100">
-			<div class="row justify-content-sm-center h-100">
+			<img src="../assets/img/papas01.png" class="fondoImagen1" alt="fondo papas">
+    <img src="../assets/img/papas02.png" class="fondoImagen2" alt="fondo papas">
+			<div class="row justify-content-sm-center h-100 z-index-10">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
 						<img src="../assets/img/burgerqueen-01.png" class="logoIntro img-fluid" alt="logo" width="300">
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
+							<form class="needs-validation" #miFormulario="ngForm" (ngSubmit)="home(miFormulario)"  novalidate="" autocomplete="off">
 								<div class="mb-3">
 									<label class="mb-2 font-weight-bold" for="email"><strong>Employee</strong></label>
-									<input id="email" type="text" class="form-control" name="email" value="" required autofocus>
+									<input id="email" type="text" class="form-control" name="email" value="" required autofocus ngModel>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -35,14 +36,14 @@
 									<div class="mb-2 w-100">
 										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
 									</div>
-									<input id="password" type="password" class="form-control" name="password" required>
+									<input id="password" type="password" class="form-control" name="password" required ngModel>
 								    <div class="invalid-feedback">
 								    	Password is required
 							    	</div>
 								</div>
                                 <div class="mb-3">
 									<label class="mb-2 font-weight-bold" for="email"><strong>Admin</strong></label>
-									<input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+									<input id="email" type="email" class="form-control" name="emailAmin" value="" required autofocus>
 									<div class="invalid-feedback">
 										Email is invalid
 									</div>
@@ -52,7 +53,7 @@
 									<div class="mb-2 w-100">
 										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
 									</div>
-									<input id="password" type="password" class="form-control" name="password" required>
+									<input id="password" type="password" class="form-control" name="passwordAdmin" required>
 								    <div class="invalid-feedback">
 								    	Password is required
 							    	</div>

@@ -8,3 +8,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'burger-queen';
 }
+
+
+export const environment = {
+  production: false,
+  // Your Mockoon's API URL
+  apiURL: 'http://localhost:3000/'
+};

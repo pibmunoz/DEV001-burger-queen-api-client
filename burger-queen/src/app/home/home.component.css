@@ -1,9 +1,32 @@
+.bodyHome {
+    background-color: #FFFDEC;
+}
 
-    .bodyHome{
-        background-color: #FFFDEC;
-    }
 .btnLogin {
     background-color: #F9A826;
     border: none;
     border-radius: 50px;
+}
+
+.fondoImagen2 {
+    z-index: 0;
+    position: absolute;
+    left: 0;
+    top: 15vh;
+    width: 60vh;
+    background-size: contain;
+}
+
+.fondoImagen1 {
+    z-index: 0;
+    position: absolute;
+    right: 0;
+    top: 15vh;
+    width: 60vh;
+    background-size: contain;
+}
+
+.logoIntro {
+    z-index: 7;
+    position: relative
 }
