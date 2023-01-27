@@ -8,14 +8,22 @@ export class HomeLogin  {
         private http: HttpClient){}
     token!: string;
     login(email: string, password: string){
+        const enterEmail : string = email;
         this.http.post(`${environment.apiURL}/auth`, {
             email: email,
             password: password
         }).subscribe((data: any) => {
             this.token = data.id;
-            localStorage.setItem('token', this.token);
-            this.router.navigate(['/waiters']);
-            console.log( "este es un token", this.token)
+            let emailOk = data.email;
+            
+            if(enterEmail === emailOk){
+                this.router.navigate(['/waiters'])
+                localStorage.setItem('token', this.token);
+            }
+            else{
+                console.log("Error in login")
+            }
+
         })
     }
 

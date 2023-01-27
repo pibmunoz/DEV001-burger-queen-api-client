@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
     const password = form.value.password;
     console.log("aaaaaa", email)
 
-    this.homeLogin.login(email, password)
+    this.homeLogin.login(email, password);
 
   }
 }
