@@ -1,0 +1,147 @@
+{
+  "uuid": "97438980-faf5-4805-8195-c6e1cb00f91f",
+  "lastMigration": 25,
+  "name": "Response",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3000,
+  "hostname": "0.0.0.0",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "05c4c618-d0b6-4c53-a568-cdd4fe6a0449",
+      "documentation": "Generate random body (JSON, text, CSV, etc) with templating",
+      "method": "post",
+      "endpoint": "auth",
+      "responses": [
+        {
+          "uuid": "2887306e-acb1-4d0c-a1ef-47f6cd071c7d",
+          "body": " {\n    \"id\": \"W-f02bc41-3f2f-455c-822b-01d75bf62fab\",\n    \"email\": \"waiter@burgerqueen.com\",\n    \"password\": \"123456\"\n  }",
+          "latency": 0,
+          "statusCode": 201,
+          "label": "Users",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        },
+        {
+          "uuid": "3e7f6c1e-a2f4-4f80-a00e-1f737d080d05",
+          "body": "{\n  \"email\": \"\",\n  \"password\": \"\",\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    },
+    {
+      "uuid": "f45e0b4a-9669-48a6-9154-d3a0fc979458",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "users",
+      "responses": [
+        {
+          "uuid": "f7d346d5-ea0b-49e5-abdf-990bbc428f7e",
+          "body": "[\n  {\n    \"id\": \"W-f02bc41-3f2f-455c-822b-01d75bf62fab\",\n    \"email\": \"waiter@burgerqueen.com\",\n    \"roles\": {\n      \"role\": \"waiter\",\n      \"admin\": false,\n      }\n    \"employee\": \"Ritalin\"\n  },\n    {\n    \"id\": \"K-f02bc41-3f2f-700c-822b-01d75bf62fab\",\n    \"email\": \"kitchen@burgerqueen.com\",\n    \"roles\": {\n      \"role\": \"kitchen\",\n      \"admin\": false,\n      }\n    \"employee\": \"Nicolas\",\n  },\n   {\n    \"id\": \"A-f02bc41-3f2f-999c-822b-01d75bf62fab\",\n    \"email\": \"admin@burgerqueen.com\",\n    \"roles\": {\n      \"role\": \"admin\",\n      \"admin\": true,\n      }\n    \"employee\": \"Miguita\",\n  }\n  ]\n",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "",
+              "value": ""
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "X-",
+              "value": "",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "05c4c618-d0b6-4c53-a568-cdd4fe6a0449"
+    },
+    {
+      "type": "route",
+      "uuid": "f45e0b4a-9669-48a6-9154-d3a0fc979458"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": []
+}
