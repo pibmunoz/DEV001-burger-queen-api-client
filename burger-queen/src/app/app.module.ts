@@ -3,15 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './home/home.component';
 import { WaitersComponent } from './waiters/waiters.component';
 import { KitchenComponent } from './kitchen/kitchen.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthorsComponent } from './authors/authors.component';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: LoginComponent },
   { path: 'waiters', component: WaitersComponent },
   { path: 'kitchen', component: KitchenComponent },
   { path: 'admin', component: AdminComponent },
@@ -21,15 +21,16 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
+    LoginComponent,
     WaitersComponent,
     KitchenComponent,
     AdminComponent,
-    AuthorsComponent
+    AuthorsComponent,
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
   ],
