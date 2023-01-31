@@ -28,42 +28,20 @@
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<form class="needs-validation" #miFormulario="ngForm" (ngSubmit)="home(miFormulario)"  novalidate="" autocomplete="off">
+						
+							<form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)" novalidate="" autocomplete="off">
 								<div class="mb-3">
-									<label class="mb-2 font-weight-bold" for="email"><strong>Employee</strong></label>
-									<input id="email" type="text" class="form-control" name="email" value="" required autofocus ngModel>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+									<label class="mb-2 font-weight-bold" for="email"><strong>E-mail</strong></label>
+									<input id="email" type="text" class="form-control" name="email" value="" required autofocus formControlName="user">
 								</div>
-
 								<div class="mb-3">
 									<div class="mb-2 w-100">
 										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
 									</div>
-									<input id="password" type="password" class="form-control" name="password" required ngModel>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
+									<input id="password" type="password" class="form-control" name="password" required formControlName="password">
 								</div>
-                                <div class="mb-3">
-									<label class="mb-2 font-weight-bold" for="email"><strong>Admin</strong></label>
-									<input id="email" type="email" class="form-control" name="emailAmin" value="" required autofocus>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+								<div class="fail" id="failLogIn">
 								</div>
-
-								<div class="mb-3">
-									<div class="mb-2 w-100">
-										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
-									</div>
-									<input id="password" type="password" class="form-control" name="passwordAdmin" required>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
-								</div>
-
 								<div class="d-grid gap-2">
 									<button type="submit" class="btn btnLogin btn-primary btn-lg btn-block">
 										Login
