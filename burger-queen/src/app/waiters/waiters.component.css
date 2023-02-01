@@ -1,0 +1,148 @@
+
+
+
+.containerBodyOfWaiters {
+    background-image: url(../../assets/img/fondotablet.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.headerWaiters {
+    margin-top: 2vh;
+    display: flex;
+    align-items: flex-end;
+    width: 90%;
+    height: fit-content
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    gap: 1vh;
+
+}
+
+.cardBrown{
+    display: flex;
+    flex-direction: column;
+    width: 93%;
+    height: 100%;
+    background-color:#F4E6BC;
+    justify-content: center;
+    gap: 1vh;
+    align-items: center;
+    padding: 1vh;
+    border-radius: 1em;
+}
+
+.formWaiters {
+    display: flex;
+    flex-direction: column;
+}
+
+.headerWaiters {
+    width: 90%;
+    margin-bottom: 2vh;
+}
+
+.containerBreakfast {
+    background-color: white;
+    border-radius: 1em;
+    width: 99%;
+    height: 32%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+h2{
+    font-weight: 400;
+    font-size:1.3em ;
+}
+
+.containerResumeOrder {
+    width: 98%;
+    gap: 1em;
+    height: 28%;
+}
+
+.resumeProducts {
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.totalProducts {
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.containerMeal {
+    background-color: white;
+    border-radius: 1em;
+    width: 99%;
+    height: 32%;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.textLabels{
+    font-weight: 500;
+    font-size: small;
+}
+.inputCostumer{
+    background-color: transparent;
+    border-style: none none dotted none;
+    font-size: small;
+}
+
+.btn-checkout {
+    width: 20vw;
+    height: 5vh;
+    background: #F9A826;
+    border-radius: 50px;
+    margin-bottom: 2vh;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hot-beverage {
+    background-color: #F23E12;
+}
+
+.cold-beverage {
+    background-color: #ACF0ED;
+}
+
+.sandwich-burger {
+    background-color: #2DBC7A;
+}
+
+.extras {
+    background-color: #FFA352;
+}
+
+.price {
+    background-color: black;
+    color: white;
+}
+
+.name {
+    color: white;
+}
+
+.cold-beverage,
+.hot-beverage,
+.sandwich-burger,
+.extras {
+    width: 90px;
+    height: 75px;
+}
