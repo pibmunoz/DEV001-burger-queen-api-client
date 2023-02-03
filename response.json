@@ -16,7 +16,7 @@
       "responses": [
         {
           "uuid": "ff318fde-0bd0-4092-ad86-aa3d0c579f77",
-          "body": "{\n    \"id\": \"W-f02bc41-3f2f-455c-822b-01d75bf62fab\",\n    \"status\": 200,\n    \"user\": \"waiter@burgerqueen.com\",\n    \"password\": \"123456\",\n    \"role\": \"waiter\"\n}\n  \n  ",
+          "body": "{\n    \"id\": \"W-f02bc41-3f2f-455c-822b-01d75bf62fab\",\n    \"status\": 200,\n    \"email\": \"waiter@burgerqueen.com\",\n    \"password\": \"123456\",\n    \"role\": \"waiter\"\n}\n  \n  ",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -37,7 +37,7 @@
           "rules": [
             {
               "target": "body",
-              "modifier": "user",
+              "modifier": "email",
               "value": "waiter@burgerqueen.com",
               "invert": false,
               "operator": "equals"
@@ -57,7 +57,7 @@
         },
         {
           "uuid": "02eefa7b-777f-4a1d-bfd6-8d3bd92ab5a4",
-          "body": "{\n    \"id\": \"K-f02bc41-3f2f-555a-822b-01d75bf62fab\",\n    \"status\": 200,\n    \"user\": \"kitchen@burgerqueen.com\",\n    \"password\": \"654321\",\n    \"role\": \"kitchen\"\n  }\n  \n  ",
+          "body": "{\n    \"id\": \"K-f02bc41-3f2f-555a-822b-01d75bf62fab\",\n    \"status\": 200,\n    \"email\": \"kitchen@burgerqueen.com\",\n    \"password\": \"654321\",\n    \"role\": \"kitchen\"\n  }\n  \n  ",
           "latency": 0,
           "statusCode": 200,
           "label": "",
@@ -78,7 +78,7 @@
           "rules": [
             {
               "target": "body",
-              "modifier": "user",
+              "modifier": "email",
               "value": "kitchen@burgerqueen.com",
               "invert": false,
               "operator": "equals"
@@ -98,7 +98,7 @@
         },
         {
           "uuid": "3526d9db-bf94-4fbd-b250-dbae03ba87da",
-          "body": "{\n  \n}",
+          "body": "{\n  \"response\": \"malo\",\n   \"status\": 200,\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "",
@@ -119,7 +119,7 @@
           "rules": [
             {
               "target": "body",
-              "modifier": "user",
+              "modifier": "email",
               "value": "waiter@burgerqueen.com",
               "invert": true,
               "operator": "equals"
@@ -139,7 +139,7 @@
         },
         {
           "uuid": "eb0f5a40-bd06-4a64-bc17-335257eaa638",
-          "body": "{\n  \"response\": \"malo\"\n}",
+          "body": "{\n  \"response\": \"malo\",\n   \"status\": 200,\n}",
           "latency": 0,
           "statusCode": 400,
           "label": "",
@@ -160,7 +160,7 @@
           "rules": [
             {
               "target": "body",
-              "modifier": "user",
+              "modifier": "email",
               "value": "kitchen@burgerqueen.com",
               "invert": true,
               "operator": "equals"

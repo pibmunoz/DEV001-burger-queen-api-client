@@ -30,13 +30,15 @@
 							<form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)" novalidate="" autocomplete="off">
 								<div class="mb-3">
 									<label class="mb-2 font-weight-bold" for="email"><strong>E-mail</strong></label>
-									<input id="email" type="text" class="form-control" name="email" value="" required autofocus formControlName="user">
+									<input id="email" type="text" class="form-control" [class.is-invalid]="f.email.touched && f.email.errors" name="email" value="" required autofocus formControlName="email">
+									<div id="invalidEmail" class="invalid-feedback">Please enter a valid e-mail.</div> 
 								</div>
 								<div class="mb-3">
 									<div class="mb-2 w-100">
 										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
 									</div>
-									<input id="password" type="password" class="form-control" name="password" required formControlName="password">
+									<input id="password" type="password" class="form-control" [class.is-invalid]="f.password.touched && f.password.errors" name="password" required formControlName="password">
+									<div id="invalidPassword" class="invalid-feedback">Wrong password.</div> 
 								</div>
 								<div class="fail" id="failLogIn">
 								</div>
