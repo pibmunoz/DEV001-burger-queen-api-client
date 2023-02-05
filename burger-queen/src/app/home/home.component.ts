@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onLogin(form: LoginI) {
+  onLogin(form: LoginI){
     this.api.loginByEmail(form).subscribe(data => {
       let dataResponse: ResponseI = data
       console.log("esta es la data", dataResponse)
@@ -31,15 +31,20 @@ export class LoginComponent implements OnInit {
         
         localStorage.setItem('id', dataResponse.id)
         switchData(dataResponse, this.router)
-      }
-      if (dataResponse.statusText == "Bad Request") {
-        console.log("estooooo", dataResponse)
-        alert("data invalida")
-      } else if (this.loginForm.invalid) {
-        alert("User email or Password are invalid")
-      }
+    }
+      // if (dataResponse.statusText == "Bad Request") {
+      //   console.log("estooooo", dataResponse)
+      //   alert("data invalida")
+      // } else if (this.loginForm.invalid) {
+      //   alert("User email or Password are invalid")
+      // }
 
-    })
+    }, (error) => {
+      console.log("aaaa", error)
+    }
+    
+    
+    )
   }
   public get f(): any {
     return this.loginForm.controls;
