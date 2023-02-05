@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 // import { HomeLogin} from './home';
 import { ApiService } from '../service/api/api.service';
@@ -11,31 +11,29 @@ import { ResponseI } from '../models/response.interface';
   styleUrls: ['./home.component.css'],
 })
 
+@Injectable()
 export class LoginComponent implements OnInit {
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
-  constructor(private api: ApiService, private router: Router) { }
-
+  constructor(private api: ApiService, private router: Router) {  }
   ngOnInit(): void {
   }
 
+  token: string ="";
   onLogin(form: LoginI) {
-    this.api.loginByEmail(form).subscribe(data => {
+    return this.api.loginByEmail(form).subscribe(data => {
       let dataResponse: ResponseI = data
-      console.log("esta es la data", dataResponse)
 
-      if (dataResponse.status === 200) {
+      if (this.loginForm.valid) {
         
-        localStorage.setItem('id', dataResponse.id)
+        this.token = dataResponse.id
+        // console.log("este es el token" , this.token)
         switchData(dataResponse, this.router)
       }
-      if (dataResponse.statusText == "Bad Request") {
-        console.log("estooooo", dataResponse)
-        alert("data invalida")
-      } else if (this.loginForm.invalid) {
+       else if (this.loginForm.invalid) {
         alert("User email or Password are invalid")
       }
 
@@ -43,6 +41,10 @@ export class LoginComponent implements OnInit {
   }
   public get f(): any {
     return this.loginForm.controls;
+  }
+
+  getIdToken(){
+    return this.token
   }
 
 }
