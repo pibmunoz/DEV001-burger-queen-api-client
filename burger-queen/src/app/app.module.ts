@@ -9,6 +9,10 @@ import { KitchenComponent } from './kitchen/kitchen.component';
 import { AdminComponent } from './admin/admin.component';
 import { AuthorsComponent } from './authors/authors.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { ProductsService } from './service/api/products.service';
+import { ApiService } from './service/api/api.service';
+import { DataServicesService } from './service/api/data-services.service';
+import { CardOfProductComponent } from './card-of-product/card-of-product.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -26,6 +30,7 @@ const appRoutes: Routes = [
     KitchenComponent,
     AdminComponent,
     AuthorsComponent,
+    CardOfProductComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +39,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
   ],
+  providers:[ApiService, DataServicesService, ProductsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

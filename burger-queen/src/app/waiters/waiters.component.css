@@ -61,12 +61,12 @@
 
 h2{
     font-weight: 400;
-    font-size:1.3em ;
+    font-size:1em ;
 }
 
 .containerResumeOrder {
     width: 98%;
-    gap: 1em;
+    gap: 0.5em;
     height: 28%;
 }
 
@@ -112,6 +112,7 @@ h2{
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 0.6rem;
 }
 
 .hot-beverage {

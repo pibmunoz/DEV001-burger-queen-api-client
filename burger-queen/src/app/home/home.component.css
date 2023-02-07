@@ -12,8 +12,7 @@
     z-index: 0;
     position: absolute;
     left: 0;
-    top: 15vh;
-    width: 60vh;
+    width: 20vw;
     background-size: contain;
 }
 
@@ -21,8 +20,7 @@
     z-index: 0;
     position: absolute;
     right: 0;
-    top: 15vh;
-    width: 60vh;
+    width: 20vw;
     background-size: contain;
 }
 

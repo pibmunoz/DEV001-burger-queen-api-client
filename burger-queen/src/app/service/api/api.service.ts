@@ -15,4 +15,9 @@ export class ApiService {
     let urlApi = this.url + 'auth';
     return this.http.post<ResponseI>(urlApi, form);
   }
+
+  getItems(){
+    return this.http.get(this.url + "products")
+  }
+
 }
