@@ -13,11 +13,11 @@ import { ProductsService } from './service/api/products.service';
 import { ApiService } from './service/api/api.service';
 import { DataServicesService } from './service/api/data-services.service';
 import { CardOfProductComponent } from './card-of-product/card-of-product.component';
-
+import { AuthGuard } from './service/api/auth.guard';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'waiters', component: WaitersComponent },
-  { path: 'kitchen', component: KitchenComponent },
+  { path: 'waiters', component: WaitersComponent, canActivate: [AuthGuard]},
+  { path: 'kitchen', component: KitchenComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminComponent },
   { path: 'aboutUs', component: AuthorsComponent },
 ]

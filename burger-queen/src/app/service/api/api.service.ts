@@ -16,8 +16,4 @@ export class ApiService {
     return this.http.post<ResponseI>(urlApi, form);
   }
 
-  getItems(){
-    return this.http.get(this.url + "products")
-  }
-
 }

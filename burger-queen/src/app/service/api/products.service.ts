@@ -14,7 +14,4 @@ obtainProducts(){
   return this.dataServices.getItems();
 }
 
-products: ProductI[] =[];
-
-
 }

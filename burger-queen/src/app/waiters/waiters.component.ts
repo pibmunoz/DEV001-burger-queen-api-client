@@ -17,24 +17,20 @@ export class WaitersComponent implements OnInit {
   products:ProductI[] = []
 
 ngOnInit(): void {
- this.productService.obtainProducts().subscribe(myProducts =>{
-console.log(myProducts)
-this.products = Object.values(myProducts);
-this.mostrarCartas()
-
- })
-
- 
-  
+  console.log(this.arrayOfTheProducts())
 }
 
-mostrarCartas(){
-return this.products.forEach(element => {
-console.log(element.id)
-
-});
+arrayOfTheProducts(){
+  return this.productService.obtainProducts().subscribe({
+    next: myProducts =>{
+this.products = Object.values(myProducts).flat();
+      
+    },
+    error: error =>{
+      console.log(error)
+    }
+   })
 }
-
 
 
 }
