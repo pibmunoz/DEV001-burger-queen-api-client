@@ -1,6 +1,7 @@
-import { Component,  OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
+import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
 
 @Component({
   selector: 'app-waiters',
@@ -11,26 +12,17 @@ import { ProductsService } from '../service/api/products.service';
 export class WaitersComponent implements OnInit {
 
   titulo = "lista de productos"
+  public products = []
+  constructor(private productService: ProductsService) {
 
-  constructor(private productService: ProductsService, ){}
+  }
 
-  products:ProductI[] = []
 
-ngOnInit(): void {
-  console.log(this.arrayOfTheProducts())
-}
+  ngOnInit(): void {
 
-arrayOfTheProducts(){
-  return this.productService.obtainProducts().subscribe({
-    next: myProducts =>{
-this.products = Object.values(myProducts).flat();
-      
-    },
-    error: error =>{
-      console.log(error)
-    }
-   })
-}
+  }
+
+
 
 
 }

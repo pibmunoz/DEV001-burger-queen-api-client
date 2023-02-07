@@ -30,15 +30,18 @@
             <div class="row containerBreakfast">
                 <div class="col">
                     <h2>Breakfast</h2>
-                    <div id="cardsBreakfast" class="cardsB" *ngFor="let item of products">
-                        <p>{{item.name}}</p>
+                    <div id="cardsBreakfast" class="cardsB">
+                        <app-card-of-product  ></app-card-of-product>
                     </div>
                 </div>
             </div>
             <div class="row containerMeal">
                 <div class="col">
                     <h2>All day</h2>
-                    <div id="cardsMeal" class="cardsM"></div>
+                    <div id="cardsMeal" class="cardsM">
+                        <app-card-of-product></app-card-of-product>
+                        
+                    </div>
                 </div>
             </div>
             <div class="row containerResumeOrder">

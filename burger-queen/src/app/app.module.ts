@@ -18,7 +18,7 @@ const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'waiters', component: WaitersComponent, canActivate: [AuthGuard]},
   { path: 'kitchen', component: KitchenComponent, canActivate: [AuthGuard] },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: 'aboutUs', component: AuthorsComponent },
 ]
 
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
   ],
-  providers:[ApiService, DataServicesService, ProductsService],
+  providers:[ApiService, DataServicesService, ProductsService, AuthGuard,],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

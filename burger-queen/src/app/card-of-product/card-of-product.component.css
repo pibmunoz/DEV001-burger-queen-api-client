@@ -1,0 +1,36 @@
+.bodyOfCard{
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
+
+
+.itemsProd{
+    width: 8em;
+    height: 8em;
+    color: white;
+    font-size: 0.7em;
+    font-weight: bold;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.extras-class{
+    background-color: #FFA352;
+}
+.hotBeverage-class{
+    background-color: #F23E12;
+}
+
+.mainDish-class{
+    background-color: #2DBC7A;
+}
+.coldBeverage-class{
+    background-color: #ACF0ED;
+}
+
