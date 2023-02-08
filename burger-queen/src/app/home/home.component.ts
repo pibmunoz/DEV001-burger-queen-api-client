@@ -30,8 +30,8 @@ export class LoginComponent implements OnInit {
       if (this.loginForm.valid) {
         
         this.token = dataResponse.id
-        // console.log("este es el token" , this.token)
-        localStorage.setItem('token', this.token)
+        console.log("este es el token" , this.token)
+        localStorage.setItem('token', this.token);
         switchData(dataResponse, this.router)
       }
        else if (this.loginForm.invalid) {

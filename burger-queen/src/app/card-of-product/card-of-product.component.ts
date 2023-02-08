@@ -1,4 +1,4 @@
-import { Component, Injectable} from '@angular/core';
+import { Component, Injectable, Input} from '@angular/core';
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 
@@ -13,26 +13,16 @@ export class CardOfProductComponent {
 
   constructor(private products: ProductsService){}
 
-  public productos: ProductI[] =  []
+  @Input() breakfastForChild: ProductI[];
+  @Input() mealForChild: ProductI[];
 
 
 
 ngOnInit(){
-  this.arrayOfTheProducts();
+  console.log("prueba de que hay algo" , this.breakfastForChild)
 }
 
-  arrayOfTheProducts(){
-    return this.products.obtainProducts().subscribe({
-      next: myProducts =>{
-        console.log(myProducts)
-    this.productos = Object.values(myProducts).flat();
-
-      },
-      error: error =>{
-        console.log(error)
-      }
-     })
-  }
+  
 
 
 

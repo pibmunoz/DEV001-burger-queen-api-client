@@ -28,25 +28,25 @@
         </header>
         <section class="col cardBrown">
             <div class="row containerBreakfast">
-                <div class="col">
+                
                     <h2>Breakfast</h2>
                     <div id="cardsBreakfast" class="cardsB">
-                        <app-card-of-product  ></app-card-of-product>
+                        <app-card-of-product [breakfastForChild]="breakfast"></app-card-of-product>
                     </div>
-                </div>
+                
             </div>
             <div class="row containerMeal">
-                <div class="col">
+                
                     <h2>All day</h2>
-                    <div id="cardsMeal" class="cardsM">
-                        <app-card-of-product></app-card-of-product>
-                        
+                    <div id="cardsMeal" class="cardsM parent">
+                        <app-card-of-product [mealForChild]="meal"></app-card-of-product>
+
                     </div>
-                </div>
+                
             </div>
             <div class="row containerResumeOrder">
                 <div class="col resumeProducts"></div>
-                <div class="col totalProducts" ></div>
+                <div class="col totalProducts"></div>
             </div>
         </section>
         <footer class="row buttonOrderReady">

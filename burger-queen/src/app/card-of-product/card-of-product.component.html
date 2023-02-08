@@ -9,13 +9,24 @@
 </head>
 
 <body>
-    
-    <section class="bodyOfCard">
-        <div class="upperPartOfCard" *ngFor="let item of productos"
-            [ngClass]="{'extras-class': item.subtype === 'extras', 'hotBeverage-class': item.subtype === 'hot beverage', 'mainDish-class': item.subtype === 'main dish', 'coldBeverage-class': item.subtype === 'cold beverage'}">
-            <p class="itemsProd">{{item.name}}</p>
-        
 
+    <section class="bodyOfCard">
+        <div class="upperPartOfCard" *ngFor="let item of breakfastForChild"
+            [ngClass]="{'extras-class': item.subtype === 'extras', 'hotBeverage-class': item.subtype === 'hot beverage', 'mainDish-class': item.subtype === 'main dish', 'coldBeverage-class': item.subtype === 'cold beverage'}">
+            <p class="itemsProd">
+                {{item.name}}</p>
+            <div class="price">
+                <p class="itemPrice">{{item.price}}</p>
+            </div>
+
+        </div>
+        <div class="upperPartOfCard" *ngFor="let item of mealForChild"
+            [ngClass]="{'extras-class': item.subtype === 'extras', 'hotBeverage-class': item.subtype === 'hot beverage', 'mainDish-class': item.subtype === 'main dish', 'coldBeverage-class': item.subtype === 'cold beverage'}">
+            <p class="itemsProd">
+                {{item.name}}</p>
+            <div class="price">
+                <p class="itemPrice">{{item.price}}</p>
+            </div>
         </div>
         <div class="priceOfProducts"></div>
 
