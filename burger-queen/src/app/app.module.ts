@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpClientModule,
   ],
-  providers:[ApiService, DataServicesService, ProductsService, AuthGuard,],
+  providers:[ApiService, DataServicesService, ProductsService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

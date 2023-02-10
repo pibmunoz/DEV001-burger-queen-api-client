@@ -11,7 +11,8 @@
 <body>
 
     <section class="bodyOfCard">
-        <div class="upperPartOfCard" *ngFor="let item of breakfastForChild"
+        <div class="upperPartOfCard" *ngFor="let item of breakfastForChild" id={{item.id}}
+            (click)=" addClickedItem(item.id)" (click)="addItemsToParent(item)"
             [ngClass]="{'extras-class': item.subtype === 'extras', 'hotBeverage-class': item.subtype === 'hot beverage', 'mainDish-class': item.subtype === 'main dish', 'coldBeverage-class': item.subtype === 'cold beverage'}">
             <p class="itemsProd">
                 {{item.name}}</p>

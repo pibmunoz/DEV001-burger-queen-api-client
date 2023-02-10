@@ -57,29 +57,24 @@
     background-color: white;
     border-radius: 1em;
     width: 99%;
-    height: 32%;
+    height: fit-content;
     padding-top: 1vh;
-    padding-bottom: 1vh;
+    padding-bottom: 2vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: 2;
 }
 
 h2{
-    font-weight: 400;
+    font-weight: 900;
     font-size:1em ;
-    margin-bottom: 1em;
+    margin-bottom: 0.7em;
+    height: 1em;
+    
 }
 
-.containerResumeOrder {
-    width: 98%;
-    gap: 0.5em;
-    height: 28%;
-}
 
-.resumeProducts {
-    background-color: white;
-    border-radius: 1em;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-}
+
+
 
 .totalProducts {
     background-color: white;
@@ -91,10 +86,12 @@ h2{
     background-color: white;
     border-radius: 1em;
     width: 99%;
-    height: 32%;
+    height: fit-content;
     padding-top: 1vh;
     padding-bottom: 1vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: 2;
+    gap:2em;
 }
 
 .textLabels{
@@ -113,11 +110,12 @@ h2{
     background: #F9A826;
     border-radius: 50px;
     margin-bottom: 2vh;
-    font-weight: bold;
+    font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.6rem;
+    font-size: 0.8rem;
+    margin-top: 1em;
 }
 
 .hot-beverage {
@@ -151,4 +149,115 @@ h2{
 .extras {
     width: 90px;
     height: 75px;
+}
+
+.resumeProducts{
+    display: flex;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.7em;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: 2;
+}
+
+
+
+.titleResume{
+    font-size: 0.9em;
+    font-weight: 900;
+}
+
+.titleTotal{
+    font-size: 0.9em;
+    margin-bottom: 0;
+    font-weight: 900;
+}
+
+.containerResumeOrder{
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    gap: 0.5em;
+    /* height: 28%; */
+    height: fit-content;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+}
+
+.units{
+    flex-grow: 1;
+    display:flex;
+    flex-direction: row;
+    gap: .5rem;
+}
+
+.product{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: row;
+    gap: .4rem;
+}
+.adding,.erase, .erasing {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: .2rem;
+}
+
+.subtotal{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+   align-items: flex-end
+}
+
+.upperPartOfResume{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.total{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    width: 100%;
+    align-items: center;
+    gap: 1em;
+    margin-top: 0.3em;
+}
+
+.containerSubtotal, .containerTotal, .containerUnits, .containerProduct{
+    font-size: 0.9em;
+}
+
+.containerTotal{
+    margin-bottom: 0;
+}
+
+.containerOrders{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.kitchen{
+    justify-content: center;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 0.7em;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: 2;
+    text-align: center;
+    margin-top: 0;
+
+}
+
+.check, .orderReady{
+    font-size: 0.8em;
 }

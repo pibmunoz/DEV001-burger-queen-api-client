@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <title>Waiters</title>
 </head>
 
@@ -28,34 +29,74 @@
         </header>
         <section class="col cardBrown">
             <div class="row containerBreakfast">
-                
-                    <h2>Breakfast</h2>
-                    <div id="cardsBreakfast" class="cardsB">
-                        <app-card-of-product [breakfastForChild]="breakfast"></app-card-of-product>
-                    </div>
-                
+
+                <h2>BREAKFAST</h2>
+                <div id="cardsBreakfast" class="cardsB">
+                    <app-card-of-product [breakfastForChild]="breakfast" (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
+                </div>
+
             </div>
             <div class="row containerMeal">
-                
-                    <h2>All day</h2>
-                    <div id="cardsMeal" class="cardsM parent">
-                        <app-card-of-product [mealForChild]="meal"></app-card-of-product>
 
+                <h2>ALL DAY</h2>
+                <div id="cardsMeal" class="cardsM parent">
+                    <app-card-of-product [mealForChild]="meal"></app-card-of-product>
+
+                </div>
+
+            </div>
+            <section class="containerResumeOrder"  >
+                <div class="resumeProducts">
+                    <div class="upperPartOfResume">
+                        <div class="units">
+                            <div class="erase">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </div>
+                            <div class="unitResume">
+                                <h3 class="titleResume">UNITS</h3>
+                                <div class="containerUnits" *ngFor="let product of arrProductsSelected">{{arrProductsSelected.length}}</div>
+                                <!-- *ngIf="arrProductsSelected.length > 0" -->
+                            </div>
+                        </div>
+                        <div class="product" >
+                            <div class="productResume">
+                                <h3 class="titleResume">PRODUCT</h3>
+                                <div class="containerProduct" *ngFor="let product of arrProductsSelected">{{product.name}}</div>
+                            </div>
+                            <div class="adding">
+                                <i class="fa-solid fa-circle-plus"></i>
+                            </div>
+                            <div class="erasing">
+                                <i class="fa-sharp fa-solid fa-square-minus"></i>
+                            </div>
+                        </div>
+                        <div class="subtotal">
+                            <h3 class="titleResume">SUBTOTAL</h3>
+                            <div class="containerSubtotal"></div>
+                        </div>
                     </div>
-                
-            </div>
-            <div class="row containerResumeOrder">
-                <div class="col resumeProducts"></div>
-                <div class="col totalProducts"></div>
-            </div>
+                    <div class="total">
+                        <h3 class="titleTotal">TOTAL</h3>
+                        <div class="containerTotal">ABC</div>
+                    </div>
+                </div>
+                <div class="col kitchen">
+                    <h3 class="titleResume">ORDERS READY</h3>
+                    <div class="containerOrders">
+                        <p class="orderReady">Mesa 2</p>
+                        <p class="check">Listo</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="row buttonOrderReady">
+                <div class="col">
+                    <button class="btn btn-block btn-checkout">CHECKOUT</button>
+                </div>
+            </footer>
         </section>
-        <footer class="row buttonOrderReady">
-            <div class="col">
-                <button class="btn btn-block btn-checkout">CHECKOUT</button>
-            </div>
-        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     </section>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

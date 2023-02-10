@@ -6,12 +6,17 @@ import { ProductI } from 'src/app/models/product.interface';
   providedIn: 'root'
 })
 
+
 export class ProductsService {
+
+  
 
   constructor(private dataServices: DataServicesService) { }
 
-obtainProducts(){
-  return this.dataServices.getItems();
-}
+  obtainProducts() {
+    return this.dataServices.getItems();
+  }
+
+
 
 }

@@ -23,10 +23,14 @@ export class WaitersComponent implements OnInit {
   public breakfast: ProductI[] = []
   public meal: ProductI[] = []
 
+  arrProductsSelected : ProductI[]= []
+
   ngOnInit(): void {
     this.arrayOfTheProducts()
-
+    
   }
+
+  unit: number=0
 
   arrayOfTheProducts() {
     return this.products.obtainProducts().subscribe({
@@ -51,6 +55,32 @@ export class WaitersComponent implements OnInit {
         console.log(error)
       }
     })
+  }
+  
+  getProductsClick(item: any) {
+    this.arrProductsSelected.push(item)
+
+  }
+
+  count: any[];
+
+  repeatedElements(arrProductsSelected: ProductI[]){
+    // let contador: object= {};
+    // this.arrProductsSelected(item =>{
+    //   const numeroUnidadesItem = this.arrProductsSelected.reduce((total, itemId) => {
+    //     // ¿Coincide las id? Incremento el contador, en caso contrario no mantengo
+    //     return itemId === item ? total += 1 : total;
+    // }, 0);
+  
+    // })
+
+    
+    const uniqueElements = [...new Set(arrProductsSelected)];
+
+     const countX = uniqueElements.map(element => {
+      arrProductsSelected.filter(el => el === element).length
+     }); 
+    this.count = countX
   }
 
 
