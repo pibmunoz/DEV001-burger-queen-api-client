@@ -161,6 +161,7 @@ h2{
     border-radius: 1em;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     flex-grow: 2;
+    position:relative;
 }
 
 
@@ -187,24 +188,23 @@ h2{
     flex-grow: 1;
 }
 
-.units{
+ .units{
     flex-grow: 1;
     display:flex;
     flex-direction: row;
-    gap: .5rem;
 }
-
+/*
 .product{
     flex-grow: 2;
     display: flex;
     flex-direction: row;
     gap: .4rem;
-}
-.adding,.erase, .erasing {
+} */
+/* .adding,.erase, .erasing {
     display: flex;
     align-items: flex-end;
     padding-bottom: .2rem;
-}
+} */
 
 .subtotal{
     flex-grow: 1;
@@ -215,7 +215,7 @@ h2{
 
 .upperPartOfResume{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
 }
 
@@ -229,9 +229,6 @@ h2{
     margin-top: 0.3em;
 }
 
-.containerSubtotal, .containerTotal, .containerUnits, .containerProduct{
-    font-size: 0.9em;
-}
 
 .containerTotal{
     margin-bottom: 0;
@@ -260,4 +257,44 @@ h2{
 
 .check, .orderReady{
     font-size: 0.8em;
+}
+
+.containerTitles{
+    display: flex;
+    width: 100%;
+}
+
+.showClickedProducts{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.erase, .units{
+    width: 3rem;
+}
+
+.containerProduct{
+    flex-grow: 2;
+    width: 10rem;
+}
+
+.tErase{
+    width:2rem
+}
+.tUnit{
+    position: absolute;
+    left: 15%;
+    width:2rem
+}
+
+.tProduct{
+    position: absolute;
+    left: 30%;
+
+}
+
+.tSubtotal{
+    position: absolute;
+    right: 0.6rem;
 }

@@ -12,7 +12,7 @@ import { CardOfProductComponent } from '../card-of-product/card-of-product.compo
 
 export class WaitersComponent implements OnInit {
 
-  titulo = "lista de productos"
+
   // public products = []
   // constructor(private productService: ProductsService) {
 
@@ -23,65 +23,92 @@ export class WaitersComponent implements OnInit {
   public breakfast: ProductI[] = []
   public meal: ProductI[] = []
 
-  arrProductsSelected : ProductI[]= []
+  arrProductsSelected: ProductI[] = []
 
   ngOnInit(): void {
     this.arrayOfTheProducts()
-    
+
+
+    //  const total = this.arrProductsSelected.reduce((actual, acum) =>{
+    //   actual + (acum.price * acum.subprice)
+    //  })
   }
 
-  unit: number=0
 
   arrayOfTheProducts() {
     return this.products.obtainProducts().subscribe({
       next: myProducts => {
         this.productos = Object.values(myProducts).flat();
 
-      this.productos.forEach(prod => {
-        if(prod.type === "breakFast"){
-          this.breakfast.push(prod)
-          
-        }
-        if(prod.type === "meal"){
-          this.meal.push(prod)
-          
-        }
-        
-      });
-      console.log("este es desayuno" , this.breakfast)
-      console.log("este es comida" , this.meal)
+        this.productos.forEach(prod => {
+          if (prod.type === "breakFast") {
+            this.breakfast.push(prod)
+
+          }
+          if (prod.type === "meal") {
+            this.meal.push(prod)
+
+          }
+
+        });
+
       },
       error: error => {
         console.log(error)
       }
     })
   }
-  
+
+  totalTot: number = 0
   getProductsClick(item: any) {
-    this.arrProductsSelected.push(item)
+    let repetido = false;
+
+    for (let i = 0; i < this.arrProductsSelected.length; i++) {
+      if (this.arrProductsSelected[i].id == item.id) {
+        this.arrProductsSelected[i].quantity++;
+        repetido = true;
+        item.subprice = this.arrProductsSelected[i].price * item.quantity;
+      }
+    }
+    if (repetido == false) {
+      this.arrProductsSelected.push(item);
+    }
+
+    this.totalTot = this.sumaTotal(this.arrProductsSelected)
 
   }
 
-  count: any[];
 
-  repeatedElements(arrProductsSelected: ProductI[]){
-    // let contador: object= {};
-    // this.arrProductsSelected(item =>{
-    //   const numeroUnidadesItem = this.arrProductsSelected.reduce((total, itemId) => {
-    //     // ¿Coincide las id? Incremento el contador, en caso contrario no mantengo
-    //     return itemId === item ? total += 1 : total;
-    // }, 0);
-  
-    // })
 
-    
-    const uniqueElements = [...new Set(arrProductsSelected)];
+  sumaTotal(arr: ProductI[]) {
+    const subtotal = this.arrProductsSelected.map((prod) => prod.price * prod.quantity)
+    return subtotal.reduce((act, acum) => act + acum, 0)
 
-     const countX = uniqueElements.map(element => {
-      arrProductsSelected.filter(el => el === element).length
-     }); 
-    this.count = countX
   }
 
+  clickDelete(id: number) {
+    this.arrProductsSelected.forEach((el, index) => {
+      if (el.id === id) {
+        if (el.quantity === 1) {
+          for (let i = 0; i < this.arrProductsSelected.length; i++) {
+
+            if (this.arrProductsSelected[i] === el) {
+              this.arrProductsSelected.splice(i, 1);
+              i--;
+              this.totalTot = this.sumaTotal(this.arrProductsSelected);
+            }
+          }
+        }
+        if (el.quantity > 1) {
+          el.quantity--
+          el.subprice = el.price * el.quantity;
+          this.totalTot = this.sumaTotal(this.arrProductsSelected)
+        }
+
+      }
+
+    })
+  }
 
 }
+

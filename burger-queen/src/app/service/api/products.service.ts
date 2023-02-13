@@ -17,6 +17,10 @@ export class ProductsService {
     return this.dataServices.getItems();
   }
 
+  deleteProduct(){
+
+  }
+
 
 
 }

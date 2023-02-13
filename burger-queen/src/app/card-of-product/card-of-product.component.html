@@ -12,21 +12,21 @@
 
     <section class="bodyOfCard">
         <div class="upperPartOfCard" *ngFor="let item of breakfastForChild" id={{item.id}}
-            (click)=" addClickedItem(item.id)" (click)="addItemsToParent(item)"
+            (click)="addItemsToParent(item)"
             [ngClass]="{'extras-class': item.subtype === 'extras', 'hotBeverage-class': item.subtype === 'hot beverage', 'mainDish-class': item.subtype === 'main dish', 'coldBeverage-class': item.subtype === 'cold beverage'}">
             <p class="itemsProd">
                 {{item.name}}</p>
             <div class="price">
-                <p class="itemPrice">{{item.price}}</p>
+                <p class="itemPrice"> $ {{item.price}}</p>
             </div>
 
         </div>
-        <div class="upperPartOfCard" *ngFor="let item of mealForChild"
+        <div class="upperPartOfCard" *ngFor="let item of mealForChild" id={{item.id}} (click)="addItemsToParent(item)"
             [ngClass]="{'extras-class': item.subtype === 'extras', 'hotBeverage-class': item.subtype === 'hot beverage', 'mainDish-class': item.subtype === 'main dish', 'coldBeverage-class': item.subtype === 'cold beverage'}">
             <p class="itemsProd">
                 {{item.name}}</p>
             <div class="price">
-                <p class="itemPrice">{{item.price}}</p>
+                <p class="itemPrice"> $ {{item.price}}</p>
             </div>
         </div>
         <div class="priceOfProducts"></div>

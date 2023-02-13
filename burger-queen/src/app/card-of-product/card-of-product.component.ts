@@ -34,15 +34,15 @@ addItemsToParent(value:ProductI){
   this.eventoEnviarData.emit(value)
 }
 
-  addClickedItem(id:number) {
-    this.breakfastForChild.forEach((item) => {
-      if (id === item.id) {
-        this.arrOfProductsClicked.push(item)
-      }
+  // addClickedItem(id:number) {
+  //   this.breakfastForChild.forEach((item) => {
+  //     if (id === item.id) {
+  //       this.arrOfProductsClicked.push(item)
+  //     }
 
-    })
-    return this.arrOfProductsClicked
-  }
+  //   })
+  //   return this.arrOfProductsClicked
+  // }
 
 
 }

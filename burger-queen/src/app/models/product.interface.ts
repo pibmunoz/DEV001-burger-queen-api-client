@@ -3,6 +3,8 @@ export interface ProductI{
     name: string;
     price: number;
     type: string;
-    subtype: string,
+    subtype: string;
     dataEntry: string;
+    quantity: number;
+    subprice: number
 }

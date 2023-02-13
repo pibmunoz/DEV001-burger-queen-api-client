@@ -32,7 +32,8 @@
 
                 <h2>BREAKFAST</h2>
                 <div id="cardsBreakfast" class="cardsB">
-                    <app-card-of-product [breakfastForChild]="breakfast" (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
+                    <app-card-of-product [breakfastForChild]="breakfast"
+                        (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
                 </div>
 
             </div>
@@ -40,44 +41,50 @@
 
                 <h2>ALL DAY</h2>
                 <div id="cardsMeal" class="cardsM parent">
-                    <app-card-of-product [mealForChild]="meal"></app-card-of-product>
+                    <app-card-of-product [mealForChild]="meal"
+                        (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
 
                 </div>
 
             </div>
-            <section class="containerResumeOrder"  >
+            <section class="containerResumeOrder">
                 <div class="resumeProducts">
                     <div class="upperPartOfResume">
-                        <div class="units">
-                            <div class="erase">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </div>
-                            <div class="unitResume">
-                                <h3 class="titleResume">UNITS</h3>
-                                <div class="containerUnits" *ngFor="let product of arrProductsSelected">{{arrProductsSelected.length}}</div>
-                                <!-- *ngIf="arrProductsSelected.length > 0" -->
+                        <div class="containerTitles">
+                            <h3 class="titleResume tErase">Erase</h3>
+                            <h3 class="titleResume tUnit">UNITS</h3>
+                            <h3 class="titleResume tProduct">PRODUCT</h3>
+                            <h3 class="titleResume tSubtotal">SUBTOTAL</h3>
+                        </div>
+                        <div class="containerProductClicked" *ngFor="let product of arrProductsSelected">
+                            <div class="showClickedProducts">
+                                <div class="erase">
+                                <i class=" fa-solid fa-trash-can"></i>
+                                </div>
+                                <div class="units">
+                                    <div class="plus">
+                                        <i class="fa-solid fa-circle-plus"></i>
+                                    </div>
+                                    <p class="quantity">{{product.quantity}}</p>
+                                    <div class="minus"  (click)="clickDelete(product.id)">
+                                    <!-- id= "{{product.id}}"  -->
+                                        <i class="fa-sharp fa-solid fa-square-minus"></i>
+                                    </div>
+                                </div>
+                                <div class="containerProduct">
+                                    <p>{{product.name}}</p>
+                                </div>
+                                <div class="subtotal">
+                                    <p class="subtotal">{{product.subprice?product.subprice:product.price}}</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="product" >
-                            <div class="productResume">
-                                <h3 class="titleResume">PRODUCT</h3>
-                                <div class="containerProduct" *ngFor="let product of arrProductsSelected">{{product.name}}</div>
-                            </div>
-                            <div class="adding">
-                                <i class="fa-solid fa-circle-plus"></i>
-                            </div>
-                            <div class="erasing">
-                                <i class="fa-sharp fa-solid fa-square-minus"></i>
+                        <div class="total">
+                            <h3 class="titleTotal">TOTAL</h3>
+                            <div class="containerTotal">
+                                <p>$ {{totalTot}}</p>
                             </div>
                         </div>
-                        <div class="subtotal">
-                            <h3 class="titleResume">SUBTOTAL</h3>
-                            <div class="containerSubtotal"></div>
-                        </div>
-                    </div>
-                    <div class="total">
-                        <h3 class="titleTotal">TOTAL</h3>
-                        <div class="containerTotal">ABC</div>
                     </div>
                 </div>
                 <div class="col kitchen">
