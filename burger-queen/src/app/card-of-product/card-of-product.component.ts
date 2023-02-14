@@ -1,5 +1,6 @@
 import { Component, Injectable, Input} from '@angular/core';
 import { ProductI } from '../models/product.interface';
+import { DataServicesService } from '../service/api/data-services.service';
 import { ProductsService } from '../service/api/products.service';
 
 @Component({
@@ -11,19 +12,21 @@ import { ProductsService } from '../service/api/products.service';
 @Injectable()
 export class CardOfProductComponent {
 
-  constructor(private products: ProductsService){}
+  constructor(private products: ProductsService, private dataS: DataServicesService){}
 
   @Input() breakfastForChild: ProductI[];
   @Input() mealForChild: ProductI[];
 
 
-
 ngOnInit(){
   console.log("prueba de que hay algo" , this.breakfastForChild)
+
 }
 
   
 
-
-
 }
+
+
+
+

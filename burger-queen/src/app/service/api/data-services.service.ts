@@ -15,4 +15,9 @@ export class DataServicesService {
   getItems(){
     return this.http.get(this.url + "products");
   }
+
+
+  getProduct(id: number){
+    return this.http.get(this.url + `products/${id}` );
+  }
 }

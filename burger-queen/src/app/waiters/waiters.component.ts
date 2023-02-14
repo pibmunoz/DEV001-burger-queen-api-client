@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
@@ -28,6 +28,19 @@ export class WaitersComponent implements OnInit {
 
   }
 
+  @ViewChild(CardOfProductComponent) cards: CardOfProductComponent;
+
+  ngAfterViewInit () {
+   
+  }
+
+  arrayOfProductsSelected : number[]= []
+
+obtainProductClick(id:number){
+  this.arrayOfProductsSelected.push(id)
+ }
+
+
   arrayOfTheProducts() {
     return this.products.obtainProducts().subscribe({
       next: myProducts => {
@@ -53,5 +66,6 @@ export class WaitersComponent implements OnInit {
     })
   }
 
+ 
 
 }
