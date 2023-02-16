@@ -110,5 +110,40 @@ export class WaitersComponent implements OnInit {
     })
   }
 
-}
+  clickAdding(id: number) {
+    this.arrProductsSelected.forEach((el, index) => {
+      if (el.id === id) {
+        if (el.quantity >= 0) {
+          el.quantity++
+          el.subprice = el.price * el.quantity;
+          this.totalTot = this.sumaTotal(this.arrProductsSelected)
+        }
 
+      }
+
+    })
+  }
+
+
+
+
+  deleteForever(id: number) {
+    this.arrProductsSelected.forEach((el, index) => {
+      if (el.id === id) {
+        if (el.quantity >= 1) {
+          for (let i = 0; i < this.arrProductsSelected.length; i++) {
+
+            if (this.arrProductsSelected[i] === el) {
+              this.arrProductsSelected.splice(i, 1);
+              i--;
+              this.totalTot = this.sumaTotal(this.arrProductsSelected);
+            }
+          }
+        }
+      }
+    })
+  }
+
+
+
+}

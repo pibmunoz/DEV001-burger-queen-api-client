@@ -154,13 +154,14 @@ h2{
 .resumeProducts{
     display: flex;
     flex-flow: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
-    padding: 0.7em;
+    padding: 1em;
     background-color: white;
     border-radius: 1em;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    flex-grow: 2;
+    flex-grow: .3;
+
     position:relative;
 }
 
@@ -188,11 +189,11 @@ h2{
     flex-grow: 1;
 }
 
- .units{
+ /* .units{
     flex-grow: 1;
     display:flex;
     flex-direction: row;
-}
+} */
 /*
 .product{
     flex-grow: 2;
@@ -206,12 +207,12 @@ h2{
     padding-bottom: .2rem;
 } */
 
-.subtotal{
+/* .subtotal{
     flex-grow: 1;
     display: flex;
     flex-direction: column;
    align-items: flex-end
-}
+} */
 
 .upperPartOfResume{
     display: flex;
@@ -219,26 +220,26 @@ h2{
     width: 100%;
 }
 
-.total{
+.total, .containerTotal, .containerTotal p{
     display: flex;
     flex-direction: row;
     justify-content: right;
-    width: 100%;
     align-items: center;
     gap: 1em;
-    margin-top: 0.3em;
-}
-
-
-.containerTotal{
+    /* margin-top: 0.3em; */
     margin-bottom: 0;
 }
 
-.containerOrders{
+
+/* .containerTotal{
+    margin-bottom: 0;
+} */
+
+/* .containerOrders{
     display: flex;
     justify-content: space-between;
     width: 100%;
-}
+} */
 
 .kitchen{
     justify-content: center;
@@ -268,17 +269,17 @@ h2{
     display: flex;
     width: 100%;
     justify-content: space-between;
-}
+} 
 
-.erase, .units{
-    width: 3rem;
-}
 
 .containerProduct{
-    flex-grow: 2;
     width: 10rem;
 }
 
+/* 
+.erase, .units{
+    width: 3rem;
+}
 .tErase{
     width:2rem
 }
@@ -297,4 +298,35 @@ h2{
 .tSubtotal{
     position: absolute;
     right: 0.6rem;
+} */
+
+.erase, .tErase {
+    width: 3rem;
 }
+
+.units {
+    display:flex;
+    flex-direction: row;
+}
+
+.units, .tUnit {
+    width: 3rem;
+}
+
+.containerProduct, .tProduct {
+    width: 18rem;
+}
+
+.subtotal, .tSubtotal {
+    display: flex;
+    width: 5rem;
+    justify-content: flex-end;
+}
+
+.containerTitles, .showProductClicked{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
