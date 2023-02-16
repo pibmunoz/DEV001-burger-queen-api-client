@@ -17,13 +17,13 @@
                 <img src="../assets/img/burgerqueen-01.png" class="logoWaiters img-fluid" alt="logo" width="200">
             </div>
             <div class="col infoCostumer">
-                <form class="formWaiters" action="">
-                    <label class="textLabels">Costumer</label>
-                    <input type="text" class="inputCostumer" placeholder="Enter the customer's name">
+                <form class="formWaiters" action=""">
+                    <label class="textLabels">Customer</label>
+                    <input type="text" class="inputCostumer form-control" placeholder="Enter the customer's name" #customerName #dataName>
                     <label class="textLabels">Waiter</label>
-                    <input type="text" class="inputCostumer" placeholder="Waiter name">
+                    <input type="text" class="inputCostumer form-control" placeholder="Waiter name" #waiterName #dataName>
                     <label class="textLabels">Table</label>
-                    <input type="text" class="inputCostumer" placeholder="Table number">
+                    <input type="text" class="inputCostumer form-control" placeholder="Table number" #tableNumber #dataName>
                 </form>
             </div>
         </header>
@@ -48,7 +48,7 @@
 
             </div>
             <section class="containerResumeOrder">
-                <div class="resumeProducts">
+                <div class="resumeProducts" >
                     <div class="upperPartOfResume">
                         <div class="containerTitles">
                             <h3 class="titleResume tErase">Erase</h3>
@@ -56,19 +56,18 @@
                             <h3 class="titleResume tProduct">PRODUCT</h3>
                             <h3 class="titleResume tSubtotal">SUBTOTAL</h3>
                         </div>
-                        <div class="containerProductClicked" *ngFor="let product of arrProductsSelected">
-                            <div class="showClickedProducts">
+                        <div class="containerProductClicked" #clickedProducts *ngFor="let product of arrProductsSelected"  >
+                            <div class="showClickedProducts" >
                                 <div class="erase">
                                 <i class=" fa-solid fa-trash-can"  (click)="deleteForever(product.id)"></i>
                                 </div>
                                 <div class="units">
-                                    <div class="plus">
-                                        <i class="fa-solid fa-circle-plus" (click)="clickAdding(product.id)"></i>
+                                    <div class="minus"  (click)="clickDelete(product.id)">
+                                        <i class="fa-sharp fa-solid fa-square-minus"></i>
                                     </div>
                                     <p class="quantity">{{product.quantity}}</p>
-                                    <div class="minus"  (click)="clickDelete(product.id)">
-                                    <!-- id= "{{product.id}}"  -->
-                                        <i class="fa-sharp fa-solid fa-square-minus"></i>
+                                    <div class="plus">
+                                        <i class="fa-solid fa-circle-plus" (click)="clickAdding(product.id)"></i>
                                     </div>
                                 </div>
                                 <div class="containerProduct">
@@ -82,7 +81,7 @@
                         <div class="total">
                             <h3 class="titleTotal">TOTAL</h3>
                             <div class="containerTotal">
-                                <p>$ {{totalTot}}</p>
+                                <p><strong>$ {{totalTot}}</strong></p>
                             </div>
                         </div>
                     </div>
@@ -98,7 +97,7 @@
 
             <footer class="row buttonOrderReady">
                 <div class="col">
-                    <button class="btn btn-block btn-checkout">CHECKOUT</button>
+                    <button type="button" class="btn btn-block btn-checkout" (click)="submitOrder(customerName.value, waiterName.value, tableNumber.value)" (click)="reset()">CHECKOUT</button>
                 </div>
             </footer>
         </section>

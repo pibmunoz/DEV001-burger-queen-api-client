@@ -91,7 +91,7 @@ h2{
     padding-bottom: 1vh;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     flex-grow: 2;
-    gap:2em;
+    /* gap:2em; */
 }
 
 .textLabels{
@@ -269,6 +269,7 @@ h2{
     display: flex;
     width: 100%;
     justify-content: space-between;
+    height: 1.3em
 } 
 
 
@@ -302,6 +303,13 @@ h2{
 
 .erase, .tErase {
     width: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.quantity{
+    margin-left: 0.3em;
+    margin-right: 0.3em;
 }
 
 .units {
@@ -314,7 +322,7 @@ h2{
 }
 
 .containerProduct, .tProduct {
-    width: 18rem;
+    width: 30vw;
 }
 
 .subtotal, .tSubtotal {

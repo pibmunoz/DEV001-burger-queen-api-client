@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
+import { FormGroup, FormControl } from '@angular/forms';
+import { OrderI } from '../models/order.interface';
 
 
 @Component({
@@ -12,12 +14,13 @@ import { CardOfProductComponent } from '../card-of-product/card-of-product.compo
 
 export class WaitersComponent implements OnInit {
 
+  // waitersForm = new FormGroup({
+  //   customerName: new FormControl(''),
+  //   waiterName: new FormControl(''),
+  //   tableNumber: new FormControl(''),
+  // })
 
-  // public products = []
-  // constructor(private productService: ProductsService) {
-
-  // }
-  constructor(private products: ProductsService) { }
+  constructor(private products: ProductsService, private renderer: Renderer2) { }
 
   public productos: ProductI[] = []
   public breakfast: ProductI[] = []
@@ -28,10 +31,6 @@ export class WaitersComponent implements OnInit {
   ngOnInit(): void {
     this.arrayOfTheProducts()
 
-
-    //  const total = this.arrProductsSelected.reduce((actual, acum) =>{
-    //   actual + (acum.price * acum.subprice)
-    //  })
   }
 
 
@@ -143,6 +142,57 @@ export class WaitersComponent implements OnInit {
       }
     })
   }
+
+  public ordersToKitchen: Object[] = [];
+
+  @ViewChild("customerName")customerName: ElementRef
+  submitOrder(customer: string, waiter: string, table: string) {
+    const arrProductsToKitchen = this.arrProductsSelected.map((products) => {
+      return {
+        producto: products.name,
+        cantidad: products.quantity
+      }
+    })
+
+    const objOrder: OrderI = {
+      customerName: customer,
+      waiterName: waiter,
+      tableNumber: table,
+      order: arrProductsToKitchen,
+
+    }
+    console.log(objOrder);
+    localStorage.setItem('orderToKitchen', JSON.stringify(objOrder));
+    // this.arrProductsSelected.splice(0,-1)
+    this.arrProductsSelected = [];
+    this.totalTot = 0
+    
+    // this.renderer.setProperty(this.customerName.nativeElement, 'innerHTML', "38495793487");
+
+  }
+
+
+// @ViewChild("dataName")
+//   InputVar: ElementRef;
+ 
+//   reset()
+//   {
+   
+//     // We will clear the value of the input
+//     // field using the reference variable.
+ 
+//     this.InputVar.nativeElement.value = "";
+//   }
+
+  // @ViewChildren('clickedProducts') divClicked: ElementRef
+  // ngAfterViewInit() {
+  //   delete(this.divClicked){
+  //     this.renderer.setProperty(this.divClicked.nativeElement, 'innerHTML', "38495793487");
+
+  //   }
+
+  // }
+
 
 
 
