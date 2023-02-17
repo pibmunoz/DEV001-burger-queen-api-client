@@ -2,8 +2,9 @@ import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/co
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { OrderI } from '../models/order.interface';
+import { HotToastService } from '@ngneat/hot-toast';
 
 
 @Component({
@@ -13,14 +14,26 @@ import { OrderI } from '../models/order.interface';
 })
 
 export class WaitersComponent implements OnInit {
-
-  // waitersForm = new FormGroup({
-  //   customerName: new FormControl(''),
-  //   waiterName: new FormControl(''),
-  //   tableNumber: new FormControl(''),
+  // myForm = new FormGroup({
+  //   customerName: new FormControl('', [Validators.required]),
+  //   waiterName: new FormControl('', [Validators.required]),
+  //   tableNumber: new FormControl('', [Validators.required]),
+  //   // password: new FormControl('', [Validators.required, Validators.minLength(6)])
   // })
 
-  constructor(private products: ProductsService, private renderer: Renderer2) { }
+  myForm: FormGroup;
+
+  constructor(private products: ProductsService, public fb: FormBuilder, private toast: HotToastService) { 
+    this.myForm = this.fb.group({
+      customerName: ['', [Validators.required, Validators.minLength(3)]],
+      waiterName: ['', [Validators.required,  Validators.minLength(3)]],
+      tableNumber: ['', [Validators.required,  Validators.minLength(1)]],
+    });
+  }
+
+  get m(){
+    return this.myForm.controls;
+  }
 
   public productos: ProductI[] = []
   public breakfast: ProductI[] = []
@@ -30,8 +43,64 @@ export class WaitersComponent implements OnInit {
 
   ngOnInit(): void {
     this.arrayOfTheProducts()
+   
+
 
   }
+
+  // guardar info del mesero, mesa, etc 
+  public dataForTheOrder :Object = {}
+
+  saveData(){
+    if(this.myForm.valid){
+
+      let objetoForm = {
+        customer : this.myForm.value.customerName,
+        waiter : this.myForm.value.waiterName,
+        table: this.myForm.value.tableNumber
+      }
+          this.dataForTheOrder = objetoForm
+    }
+    else if(this.myForm.invalid){
+      // this.toast.warning('Please be cautious!')
+      // y presionar botón enviar data
+      this.toast.success('Fill all the fields!', {
+        duration: 1000,
+        style: {
+          border: '1px solid #713200',
+          padding: '16px',
+          color: '#713200',
+          
+        },
+        iconTheme: {
+          primary: '#713200',
+          secondary: '#FFFAEE',
+        },
+      });
+    }
+
+    // customToast() {
+    //   this.toast.success('Look at my styles, and I also need more time!', {
+    //     duration: 5000,
+    //     style: {
+    //       border: '1px solid #713200',
+    //       padding: '16px',
+    //       color: '#713200',
+
+    //     },
+    //     iconTheme: {
+    //       primary: '#713200',
+    //       secondary: '#FFFAEE',
+    //     },
+    //   });
+    // }
+
+
+
+
+  }
+  
+
 
 
   arrayOfTheProducts() {
@@ -145,53 +214,38 @@ export class WaitersComponent implements OnInit {
 
   public ordersToKitchen: Object[] = [];
 
-  @ViewChild("customerName")customerName: ElementRef
-  submitOrder(customer: string, waiter: string, table: string) {
+
+
+  submitOrder() {
     const arrProductsToKitchen = this.arrProductsSelected.map((products) => {
       return {
         producto: products.name,
         cantidad: products.quantity
       }
     })
-
-    const objOrder: OrderI = {
-      customerName: customer,
-      waiterName: waiter,
-      tableNumber: table,
+    const objOrder: any = {
+      data: this.dataForTheOrder,
       order: arrProductsToKitchen,
 
     }
-    console.log(objOrder);
-    localStorage.setItem('orderToKitchen', JSON.stringify(objOrder));
-    // this.arrProductsSelected.splice(0,-1)
-    this.arrProductsSelected = [];
-    this.totalTot = 0
+    if(Object.entries(objOrder.data).length === 0){
+      alert("you need to fill all the fields, please")
+    }
+    else{
+      console.log("orden", objOrder);
+      localStorage.setItem('orderToKitchen', JSON.stringify(objOrder));
+      // this.arrProductsSelected.splice(0,-1)
+      this.arrProductsSelected = [];
+      this.totalTot = 0
+      
+      this.myForm.reset();
+    }
     
     // this.renderer.setProperty(this.customerName.nativeElement, 'innerHTML', "38495793487");
 
   }
 
 
-// @ViewChild("dataName")
-//   InputVar: ElementRef;
- 
-//   reset()
-//   {
-   
-//     // We will clear the value of the input
-//     // field using the reference variable.
- 
-//     this.InputVar.nativeElement.value = "";
-//   }
-
-  // @ViewChildren('clickedProducts') divClicked: ElementRef
-  // ngAfterViewInit() {
-  //   delete(this.divClicked){
-  //     this.renderer.setProperty(this.divClicked.nativeElement, 'innerHTML', "38495793487");
-
-  //   }
-
-  // }
 
 
 

@@ -338,3 +338,18 @@ h2{
     align-items: center;
 }
 
+.submitData{
+    margin-top: 0.3em;
+    width:40%;
+    background-color: black;
+    color: #F4E6BC;
+    font-weight: 800;
+    border-radius: 0.6em;
+    font-size: 0.8em;
+    border-style: none;
+}
+
+.alert,.alertDanger{
+    width: 40%;
+    font-size: 0.8em;
+}
