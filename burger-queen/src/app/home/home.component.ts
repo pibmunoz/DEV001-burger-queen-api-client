@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
 
   token: string ="";
   onLogin(form: LoginI) {
+    console.log("entro holi")
     return this.api.loginByEmail(form).subscribe(data => {
       let dataResponse: ResponseI = data
 
@@ -32,10 +33,12 @@ export class LoginComponent implements OnInit {
         this.token = dataResponse.id
         console.log("este es el token" , this.token)
         localStorage.setItem('token', this.token);
-        switchData(dataResponse, this.router)
+        this.switchData(dataResponse, this.router)
+        console.log("entro esta aqui?")
       }
        else if (this.loginForm.invalid) {
         alert("User email or Password are invalid")
+        console.log("entro a alerta")
       }
 
     })
@@ -48,20 +51,21 @@ export class LoginComponent implements OnInit {
     return this.token
   }
 
+  switchData(dataResponse: ResponseI, router: Router) :void {
+    switch (dataResponse.role) {
+      case 'admin':
+        router.navigate(['admin'])
+        break;
+      case 'kitchen':
+        router.navigate(['kitchen'])
+        break;
+      case 'waiter':
+        router.navigate(['waiters'])
+        break;
+      default:
+        break;
+    }
+  }
+
 }
 
-function switchData(dataResponse: ResponseI, router: Router) {
-  switch (dataResponse.role) {
-    case 'admin':
-      router.navigate(['admin'])
-      break;
-    case 'kitchen':
-      router.navigate(['kitchen'])
-      break;
-    case 'waiter':
-      router.navigate(['waiters'])
-      break;
-    default:
-      break;
-  }
-}
