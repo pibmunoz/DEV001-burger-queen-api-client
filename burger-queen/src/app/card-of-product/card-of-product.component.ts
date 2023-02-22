@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Injectable, Input, Output } from '@angular/core';
 import { ProductI } from '../models/product.interface';
+import { DataServicesService } from '../service/api/data-services.service';
 import { ProductsService } from '../service/api/products.service';
 
 @Component({
@@ -13,10 +14,12 @@ export class CardOfProductComponent {
 
   constructor(private products: ProductsService) { }
 
+
   @Input() breakfastForChild: ProductI[];
   @Input() mealForChild: ProductI[];
 
   arrOfProductsClicked: object[] = []
+
 
 
   @Output() 
@@ -32,6 +35,8 @@ export class CardOfProductComponent {
 
 addItemsToParent(value:ProductI){
   this.eventoEnviarData.emit(value)
+
+
 }
 
   // addClickedItem(id:number) {
@@ -45,4 +50,4 @@ addItemsToParent(value:ProductI){
   // }
 
 
-}
+

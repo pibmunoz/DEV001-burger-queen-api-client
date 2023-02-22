@@ -1,3 +1,4 @@
+
 import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
@@ -101,6 +102,19 @@ export class WaitersComponent implements OnInit {
   }
   
 
+
+
+  @ViewChild(CardOfProductComponent) cards: CardOfProductComponent;
+
+  ngAfterViewInit () {
+   
+  }
+
+  arrayOfProductsSelected : number[]= []
+
+obtainProductClick(id:number){
+  this.arrayOfProductsSelected.push(id)
+ }
 
 
   arrayOfTheProducts() {
@@ -246,8 +260,6 @@ export class WaitersComponent implements OnInit {
   }
 
 
-
-
-
+ 
 
 }
