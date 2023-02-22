@@ -1,0 +1,355 @@
+
+
+
+.containerBodyOfWaiters {
+    background-image: url(../../assets/img/fondotablet.jpg);
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
+}
+
+.headerWaiters {
+    margin-top: 2vh;
+    display: flex;
+    align-items: flex-end;
+    width: 90%;
+    height: fit-content
+}
+
+.container-fluid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    gap: 1vh;
+
+}
+
+.cardBrown{
+    display: flex;
+    flex-direction: column;
+    width: 93%;
+    height: auto;
+    background-color:#F4E6BC;
+    justify-content: center;
+    gap: 1vh;
+    align-items: center;
+    padding: 1vh;
+    border-radius: 1em;
+}
+
+.bodyOfCard{
+    display:none
+}
+
+.formWaiters {
+    display: flex;
+    flex-direction: column;
+}
+
+.headerWaiters {
+    width: 90%;
+    margin-bottom: 2vh;
+}
+
+.containerBreakfast {
+    background-color: white;
+    border-radius: 1em;
+    width: 99%;
+    height: fit-content;
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: 2;
+}
+
+h2{
+    font-weight: 900;
+    font-size:1em ;
+    margin-bottom: 0.7em;
+    height: 1em;
+    
+}
+
+
+
+
+
+.totalProducts {
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.containerMeal {
+    background-color: white;
+    border-radius: 1em;
+    width: 99%;
+    height: fit-content;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: 2;
+    /* gap:2em; */
+}
+
+.textLabels{
+    font-weight: 500;
+    font-size: small;
+}
+.inputCostumer{
+    background-color: transparent;
+    border-style: none none dotted none;
+    font-size: small;
+}
+
+.btn-checkout {
+    width: 20vw;
+    height: 5vh;
+    background: #F9A826;
+    border-radius: 50px;
+    margin-bottom: 2vh;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    margin-top: 1em;
+}
+
+.hot-beverage {
+    background-color: #F23E12;
+}
+
+.cold-beverage {
+    background-color: #ACF0ED;
+}
+
+.sandwich-burger {
+    background-color: #2DBC7A;
+}
+
+.extras {
+    background-color: #FFA352;
+}
+
+.price {
+    background-color: black;
+    color: white;
+}
+
+.name {
+    color: white;
+}
+
+.cold-beverage,
+.hot-beverage,
+.sandwich-burger,
+.extras {
+    width: 90px;
+    height: 75px;
+}
+
+.resumeProducts{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: .3;
+
+    position:relative;
+}
+
+
+
+.titleResume{
+    font-size: 0.9em;
+    font-weight: 900;
+}
+
+.titleTotal{
+    font-size: 0.9em;
+    margin-bottom: 0;
+    font-weight: 900;
+}
+
+.containerResumeOrder{
+    display: flex;
+    flex-direction: row;
+    width: 98%;
+    gap: 0.5em;
+    /* height: 28%; */
+    height: fit-content;
+    flex-wrap: nowrap;
+    flex-grow: 1;
+}
+
+ /* .units{
+    flex-grow: 1;
+    display:flex;
+    flex-direction: row;
+} */
+/*
+.product{
+    flex-grow: 2;
+    display: flex;
+    flex-direction: row;
+    gap: .4rem;
+} */
+/* .adding,.erase, .erasing {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: .2rem;
+} */
+
+/* .subtotal{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+   align-items: flex-end
+} */
+
+.upperPartOfResume{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.total, .containerTotal, .containerTotal p{
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    gap: 1em;
+    /* margin-top: 0.3em; */
+    margin-bottom: 0;
+}
+
+
+/* .containerTotal{
+    margin-bottom: 0;
+} */
+
+/* .containerOrders{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+} */
+
+.kitchen{
+    justify-content: center;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    padding: 0.7em;
+    background-color: white;
+    border-radius: 1em;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    flex-grow: 2;
+    text-align: center;
+    margin-top: 0;
+
+}
+
+.check, .orderReady{
+    font-size: 0.8em;
+}
+
+.containerTitles{
+    display: flex;
+    width: 100%;
+}
+
+.showClickedProducts{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    height: 1.3em
+} 
+
+
+.containerProduct{
+    width: 10rem;
+}
+
+/* 
+.erase, .units{
+    width: 3rem;
+}
+.tErase{
+    width:2rem
+}
+.tUnit{
+    position: absolute;
+    left: 15%;
+    width:2rem
+}
+
+.tProduct{
+    position: absolute;
+    left: 30%;
+
+}
+
+.tSubtotal{
+    position: absolute;
+    right: 0.6rem;
+} */
+
+.erase, .tErase {
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+}
+
+.quantity{
+    margin-left: 0.3em;
+    margin-right: 0.3em;
+}
+
+.units {
+    display:flex;
+    flex-direction: row;
+}
+
+.units, .tUnit {
+    width: 3rem;
+}
+
+.containerProduct, .tProduct {
+    width: 30vw;
+}
+
+.subtotal, .tSubtotal {
+    display: flex;
+    width: 5rem;
+    justify-content: flex-end;
+}
+
+.containerTitles, .showProductClicked{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.submitData{
+    margin-top: 0.3em;
+    width:40%;
+    background-color: black;
+    color: #F4E6BC;
+    font-weight: 800;
+    border-radius: 0.6em;
+    font-size: 0.8em;
+    border-style: none;
+}
+
+.alert,.alertDanger{
+    width: 40%;
+    font-size: 0.8em;
+}

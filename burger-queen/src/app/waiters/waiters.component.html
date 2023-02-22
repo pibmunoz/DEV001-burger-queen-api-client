@@ -1,1 +1,120 @@
-<p>waiters works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    <title>Waiters</title>
+</head>
+
+<body class="containerBodyOfWaiters">
+    <section class="container-fluid vh-100 ">
+        <header class="row headerWaiters">
+            <div class="col logoWaiter">
+                <img src="../assets/img/burgerqueen-01.png" class="logoWaiters img-fluid" alt="logo" width="200">
+            </div>
+            <div class="col infoCostumer">
+                <form class="formWaiters" [formGroup]="myForm" id="formData" (ngSubmit)="saveData()">
+                    <label class="textLabels">Customer</label>
+                    <input type="text" class="inputCostumer form-control" placeholder="Enter the customer's name"
+                        formControlName="customerName" required>
+                    <label class="textLabels">Waiter</label>
+                    <input type="text" class="inputCostumer form-control" placeholder="Waiter name" #waiterName
+                        #dataName formControlName="waiterName" required>
+                    <label class="textLabels">Table</label>
+                    <input type="text" class="inputCostumer form-control" placeholder="Table number" #tableNumber
+                        #dataName formControlName="tableNumber" required>
+                   <button  type="submit" class = "submitData">Send Info</button>
+                    <div *ngIf="m['customerName'].touched && m['customerName'].invalid && m['waiterName'].touched && m['waiterName'].invalid && m['tableNumber'].touched && m['tableNumber'].invalid" class="alert alert-danger">
+                        <div *ngIf= "m['customerName'].errors?['required']: 'true'"> Please provide customer name</div>
+                        <div *ngIf= "m['waiterName'].errors?['required']: 'true'" >Please provide waiter name</div>
+                        <div *ngIf= "m['tableNumber'].errors?['required']: 'true'">Please provide table number</div>
+                    </div>
+                </form>
+            </div>
+        </header>
+        <section class="col cardBrown">
+            <div class="row containerBreakfast">
+
+                <h2>BREAKFAST</h2>
+                <div id="cardsBreakfast" class="cardsB">
+                    <app-card-of-product [breakfastForChild]="breakfast"
+                        (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
+                </div>
+
+            </div>
+            <div class="row containerMeal">
+
+                <h2>ALL DAY</h2>
+                <div id="cardsMeal" class="cardsM parent">
+                    <app-card-of-product [mealForChild]="meal"
+                        (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
+
+                </div>
+
+            </div>
+            <section class="containerResumeOrder">
+                <div class="resumeProducts">
+                    <div class="upperPartOfResume">
+                        <div class="containerTitles">
+                            <h3 class="titleResume tErase">Erase</h3>
+                            <h3 class="titleResume tUnit">UNITS</h3>
+                            <h3 class="titleResume tProduct">PRODUCT</h3>
+                            <h3 class="titleResume tSubtotal">SUBTOTAL</h3>
+                        </div>
+                        <div class="containerProductClicked" #clickedProducts
+                            *ngFor="let product of arrProductsSelected">
+                            <div class="showClickedProducts">
+                                <div class="erase">
+                                    <i class=" fa-solid fa-trash-can" (click)="deleteForever(product.id)"></i>
+                                </div>
+                                <div class="units">
+                                    <div class="minus" (click)="clickDelete(product.id)">
+                                        <i class="fa-sharp fa-solid fa-square-minus"></i>
+                                    </div>
+                                    <p class="quantity">{{product.quantity}}</p>
+                                    <div class="plus">
+                                        <i class="fa-solid fa-circle-plus" (click)="clickAdding(product.id)"></i>
+                                    </div>
+                                </div>
+                                <div class="containerProduct">
+                                    <p>{{product.name}}</p>
+                                </div>
+                                <div class="subtotal">
+                                    <p class="subtotal">{{product.subprice?product.subprice:product.price}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="total">
+                            <h3 class="titleTotal">TOTAL</h3>
+                            <div class="containerTotal">
+                                <p><strong>$ {{totalTot}}</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col kitchen">
+                    <h3 class="titleResume">ORDERS READY</h3>
+                    <div class="containerOrders">
+                        <p class="orderReady">Mesa 2</p>
+                        <p class="check">Listo</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="row buttonOrderReady">
+                <div class="col">
+                    <button type="button" class="btn btn-block btn-checkout" (click)="submitOrder()">CHECKOUT</button>
+                </div>
+            </footer>
+
+        </section>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    </section>
+
+</body>
+
+</html>

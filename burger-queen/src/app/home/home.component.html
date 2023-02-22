@@ -6,59 +6,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <title>burgerQueen</title>
+	<style type="text/css">  
+		html, body {  
+		  margin:0px;  
+		  height:100%;  
+		}  
+		</style>  
 </head>
 
 <body class="bodyHome">
     
-	<section class="h-100">
-		<div class="container h-100">
-			<img src="../assets/img/papas01.png" class="fondoImagen1" alt="fondo papas">
-    <img src="../assets/img/papas02.png" class="fondoImagen2" alt="fondo papas">
-			<div class="row justify-content-sm-center h-100 z-index-10">
+	<section class="vh-100">
+		<div class="container vh-100">
+			<div class="row justify-content-sm-center vh-100 z-index-10">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
 						<img src="../assets/img/burgerqueen-01.png" class="logoIntro img-fluid" alt="logo" width="300">
 					</div>
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
-							<form class="needs-validation" #miFormulario="ngForm" (ngSubmit)="home(miFormulario)"  novalidate="" autocomplete="off">
+						
+							<form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)" novalidate="" autocomplete="off">
 								<div class="mb-3">
-									<label class="mb-2 font-weight-bold" for="email"><strong>Employee</strong></label>
-									<input id="email" type="text" class="form-control" name="email" value="" required autofocus ngModel>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+									<label class="mb-2 font-weight-bold" for="email"><strong>E-mail</strong></label>
+									<input id="email" type="text" class="form-control" [class.is-invalid]="f.email.touched && f.email.errors" name="email" value="" required autofocus formControlName="email">
+									<div id="invalidEmail" class="invalid-feedback">Please enter a valid e-mail.</div> 
 								</div>
-
 								<div class="mb-3">
 									<div class="mb-2 w-100">
 										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
 									</div>
-									<input id="password" type="password" class="form-control" name="password" required ngModel>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
+									<input id="password" type="password" class="form-control" [class.is-invalid]="f.password.touched && f.password.errors" name="password" required formControlName="password">
+									<div id="invalidPassword" class="invalid-feedback">Wrong password.</div> 
 								</div>
-                                <div class="mb-3">
-									<label class="mb-2 font-weight-bold" for="email"><strong>Admin</strong></label>
-									<input id="email" type="email" class="form-control" name="emailAmin" value="" required autofocus>
-									<div class="invalid-feedback">
-										Email is invalid
-									</div>
+								<div class="fail" id="failLogIn">
 								</div>
-
-								<div class="mb-3">
-									<div class="mb-2 w-100">
-										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
-									</div>
-									<input id="password" type="password" class="form-control" name="passwordAdmin" required>
-								    <div class="invalid-feedback">
-								    	Password is required
-							    	</div>
-								</div>
-
 								<div class="d-grid gap-2">
 									<button type="submit" class="btn btnLogin btn-primary btn-lg btn-block">
 										Login

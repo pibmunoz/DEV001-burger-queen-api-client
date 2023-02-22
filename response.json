@@ -15,11 +15,11 @@
       "endpoint": "auth",
       "responses": [
         {
-          "uuid": "2887306e-acb1-4d0c-a1ef-47f6cd071c7d",
-          "body": " {\n    \"id\": \"W-f02bc41-3f2f-455c-822b-01d75bf62fab\",\n    \"email\": \"waiter@burgerqueen.com\",\n    \"password\": \"123456\"\n  }",
+          "uuid": "ff318fde-0bd0-4092-ad86-aa3d0c579f77",
+          "body": "{\n    \"id\": \"W-f02bc41-3f2f-455c-822b-01d75bf62fab\",\n    \"status\": 200,\n    \"email\": \"waiter@burgerqueen.com\",\n    \"password\": \"123456\",\n    \"role\": \"waiter\"\n}\n  \n  ",
           "latency": 0,
-          "statusCode": 201,
-          "label": "Users",
+          "statusCode": 200,
+          "label": "",
           "headers": [
             {
               "key": "Content-Type",
@@ -34,24 +34,145 @@
           "filePath": "",
           "databucketID": "",
           "sendFileAsBody": false,
-          "rules": [],
-          "rulesOperator": "OR",
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "waiter@burgerqueen.com",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "123456",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
           "disableTemplating": false,
           "fallbackTo404": false,
           "default": true
         },
         {
-          "uuid": "3e7f6c1e-a2f4-4f80-a00e-1f737d080d05",
-          "body": "{\n  \"email\": \"\",\n  \"password\": \"\",\n}",
+          "uuid": "02eefa7b-777f-4a1d-bfd6-8d3bd92ab5a4",
+          "body": "{\n    \"id\": \"K-f02bc41-3f2f-555a-822b-01d75bf62fab\",\n    \"status\": 200,\n    \"email\": \"kitchen@burgerqueen.com\",\n    \"password\": \"654321\",\n    \"role\": \"kitchen\"\n  }\n  \n  ",
           "latency": 0,
-          "statusCode": 400,
+          "statusCode": 200,
           "label": "",
-          "headers": [],
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
           "bodyType": "INLINE",
           "filePath": "",
           "databucketID": "",
           "sendFileAsBody": false,
-          "rules": [],
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "kitchen@burgerqueen.com",
+              "invert": false,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "654321",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "AND",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "3526d9db-bf94-4fbd-b250-dbae03ba87da",
+          "body": "{\n  \"response\": \"malo\",\n   \"status\": 200,\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "waiter@burgerqueen.com",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "123456",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false
+        },
+        {
+          "uuid": "eb0f5a40-bd06-4a64-bc17-335257eaa638",
+          "body": "{\n  \"response\": \"malo\",\n   \"status\": 200,\n}",
+          "latency": 0,
+          "statusCode": 400,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "email",
+              "value": "kitchen@burgerqueen.com",
+              "invert": true,
+              "operator": "equals"
+            },
+            {
+              "target": "body",
+              "modifier": "password",
+              "value": "654321",
+              "invert": true,
+              "operator": "equals"
+            }
+          ],
           "rulesOperator": "OR",
           "disableTemplating": false,
           "fallbackTo404": false,
@@ -100,6 +221,50 @@
       ],
       "enabled": true,
       "responseMode": null
+    },
+    {
+      "uuid": "88e5cfde-6550-4689-a8fa-bc8b521147f3",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "products/",
+      "responses": [
+        {
+          "uuid": "a735b681-dddb-4650-813c-9101282f1d8a",
+          "body": "[\"product\":\n  {\n    \"id\": \"1\",\n    \"name\": \"Americano\",\n    \"price\": 5,\n    \"type\": \"breakfast\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n  {\n    \"id\": \"2\",\n    \"name\": \"Latte\",\n    \"price\": 7,\n    \"type\": \"breakfast\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n  {\n    \"id\": \"3\",\n    \"name\": \"Juice\",\n    \"price\": 7,\n    \"type\": \"breakfast\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n  {\n    \"id\": \"4\",\n    \"name\": \"Sandwich\",\n    \"price\": 10,\n    \"type\": \"breakfast\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n  {\n    \"id\": \"5\",\n    \"name\": \"Burger Simple\",\n    \"price\": 10,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n    {\n    \"id\": \"6\",\n    \"name\": \"Burger Double\",\n    \"price\": 15,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n  {\n    \"id\": \"7\",\n    \"name\": \"Fries\",\n    \"price\": 5,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n    {\n    \"id\": \"8\",\n    \"name\": \"Onion rings\",\n    \"price\": 5,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n    {\n    \"id\": \"9\",\n    \"name\": \"Soda 500ML\",\n    \"price\": 5,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n    {\n    \"id\": \"10\",\n    \"name\": \"Soda 750ML\",\n    \"price\": 7,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n    {\n    \"id\": \"11\",\n    \"name\": \"Water 500ML\",\n    \"price\": 5,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  },\n    {\n    \"id\": \"12\",\n    \"name\": \"Water 750ML\",\n    \"price\": 7,\n    \"type\": \"meal\",\n    \"dateEntry\": \"2023-02-02\"\n  }\n  ]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "query",
+              "modifier": "",
+              "value": "",
+              "invert": false,
+              "operator": "equals"
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true
+        }
+      ],
+      "enabled": true,
+      "responseMode": null
     }
   ],
   "rootChildren": [
@@ -110,6 +275,10 @@
     {
       "type": "route",
       "uuid": "f45e0b4a-9669-48a6-9154-d3a0fc979458"
+    },
+    {
+      "type": "route",
+      "uuid": "88e5cfde-6550-4689-a8fa-bc8b521147f3"
     }
   ],
   "proxyMode": false,
