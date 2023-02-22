@@ -13,12 +13,8 @@ export class DataServicesService {
 
   url: string = "http://localhost:3000/";
   getItems(){
+    console.log("esto es lo que devuelve", this.http.get(this.url + "products"))
     return this.http.get(this.url + "products");
   }
 
-  getEachItem(id: number){
-
-    return this.http.get(this.url + `http://localhost:3000/products/${id}` )
-    
-    }
 }

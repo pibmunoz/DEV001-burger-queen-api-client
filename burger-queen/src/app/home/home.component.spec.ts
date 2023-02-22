@@ -1,115 +1,123 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { LoginComponent } from './home.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api/api.service';
+import { HttpClientModule } from '@angular/common/http';
+import { of, throwError } from 'rxjs'
 
-fdescribe('test de HomeComponent', () => {
-  let injector: TestBed;
+describe('test de HomeComponent', () => {
+
+  const responseGetUser = {
+    "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "waiter"
+  }
+
   let fixture: ComponentFixture<LoginComponent>;
   let router: Router;
-  let httpMock: HttpTestingController;
-  let service: ApiService;
-  let apiServiceSpy: jasmine.SpyObj<ApiService>;
+  let component: LoginComponent;
+  const apiSpy = jasmine.createSpyObj('ApiService', ['loginByEmail']);
+  let httpSpy: { post: jasmine.Spy };
 
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('ApiService', ['loginByEmail']);
 
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        HttpClientModule,
         FormsModule,
         ReactiveFormsModule
       ],
       declarations: [
         LoginComponent
       ],
-      providers: [{
-        provide: ApiService, useValue: spy
-      }]
+      providers: [
+        LoginComponent, { provide: ApiService, useValue: apiSpy }
+      ]
     })
       .compileComponents();
+    httpSpy = jasmine.createSpyObj('HttpClient', ['post']);
     fixture = TestBed.createComponent(LoginComponent);
     router = TestBed.inject(Router);
-    httpMock = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(ApiService)
-    apiServiceSpy = TestBed.inject(ApiService) as jasmine.SpyObj<ApiService>
-
+    component = fixture.componentInstance;
+    fixture.detectChanges()
   });
 
   it('debe de existir LoginComponent', () => {
-    const app = fixture.componentInstance
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
   it('debe retornar form inválido', () => {
-    const app = fixture.componentInstance
-    fixture.detectChanges()
 
-    const email = app.loginForm.controls['email']
+    const email = component.loginForm.controls['email']
     email.setValue('waiter@burgerqueen.com')
-    expect(app.loginForm.invalid).toBeTrue();
+    expect(component.loginForm.invalid).toBeTrue();
 
   });
   it('debe retornar form valido', () => {
-    const app = fixture.componentInstance
-    fixture.detectChanges()
-
-    const email = app.loginForm.controls['email']
-    const password = app.loginForm.controls['password']
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
 
     email.setValue('waiter@burgerqueen.com')
     password.setValue('123456')
-    expect(app.loginForm.valid).toBeTrue();
+    expect(component.loginForm.valid).toBeTrue();
   })
 
-  it('deberia llamar al metodo de cambio de rutas', () => {
-    // spyOn(LoginComponent, 'switchData')
-
-    const app = fixture.componentInstance
-    fixture.detectChanges()
-
+  it('deberia llamar al otro metodo (switchData) y llama switchData', (done) => {
+    const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
     const button = fixture.debugElement.query(By.css(".btnLogin"))
+    spyOn(router, 'navigate')
     button.nativeElement.click()
-    fixture.whenStable().then(() => {
-      expect(app.switchData).toHaveBeenCalled()
+    component.ngOnInit();
+    component.onLogin(mockUser)
+    const fn = spyOn(component, "switchData")
+
+    apiSpy.loginByEmail(mockUser).subscribe(() => {
+      next: (data: any) => {
+        expect(data).toEqual(responseGetUser)
+      }
     })
+
+    expect(fn).toHaveBeenCalled()
+
+    done();
+
+
+  })
+  it('should call AAAAAAAAAAAA service ', function fakeAsync () {
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('waiter@burgerqueen.com')
+    password.setValue('123456')
+  
+    const service = TestBed.inject(ApiService); // get your service
+    const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
+
+    if(component.loginForm.valid){
+
+      apiSpy.loginByEmail.and.callFake(() => {
+        return of({
+          "status": 200,
+          "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab",
+          "email": "waiter@burgerqueen.com",
+          "role": "waiter"
+      }); // or return a list of bookings in case you want to test the first part of the if statement 
+      });
+      component.onLogin(mockUser);
+      tick();
+      expect(service.loginByEmail).toHaveBeenCalled();
+      expect(component.onLogin).toEqual(responseGetUser);
+  
+      // // additional tests that verify the inside of the subscribe (change below in case the mocked service returned something)
+      // expect(component.onLogin).equalTo(mockUser);
+      // expect(component.generateCheckDisable).equalTo(false);
+      
+    }
+    
+    
   });
 
-  fit('deberia llamar al otro metodo (switchData) y llama switchData', (done) => {
-
-    const mockOfLog = {
-      "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "waiter"
-    }
-
-    const navigateSpy = spyOn(router, 'navigate');
-    const app = fixture.componentInstance;
-
-    const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
-    fixture.detectChanges()
-    const button = fixture.debugElement.query(By.css(".btnLogin"))
-    button.nativeElement.click()
-
-
-    // const component = fixture.componentInstance;
-    // const navigateSpy = spyOn(router, 'navigate');
-
-    // component.goSomewhere();
-    app.onLogin(mockUser);
-    service.loginByEmail(mockUser).subscribe(() => {
-      // next: (dataResponse: any) =>{
-      // expect().toEqual(mockOfLog)
-      expect(navigateSpy).toHaveBeenCalledWith(['waiter']);
-      // expect(navigateSpy).toBe('AAAA');
-
-      // expect(navigateSpy.).toHaveBeenCalled()
-      // }
-    })
-    // expect(navigateSpy).toHaveBeenCalled();
-    done();
-  })
-
+  
 
 
 });
