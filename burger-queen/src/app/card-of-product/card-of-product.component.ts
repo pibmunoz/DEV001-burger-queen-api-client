@@ -49,5 +49,5 @@ addItemsToParent(value:ProductI){
   //   return this.arrOfProductsClicked
   // }
 
-
+}
 
