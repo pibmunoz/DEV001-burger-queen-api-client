@@ -5,6 +5,7 @@ import { ApiService } from '../service/api/api.service';
 import { LoginI } from '../models/login.interface';
 import { Router } from '@angular/router';
 import { ResponseI } from '../models/response.interface';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -26,6 +27,7 @@ export class LoginComponent implements OnInit {
   onLogin(form: LoginI) {
     // console.log("entro holi")
       if (this.loginForm.valid) {
+        console.log("aqui entro")
         const userAuth = form
         this.api.loginByEmail(userAuth).subscribe({
           next: (data:ResponseI) =>{
@@ -37,7 +39,11 @@ export class LoginComponent implements OnInit {
           },
           error: (error) =>{
             if(error.name == 'HttpErrorResponse'){
-              alert("something went wrong")
+              Swal.fire({
+                title: 'Error!',
+                text: 'Enter the correct email or password',
+                icon: 'error',
+              })
             }
           }
         })
@@ -56,7 +62,7 @@ export class LoginComponent implements OnInit {
     return this.token
   }
 
-  switchData(dataResponse: ResponseI, router: Router) :void {
+  switchData(dataResponse: ResponseI, router: Router) {
     switch (dataResponse.role) {
       case 'admin':
         router.navigate(['admin'])

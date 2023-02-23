@@ -1,114 +1,124 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { LoginComponent } from './home.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api/api.service';
+import { HttpClientModule } from '@angular/common/http';
+import { of, throwError } from 'rxjs'
 
-fdescribe('test de HomeComponent', () => {
-  let injector: TestBed;
+describe('test de HomeComponent', () => {
+
+  const responseGetUser = {
+    "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "waiter"
+  }
+
   let fixture: ComponentFixture<LoginComponent>;
   let router: Router;
-  let httpMock: HttpTestingController;
-  let service: ApiService;
-  let apiServiceSpy: jasmine.SpyObj<ApiService>;
-
+  let component: LoginComponent;
+  let httpSpy: { post: jasmine.Spy };
+  const apiMock = {
+    loginByEmail: () => of(responseGetUser)
+  }
+  let switchData: any;
+  let clearStorage: any;
+  
   beforeEach(async () => {
-    const spy = jasmine.createSpyObj('ApiService', ['loginByEmail']);
 
     await TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
+        HttpClientModule,
         FormsModule,
         ReactiveFormsModule
       ],
       declarations: [
         LoginComponent
       ],
-      providers: [{
-        provide: ApiService, useValue: spy
-      }]
+      providers: [
+        LoginComponent, { provide: ApiService, useValue: apiMock }
+      ]
     })
       .compileComponents();
+    httpSpy = jasmine.createSpyObj('HttpClient', ['post'])
     fixture = TestBed.createComponent(LoginComponent);
     router = TestBed.inject(Router);
-    httpMock = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(ApiService)
-    apiServiceSpy = TestBed.inject(ApiService) as jasmine.SpyObj<ApiService>
+    component = fixture.componentInstance;
+    switchData = spyOn(component, "switchData")
+    clearStorage = spyOn(localStorage, 'clear').and.callFake(() => { });
+    fixture.detectChanges()
 
   });
 
   it('debe de existir LoginComponent', () => {
-    const app = fixture.componentInstance
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
   it('debe retornar form inválido', () => {
-    const app = fixture.componentInstance
-    fixture.detectChanges()
 
-    const email = app.loginForm.controls['email']
+    const email = component.loginForm.controls['email']
     email.setValue('waiter@burgerqueen.com')
-    expect(app.loginForm.invalid).toBeTrue();
+    expect(component.loginForm.invalid).toBeTrue();
 
   });
   it('debe retornar form valido', () => {
-    const app = fixture.componentInstance
-    fixture.detectChanges()
-
-    const email = app.loginForm.controls['email']
-    const password = app.loginForm.controls['password']
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
 
     email.setValue('waiter@burgerqueen.com')
     password.setValue('123456')
-    expect(app.loginForm.valid).toBeTrue();
+    expect(component.loginForm.valid).toBeTrue();
   })
-
-  it('deberia llamar al metodo de cambio de rutas', () => {
-    // spyOn(LoginComponent, 'switchData')
-
-    const app = fixture.componentInstance
-    fixture.detectChanges()
-
-    const button = fixture.debugElement.query(By.css(".btnLogin"))
-    button.nativeElement.click()
-    fixture.whenStable().then(() => {
-      expect(app.switchData).toHaveBeenCalled()
-    })
-  });
-
-  fit('deberia llamar al otro metodo (switchData) y llama switchData', (done) => {
-
-    const mockOfLog = {
-      "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "waiter"
-    }
-
-    const navigateSpy = spyOn(router, 'navigate');
-    const app = fixture.componentInstance;
+  it('should call function switchData', function (done) {
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('waiter@burgerqueen.com')
+    password.setValue('123456')
 
     const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
-    fixture.detectChanges()
-    const button = fixture.debugElement.query(By.css(".btnLogin"))
-    button.nativeElement.click()
+    component.onLogin(mockUser);
+
+    // expect(component.loginForm.valid).toBeTrue();
+    expect(switchData).toHaveBeenCalled();
 
 
-    // const component = fixture.componentInstance;
-    // const navigateSpy = spyOn(router, 'navigate');
-
-    // component.goSomewhere();
-    app.onLogin(mockUser);
-    service.loginByEmail(mockUser).subscribe(() => {
-      // next: (dataResponse: any) =>{
-      // expect().toEqual(mockOfLog)
-      expect(navigateSpy).toHaveBeenCalledWith(['waiter']);
-      // expect(navigateSpy).toBe('AAAA');
-
-      // expect(navigateSpy.).toHaveBeenCalled()
-      // }
-    })
-    // expect(navigateSpy).toHaveBeenCalled();
     done();
-  })
+
+  });
+
+  // it('should caldfdnfodfata', function (done) {
+  //   TestBed.overrideComponent(
+  //    LoginComponent,{
+  //     set: {
+  //       providers: [{
+  //         provide: ApiService,
+  //         useValue: mockFail
+  //       }]
+  //     }
+  //    }
+  //   }
+  //   );
+  //   TestBed.configureTestingModule({
+  //     declarations: [ MyComponent ]
+  //   }).compileComponents();
+
+  // );
+
+
+
+  //   const email = component.loginForm.controls['email']
+  //   const password = component.loginForm.controls['password']
+  //   email.setValue('waiter@burgerqueen.com')
+  //   password.setValue('123fdfsdfsd456')
+  //   const mockUser = { email: "waiter@burgerking.com", password: "1234" };
+  //   component.onLogin(mockUser)
+
+  //    expect(component.loginForm.invalid).toEqual(true);
+  //    expect(clearStorage).toBeUndefined(); 
+  //   done();
+
+  // });
+
 
 
 

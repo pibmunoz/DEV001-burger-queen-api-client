@@ -14,7 +14,7 @@ import { ApiService } from './service/api/api.service';
 import { DataServicesService } from './service/api/data-services.service';
 import { CardOfProductComponent } from './card-of-product/card-of-product.component';
 import { AuthGuard } from './service/api/auth.guard';
-import { HotToastModule } from '@ngneat/hot-toast';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -41,7 +41,7 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    HotToastModule.forRoot()
+    SweetAlert2Module.forRoot()
   ],
   providers:[ApiService, DataServicesService, ProductsService, AuthGuard],
   bootstrap: [AppComponent]
