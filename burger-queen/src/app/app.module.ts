@@ -15,6 +15,7 @@ import { DataServicesService } from './service/api/data-services.service';
 import { CardOfProductComponent } from './card-of-product/card-of-product.component';
 import { AuthGuard } from './service/api/auth.guard';
 import { HotToastModule } from '@ngneat/hot-toast';
+
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'waiters', component: WaitersComponent, canActivate: [AuthGuard]},
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
     AdminComponent,
     AuthorsComponent,
     CardOfProductComponent,
+    
   ],
   imports: [
     BrowserModule,

@@ -17,10 +17,5 @@ export class DataServicesService {
   }
 
 
-  getEachItem(id: number){
-
-    return this.http.get(this.url + `http://localhost:3000/products/${id}` )
-    
-    }
 
 }

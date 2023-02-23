@@ -24,24 +24,29 @@ export class LoginComponent implements OnInit {
 
   token: string ="";
   onLogin(form: LoginI) {
-    console.log("entro holi")
-    return this.api.loginByEmail(form).subscribe(data => {
-      let dataResponse: ResponseI = data
-
+    // console.log("entro holi")
       if (this.loginForm.valid) {
-        
-        this.token = dataResponse.id
-        console.log("este es el token" , this.token)
-        localStorage.setItem('token', this.token);
-        this.switchData(dataResponse, this.router)
-        console.log("entro esta aqui?")
+        const userAuth = form
+        this.api.loginByEmail(userAuth).subscribe({
+          next: (data:ResponseI) =>{
+            let dataResponse: ResponseI = data
+            this.token = dataResponse.id
+            console.log("este es el token" , this.token)
+            localStorage.setItem('token', this.token);
+            this.switchData(dataResponse, this.router)
+          },
+          error: (error) =>{
+            if(error.name == 'HttpErrorResponse'){
+              alert("something went wrong")
+            }
+          }
+        })
       }
        else if (this.loginForm.invalid) {
-        alert("User email or Password are invalid")
-        console.log("entro a alerta")
+       localStorage.clear()
       }
 
-    })
+  
   }
   public get f(): any {
     return this.loginForm.controls;

@@ -38,9 +38,7 @@
 										<label class="font-weight-bold" for="password"><strong>Password</strong></label>
 									</div>
 									<input id="password" type="password" class="form-control" [class.is-invalid]="f.password.touched && f.password.errors" name="password" required formControlName="password">
-									<div id="invalidPassword" class="invalid-feedback">Wrong password.</div> 
-								</div>
-								<div class="fail" id="failLogIn">
+									<div id="invalidPassword" class="invalid-feedback">The length of password must be 6 or more.</div> 
 								</div>
 								<div class="d-grid gap-2">
 									<button type="submit" class="btn btnLogin btn-primary btn-lg btn-block">
@@ -50,6 +48,7 @@
 							</form>
 						</div>
 					</div>
+					
 					<div class="text-center mt-5 text-muted">
                         Made with 💖 by Karla Rodríguez and Pilar Muñoz
                     </div>
