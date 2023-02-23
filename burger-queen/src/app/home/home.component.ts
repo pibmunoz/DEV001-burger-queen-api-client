@@ -5,6 +5,7 @@ import { ApiService } from '../service/api/api.service';
 import { LoginI } from '../models/login.interface';
 import { Router } from '@angular/router';
 import { ResponseI } from '../models/response.interface';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -38,7 +39,11 @@ export class LoginComponent implements OnInit {
           },
           error: (error) =>{
             if(error.name == 'HttpErrorResponse'){
-              alert("something went wrong")
+              Swal.fire({
+                title: 'Error!',
+                text: 'Enter the correct email or password',
+                icon: 'error',
+              })
             }
           }
         })

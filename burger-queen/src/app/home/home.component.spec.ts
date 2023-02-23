@@ -17,9 +17,13 @@ describe('test de HomeComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let router: Router;
   let component: LoginComponent;
-  const apiSpy = jasmine.createSpyObj('ApiService', ['loginByEmail']);
   let httpSpy: { post: jasmine.Spy };
-
+  const apiMock = {
+    loginByEmail: () => of(responseGetUser)
+  }
+  let switchData: any;
+  let clearStorage: any;
+  
   beforeEach(async () => {
 
     await TestBed.configureTestingModule({
@@ -33,15 +37,18 @@ describe('test de HomeComponent', () => {
         LoginComponent
       ],
       providers: [
-        LoginComponent, { provide: ApiService, useValue: apiSpy }
+        LoginComponent, { provide: ApiService, useValue: apiMock }
       ]
     })
       .compileComponents();
-    httpSpy = jasmine.createSpyObj('HttpClient', ['post']);
+    httpSpy = jasmine.createSpyObj('HttpClient', ['post'])
     fixture = TestBed.createComponent(LoginComponent);
     router = TestBed.inject(Router);
     component = fixture.componentInstance;
+    switchData = spyOn(component, "switchData")
+    clearStorage = spyOn(localStorage, 'clear').and.callFake(() => { });
     fixture.detectChanges()
+
   });
 
   it('debe de existir LoginComponent', () => {
@@ -62,62 +69,57 @@ describe('test de HomeComponent', () => {
     password.setValue('123456')
     expect(component.loginForm.valid).toBeTrue();
   })
-
-  it('deberia llamar al otro metodo (switchData) y llama switchData', (done) => {
-    const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
-    const button = fixture.debugElement.query(By.css(".btnLogin"))
-    spyOn(router, 'navigate')
-    button.nativeElement.click()
-    component.ngOnInit();
-    component.onLogin(mockUser)
-    const fn = spyOn(component, "switchData")
-
-    apiSpy.loginByEmail(mockUser).subscribe(() => {
-      next: (data: any) => {
-        expect(data).toEqual(responseGetUser)
-      }
-    })
-
-    expect(fn).toHaveBeenCalled()
-
-    done();
-
-
-  })
-  it('should call AAAAAAAAAAAA service ', function fakeAsync () {
+  it('should call function switchData', function (done) {
     const email = component.loginForm.controls['email']
     const password = component.loginForm.controls['password']
     email.setValue('waiter@burgerqueen.com')
     password.setValue('123456')
-  
-    const service = TestBed.inject(ApiService); // get your service
+
     const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
+    component.onLogin(mockUser);
 
-    if(component.loginForm.valid){
+    // expect(component.loginForm.valid).toBeTrue();
+    expect(switchData).toHaveBeenCalled();
 
-      apiSpy.loginByEmail.and.callFake(() => {
-        return of({
-          "status": 200,
-          "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab",
-          "email": "waiter@burgerqueen.com",
-          "role": "waiter"
-      }); // or return a list of bookings in case you want to test the first part of the if statement 
-      });
-      component.onLogin(mockUser);
-      tick();
-      expect(service.loginByEmail).toHaveBeenCalled();
-      expect(component.onLogin).toEqual(responseGetUser);
-  
-      // // additional tests that verify the inside of the subscribe (change below in case the mocked service returned something)
-      // expect(component.onLogin).equalTo(mockUser);
-      // expect(component.generateCheckDisable).equalTo(false);
-      
-    }
-    
-    
+
+    done();
+
   });
 
-  
+  // it('should caldfdnfodfata', function (done) {
+  //   TestBed.overrideComponent(
+  //    LoginComponent,{
+  //     set: {
+  //       providers: [{
+  //         provide: ApiService,
+  //         useValue: mockFail
+  //       }]
+  //     }
+  //    }
+  //   }
+  //   );
+  //   TestBed.configureTestingModule({
+  //     declarations: [ MyComponent ]
+  //   }).compileComponents();
+
+  // );
+
+
+
+  //   const email = component.loginForm.controls['email']
+  //   const password = component.loginForm.controls['password']
+  //   email.setValue('waiter@burgerqueen.com')
+  //   password.setValue('123fdfsdfsd456')
+  //   const mockUser = { email: "waiter@burgerking.com", password: "1234" };
+  //   component.onLogin(mockUser)
+
+  //    expect(component.loginForm.invalid).toEqual(true);
+  //    expect(clearStorage).toBeUndefined(); 
+  //   done();
+
+  // });
+
+
 
 
 });
