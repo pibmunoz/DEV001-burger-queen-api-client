@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 // import { HomeLogin} from './home';
 import { ApiService } from '../service/api/api.service';
 import { LoginI } from '../models/login.interface';
@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
           },
           error: (error) =>{
             if(error.name == 'HttpErrorResponse'){
+              console.log("aqui esta el error", error)
               Swal.fire({
                 title: 'Error!',
                 text: 'Enter the correct email or password',

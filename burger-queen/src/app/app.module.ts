@@ -33,6 +33,7 @@ const appRoutes: Routes = [
     AdminComponent,
     AuthorsComponent,
     CardOfProductComponent,
+    
   ],
   imports: [
     BrowserModule,

@@ -5,8 +5,9 @@ import { By } from '@angular/platform-browser';
 import { LoginComponent } from './home.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api/api.service';
-import { HttpClientModule } from '@angular/common/http';
-import { of, throwError } from 'rxjs'
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of, throwError } from 'rxjs'
+import Swal from 'sweetalert2';
 
 describe('test de HomeComponent', () => {
 
@@ -18,11 +19,13 @@ describe('test de HomeComponent', () => {
   let router: Router;
   let component: LoginComponent;
   let httpSpy: { post: jasmine.Spy };
+  let apiService : ApiService
   const apiMock = {
     loginByEmail: () => of(responseGetUser)
   }
   let switchData: any;
   let clearStorage: any;
+
   
   beforeEach(async () => {
 
@@ -37,7 +40,7 @@ describe('test de HomeComponent', () => {
         LoginComponent
       ],
       providers: [
-        LoginComponent, { provide: ApiService, useValue: apiMock }
+         ApiService
       ]
     })
       .compileComponents();
@@ -47,8 +50,9 @@ describe('test de HomeComponent', () => {
     component = fixture.componentInstance;
     switchData = spyOn(component, "switchData")
     clearStorage = spyOn(localStorage, 'clear').and.callFake(() => { });
+    apiService = TestBed.inject(ApiService)
     fixture.detectChanges()
-
+    
   });
 
   it('debe de existir LoginComponent', () => {
@@ -69,55 +73,36 @@ describe('test de HomeComponent', () => {
     password.setValue('123456')
     expect(component.loginForm.valid).toBeTrue();
   })
-  it('should call function switchData', function (done) {
+  it('should call ApiService.loginByEmail and function switchData when de http response is correct', function (done) {
+    spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(of(responseGetUser));
     const email = component.loginForm.controls['email']
     const password = component.loginForm.controls['password']
     email.setValue('waiter@burgerqueen.com')
     password.setValue('123456')
-
     const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
     component.onLogin(mockUser);
 
-    // expect(component.loginForm.valid).toBeTrue();
-    expect(switchData).toHaveBeenCalled();
-
-
+    expect(apiService.loginByEmail).toHaveBeenCalled();
+    expect(switchData).toHaveBeenCalled()
     done();
 
   });
 
-  // it('should caldfdnfodfata', function (done) {
-  //   TestBed.overrideComponent(
-  //    LoginComponent,{
-  //     set: {
-  //       providers: [{
-  //         provide: ApiService,
-  //         useValue: mockFail
-  //       }]
-  //     }
-  //    }
-  //   }
-  //   );
-  //   TestBed.configureTestingModule({
-  //     declarations: [ MyComponent ]
-  //   }).compileComponents();
+  it('when the HTTPResponse fails it calls', function (done) {
+    spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(throwError(() => new HttpErrorResponse({ error: "HttpErrorResponse", status:0 })));
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('waiter@burgerqueen.com')
+    password.setValue('12345668667')
+    const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
+    const swal = spyOn(Swal, "fire")
+    component.onLogin(mockUser)
 
-  // );
+    expect(swal).toHaveBeenCalledTimes(1)
 
-
-
-  //   const email = component.loginForm.controls['email']
-  //   const password = component.loginForm.controls['password']
-  //   email.setValue('waiter@burgerqueen.com')
-  //   password.setValue('123fdfsdfsd456')
-  //   const mockUser = { email: "waiter@burgerking.com", password: "1234" };
-  //   component.onLogin(mockUser)
-
-  //    expect(component.loginForm.invalid).toEqual(true);
-  //    expect(clearStorage).toBeUndefined(); 
-  //   done();
-
-  // });
+    done();
+  });
+  
 
 
 

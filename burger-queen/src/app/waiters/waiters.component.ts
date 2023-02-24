@@ -1,10 +1,11 @@
+
 import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
 import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { OrderI } from '../models/order.interface';
-import { HotToastService } from '@ngneat/hot-toast';
+
 
 
 @Component({
@@ -23,7 +24,7 @@ export class WaitersComponent implements OnInit {
 
   myForm: FormGroup;
 
-  constructor(private products: ProductsService, public fb: FormBuilder, private toast: HotToastService) { 
+  constructor(private products: ProductsService, public fb: FormBuilder, ) { 
     this.myForm = this.fb.group({
       customerName: ['', [Validators.required, Validators.minLength(3)]],
       waiterName: ['', [Validators.required,  Validators.minLength(3)]],
@@ -64,19 +65,7 @@ export class WaitersComponent implements OnInit {
     else if(this.myForm.invalid){
       // this.toast.warning('Please be cautious!')
       // y presionar botón enviar data
-      this.toast.success('Fill all the fields!', {
-        duration: 1000,
-        style: {
-          border: '1px solid #713200',
-          padding: '16px',
-          color: '#713200',
-          
-        },
-        iconTheme: {
-          primary: '#713200',
-          secondary: '#FFFAEE',
-        },
-      });
+      alert("nono")
     }
 
     // customToast() {
@@ -101,6 +90,19 @@ export class WaitersComponent implements OnInit {
   }
   
 
+
+
+  @ViewChild(CardOfProductComponent) cards: CardOfProductComponent;
+
+  ngAfterViewInit () {
+   
+  }
+
+  arrayOfProductsSelected : number[]= []
+
+obtainProductClick(id:number){
+  this.arrayOfProductsSelected.push(id)
+ }
 
 
   arrayOfTheProducts() {
@@ -246,8 +248,6 @@ export class WaitersComponent implements OnInit {
   }
 
 
-
-
-
+ 
 
 }
