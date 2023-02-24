@@ -5,8 +5,9 @@ import { By } from '@angular/platform-browser';
 import { LoginComponent } from './home.component';
 import { Router } from '@angular/router';
 import { ApiService } from '../service/api/api.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs'
+import Swal from 'sweetalert2';
 
 describe('test de HomeComponent', () => {
 
@@ -24,6 +25,7 @@ describe('test de HomeComponent', () => {
   }
   let switchData: any;
   let clearStorage: any;
+
   
   beforeEach(async () => {
 
@@ -85,15 +87,23 @@ describe('test de HomeComponent', () => {
     done();
 
   });
-//   it('switchData works', function () {
-//     spyOn(router, 'navigate').and.callThrough().and.resolveTo(true)
 
-//   const dataResponseMock = responseGetUser
-// component.switchData(dataResponseMock, router)
-//   expect(router.navigate).toHaveBeenCalled()
+  it('when the HTTPResponse fails it calls', function (done) {
+    spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(throwError(() => new HttpErrorResponse({ error: "HttpErrorResponse", status:0 })));
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('waiter@burgerqueen.com')
+    password.setValue('12345668667')
+    const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
+    const swal = spyOn(Swal, "fire")
+    component.onLogin(mockUser)
 
-//   });
+    expect(swal).toHaveBeenCalledTimes(1)
+
+    done();
+  });
   
+
 
 
 

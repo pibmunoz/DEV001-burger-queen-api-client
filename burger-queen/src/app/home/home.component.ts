@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
           },
           error: (error) =>{
             if(error.name == 'HttpErrorResponse'){
+              console.log("aqui esta el error", error)
               Swal.fire({
                 title: 'Error!',
                 text: 'Enter the correct email or password',
