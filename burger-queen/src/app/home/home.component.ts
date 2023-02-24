@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 // import { HomeLogin} from './home';
 import { ApiService } from '../service/api/api.service';
 import { LoginI } from '../models/login.interface';
