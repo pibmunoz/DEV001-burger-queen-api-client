@@ -75,6 +75,11 @@ export class LoginComponent implements OnInit {
         router.navigate(['waiters'])
         break;
       default:
+        Swal.fire({
+          title: 'Error!',
+          text: 'Unknow path',
+          icon: 'error',
+        })
         break;
     }
   }
