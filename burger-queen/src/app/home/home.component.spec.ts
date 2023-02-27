@@ -1,57 +1,58 @@
-import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
+import { ComponentFixture, fakeAsync, TestBed, waitForAsync,  } from '@angular/core/testing';
+import { HttpClientTestingModule, } from '@angular/common/http/testing'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { By } from '@angular/platform-browser';
 import { LoginComponent } from './home.component';
-import { Router } from '@angular/router';
+import {  Router, Routes } from '@angular/router';
 import { ApiService } from '../service/api/api.service';
 import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs'
+import {  of, throwError } from 'rxjs'
 import Swal from 'sweetalert2';
+import { WaitersComponent } from '../waiters/waiters.component';
 
 describe('test de HomeComponent', () => {
+  let mockRouter = {
+    navigate: jasmine.createSpy('navigate')
+  };
 
   const responseGetUser = {
     "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "waiter"
   }
-
   let fixture: ComponentFixture<LoginComponent>;
-  let router: Router;
   let component: LoginComponent;
   let httpSpy: { post: jasmine.Spy };
   let apiService : ApiService
-  const apiMock = {
-    loginByEmail: () => of(responseGetUser)
-  }
   let switchData: any;
-  let clearStorage: any;
 
   
   beforeEach(async () => {
-
+   
     await TestBed.configureTestingModule({
+
       imports: [
         HttpClientTestingModule,
         HttpClientModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+  
       ],
       declarations: [
-        LoginComponent
+        LoginComponent,
+        WaitersComponent
       ],
       providers: [
-         ApiService
+         ApiService,
+         { provide: Router, useValue: mockRouter }
       ]
     })
       .compileComponents();
     httpSpy = jasmine.createSpyObj('HttpClient', ['post'])
     fixture = TestBed.createComponent(LoginComponent);
-    router = TestBed.inject(Router);
+    
     component = fixture.componentInstance;
-    switchData = spyOn(component, "switchData")
-    clearStorage = spyOn(localStorage, 'clear').and.callFake(() => { });
     apiService = TestBed.inject(ApiService)
     fixture.detectChanges()
+    
+
     
   });
 
@@ -63,6 +64,7 @@ describe('test de HomeComponent', () => {
     const email = component.loginForm.controls['email']
     email.setValue('waiter@burgerqueen.com')
     expect(component.loginForm.invalid).toBeTrue();
+    expect()
 
   });
   it('debe retornar form valido', () => {
@@ -74,6 +76,7 @@ describe('test de HomeComponent', () => {
     expect(component.loginForm.valid).toBeTrue();
   })
   it('should call ApiService.loginByEmail and function switchData when de http response is correct', function (done) {
+    switchData = spyOn(component, "switchData")
     spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(of(responseGetUser));
     const email = component.loginForm.controls['email']
     const password = component.loginForm.controls['password']
@@ -102,7 +105,66 @@ describe('test de HomeComponent', () => {
 
     done();
   });
-  
+
+  it('should call router.navigate waiters', fakeAsync(() => {
+    spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(of(responseGetUser));
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('waiter@burgerqueen.com')
+    password.setValue('123456')
+    const mockUser = { email: "waiter@burgerqueen.com", password: "123456" };
+    component.onLogin(mockUser);
+
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['waiters'])
+
+  }));
+
+  it('should call router.navigate kitchen', fakeAsync(() => {
+    const responseGetKitchen = {
+      "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "kitchen"
+    }
+    spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(of(responseGetKitchen));
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('kitchen@burgerqueen.com')
+    password.setValue('123456')
+    const mockUser = { email: "kitchen@burgerqueen.com", password: "123456" };
+    component.onLogin(mockUser);
+
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['kitchen'])
+  }));
+
+  it('should call router.navigate admin', fakeAsync(() => {
+    const responseGetAdmin = {
+      "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "admin"
+    }
+    spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(of(responseGetAdmin));
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('admin@burgerqueen.com')
+    password.setValue('123456')
+    const mockUser = { email: "admin@burgerqueen.com", password: "123456" };
+    component.onLogin(mockUser);
+
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['admin'])
+  }));
+
+  it('should thow advice of unknow path', fakeAsync(() => {
+    const responseGetUnknow = {
+      "id": "W-f02bc41-3f2f-455c-822b-01d75bf62fab", "status": 200, "email": "waiter@burgerqueen.com", "password": "123456", "role": "nada"
+    }
+    spyOn(apiService, 'loginByEmail').and.callThrough().and.returnValue(of(responseGetUnknow));
+    const email = component.loginForm.controls['email']
+    const password = component.loginForm.controls['password']
+    email.setValue('unknow@burgerqueen.com')
+    password.setValue('123456')
+    const mockUser = { email: "admin@burgerqueen.com", password: "123456" };
+    const swal = spyOn(Swal, "fire")
+    component.onLogin(mockUser);
+
+    expect(swal).toHaveBeenCalled()
+  }));
+
 
 
 

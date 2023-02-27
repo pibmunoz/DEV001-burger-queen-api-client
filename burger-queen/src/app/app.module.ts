@@ -16,7 +16,7 @@ import { CardOfProductComponent } from './card-of-product/card-of-product.compon
 import { AuthGuard } from './service/api/auth.guard';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'waiters', component: WaitersComponent, canActivate: [AuthGuard]},
   { path: 'kitchen', component: KitchenComponent, canActivate: [AuthGuard] },
