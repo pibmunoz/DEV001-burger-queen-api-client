@@ -3,8 +3,9 @@ import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/co
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
-import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderI } from '../models/order.interface';
+import Swal from 'sweetalert2';
 
 
 
@@ -15,24 +16,18 @@ import { OrderI } from '../models/order.interface';
 })
 
 export class WaitersComponent implements OnInit {
-  // myForm = new FormGroup({
-  //   customerName: new FormControl('', [Validators.required]),
-  //   waiterName: new FormControl('', [Validators.required]),
-  //   tableNumber: new FormControl('', [Validators.required]),
-  //   // password: new FormControl('', [Validators.required, Validators.minLength(6)])
-  // })
 
   myForm: FormGroup;
 
-  constructor(private products: ProductsService, public fb: FormBuilder, ) { 
+  constructor(private products: ProductsService, public fb: FormBuilder,) {
     this.myForm = this.fb.group({
       customerName: ['', [Validators.required, Validators.minLength(3)]],
-      waiterName: ['', [Validators.required,  Validators.minLength(3)]],
-      tableNumber: ['', [Validators.required,  Validators.minLength(1)]],
+      waiterName: ['', [Validators.required, Validators.minLength(3)]],
+      tableNumber: ['', [Validators.required, Validators.minLength(1)]],
     });
   }
 
-  get m(){
+  get m() {
     return this.myForm.controls;
   }
 
@@ -41,68 +36,52 @@ export class WaitersComponent implements OnInit {
   public meal: ProductI[] = []
 
   arrProductsSelected: ProductI[] = []
+  public ordersToKitchen: Object[] = [];
+  pedidos: OrderI[] = []
 
   ngOnInit(): void {
     this.arrayOfTheProducts()
-   
-
-
   }
 
   // guardar info del mesero, mesa, etc 
-  public dataForTheOrder :Object = {}
+  public dataForTheOrder: Object = {}
 
-  saveData(){
-    if(this.myForm.valid){
+  saveData() {
+    if (this.myForm.valid) {
 
       let objetoForm = {
-        customer : this.myForm.value.customerName,
-        waiter : this.myForm.value.waiterName,
+        customer: this.myForm.value.customerName,
+        waiter: this.myForm.value.waiterName,
         table: this.myForm.value.tableNumber
+
       }
-          this.dataForTheOrder = objetoForm
+      this.dataForTheOrder = objetoForm
+      Swal.fire(
+        'Good job!',
+        'Customer Data send',
+        'success'
+      )
     }
-    else if(this.myForm.invalid){
-      // this.toast.warning('Please be cautious!')
-      // y presionar botón enviar data
-      alert("nono")
+    else if (this.myForm.invalid) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'Please complete the info before taking the order',
+        icon: 'error',
+      })
     }
-
-    // customToast() {
-    //   this.toast.success('Look at my styles, and I also need more time!', {
-    //     duration: 5000,
-    //     style: {
-    //       border: '1px solid #713200',
-    //       padding: '16px',
-    //       color: '#713200',
-
-    //     },
-    //     iconTheme: {
-    //       primary: '#713200',
-    //       secondary: '#FFFAEE',
-    //     },
-    //   });
-    // }
-
-
 
 
   }
-  
+
 
 
 
   @ViewChild(CardOfProductComponent) cards: CardOfProductComponent;
 
-  ngAfterViewInit () {
-   
+  ngAfterViewInit() {
+
   }
 
-  arrayOfProductsSelected : number[]= []
-
-obtainProductClick(id:number){
-  this.arrayOfProductsSelected.push(id)
- }
 
 
   arrayOfTheProducts() {
@@ -130,29 +109,28 @@ obtainProductClick(id:number){
   }
 
   totalTot: number = 0
-  getProductsClick(item: any) {
-    let repetido = false;
 
-    for (let i = 0; i < this.arrProductsSelected.length; i++) {
-      if (this.arrProductsSelected[i].id == item.id) {
-        this.arrProductsSelected[i].quantity++;
-        repetido = true;
-        item.subprice = this.arrProductsSelected[i].price * item.quantity;
-      }
+  getProductsClick(item: any) {
+    const arr = this.arrProductsSelected.map((prod) => {
+      return prod
+    })
+    if (!arr.includes(item)) {
+      item.subprice = item.price
+      this.arrProductsSelected.push(item)
     }
-    if (repetido == false) {
-      this.arrProductsSelected.push(item);
+    else {
+      item.quantity++
+      item.subprice = item.price * item.quantity;
     }
 
     this.totalTot = this.sumaTotal(this.arrProductsSelected)
-
   }
 
 
 
   sumaTotal(arr: ProductI[]) {
-    const subtotal = this.arrProductsSelected.map((prod) => prod.price * prod.quantity)
-    return subtotal.reduce((act, acum) => act + acum, 0)
+    const total = arr.reduce((total, item) => total + item.subprice, 0);
+    return total
 
   }
 
@@ -214,8 +192,6 @@ obtainProductClick(id:number){
     })
   }
 
-  public ordersToKitchen: Object[] = [];
-
 
 
   submitOrder() {
@@ -230,24 +206,33 @@ obtainProductClick(id:number){
       order: arrProductsToKitchen,
 
     }
-    if(Object.entries(objOrder.data).length === 0){
-      alert("you need to fill all the fields, please")
+    if (Object.entries(objOrder.data).length === 0 || objOrder.order.length < 1) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'you need to fill all the fields, please',
+        icon: 'error',
+      })
     }
-    else{
-      console.log("orden", objOrder);
-      localStorage.setItem('orderToKitchen', JSON.stringify(objOrder));
-      // this.arrProductsSelected.splice(0,-1)
-      this.arrProductsSelected = [];
-      this.totalTot = 0
-      
-      this.myForm.reset();
+    else {
+      this.pedidos.push(objOrder)
+      this.sendOrderToKitchen(this.pedidos)
     }
-    
-    // this.renderer.setProperty(this.customerName.nativeElement, 'innerHTML', "38495793487");
+  }
 
+  sendOrderToKitchen(pedidos: OrderI[]) {
+    localStorage.setItem('orderToKitchen', JSON.stringify(pedidos));
+    this.arrProductsSelected = [];
+    this.totalTot = 0
+    this.products.postOrder(pedidos).subscribe({
+      next: (response) =>{
+       response
+      }
+    })
+
+    this.myForm.reset();
   }
 
 
- 
+
 
 }

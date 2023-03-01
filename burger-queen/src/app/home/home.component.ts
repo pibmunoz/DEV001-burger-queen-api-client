@@ -1,5 +1,5 @@
 import { Component, Injectable, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 // import { HomeLogin} from './home';
 import { ApiService } from '../service/api/api.service';
 import { LoginI } from '../models/login.interface';
@@ -19,47 +19,47 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
 
-  constructor(private api: ApiService, private router: Router) {  }
+  constructor(private api: ApiService, private router: Router) { }
   ngOnInit(): void {
   }
 
-  token: string ="";
+  token: string = "";
   onLogin(form: LoginI) {
     // console.log("entro holi")
-      if (this.loginForm.valid) {
-        console.log("aqui entro")
-        const userAuth = form
-        this.api.loginByEmail(userAuth).subscribe({
-          next: (data:ResponseI) =>{
-            let dataResponse: ResponseI = data
-            this.token = dataResponse.id
-            console.log("este es el token" , this.token)
-            localStorage.setItem('token', this.token);
-            this.switchData(dataResponse, this.router)
-          },
-          error: (error) =>{
-            if(error.name == 'HttpErrorResponse'){
-              console.log("aqui esta el error", error)
-              Swal.fire({
-                title: 'Error!',
-                text: 'Enter the correct email or password',
-                icon: 'error',
-              })
-            }
+    if (this.loginForm.valid) {
+      console.log("aqui entro")
+      const userAuth = form
+      this.api.loginByEmail(userAuth).subscribe({
+        next: (data: ResponseI) => {
+          console.log(data)
+          let dataResponse: ResponseI = data
+          this.token = dataResponse.id
+          console.log("este es el token", this.token)
+          localStorage.setItem('token', this.token);
+          this.switchData(dataResponse, this.router)
+        },
+        error: (error) => {
+          if (error.name == 'HttpErrorResponse') {
+            console.log("aqui esta el error", error)
+            Swal.fire({
+              title: 'Error!',
+              text: 'Enter the correct email or password',
+              icon: 'error',
+            })
+            localStorage.clear()
           }
-        })
-      }
-       else if (this.loginForm.invalid) {
-       localStorage.clear()
-      }
+        }
+      })
+    }
+    
 
-  
+
   }
   public get f(): any {
     return this.loginForm.controls;
   }
 
-  getIdToken(){
+  getIdToken() {
     return this.token
   }
 

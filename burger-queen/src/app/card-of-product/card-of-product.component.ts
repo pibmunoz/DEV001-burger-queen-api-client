@@ -15,8 +15,7 @@ export class CardOfProductComponent {
   constructor(private products: ProductsService) { }
 
 
-  @Input() breakfastForChild: ProductI[];
-  @Input() mealForChild: ProductI[];
+  @Input() menuItems: ProductI[];
 
   arrOfProductsClicked: object[] = []
 
@@ -33,7 +32,7 @@ export class CardOfProductComponent {
   //   this.idProduct.emit(id);
   // }
 
-addItemsToParent(value:ProductI){
+addItemsToWaiterOrder(value:ProductI){
   this.eventoEnviarData.emit(value)
 
 
