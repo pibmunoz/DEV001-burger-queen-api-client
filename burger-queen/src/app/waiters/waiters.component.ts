@@ -195,6 +195,7 @@ export class WaitersComponent implements OnInit {
 
 
   submitOrder() {
+    const dateOrder = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(new Date())
     const arrProductsToKitchen = this.arrProductsSelected.map((products) => {
       return {
         producto: products.name,
@@ -204,7 +205,7 @@ export class WaitersComponent implements OnInit {
     const objOrder: any = {
       data: this.dataForTheOrder,
       order: arrProductsToKitchen,
-
+      date: dateOrder
     }
     if (Object.entries(objOrder.data).length === 0 || objOrder.order.length < 1) {
       Swal.fire({
@@ -225,7 +226,20 @@ export class WaitersComponent implements OnInit {
     this.totalTot = 0
     this.products.postOrder(pedidos).subscribe({
       next: (response) =>{
-       response
+        console.log(response)
+      Swal.fire({
+        title: 'Good job!',
+        text: 'Customer Data send',
+        icon: 'success'
+      })
+      },
+      error: (error) =>{
+        console.log(error)
+        Swal.fire({
+          title: 'Error!',
+          text: 'Try again',
+          icon: 'error',
+        })
       }
     })
 

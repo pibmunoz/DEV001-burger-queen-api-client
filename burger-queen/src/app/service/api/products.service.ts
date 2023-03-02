@@ -11,7 +11,7 @@ import { OrderI } from 'src/app/models/order.interface';
 
 export class ProductsService {
 
-  
+
 
   constructor(private dataServices: DataServicesService, private http: HttpClient) { }
 
@@ -19,13 +19,15 @@ export class ProductsService {
     return this.dataServices.getItems();
   }
 
-  postOrder(valor: OrderI[]){
+  postOrder(valor: OrderI[]) {
     let urlDos: string = "http://localhost:3000/orders";
-    
-  return this.http.post(urlDos, valor)
+    return this.http.post(urlDos, valor)
   }
 
-
+  getOrders() {
+    let urlDos: string = "http://localhost:3000/orders";
+    return this.http.get(urlDos)
+  }
 
 
 

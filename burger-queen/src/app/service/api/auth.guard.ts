@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 
 @Injectable({
@@ -20,7 +21,7 @@ export class AuthGuard implements CanActivate {
     if (this.tokenStorage) {
       return true;
     } else {
-      console.log('Not authorized')
+      Swal.fire('LogIn for navigate into')
       return this.router.navigate([''])
     }
   }

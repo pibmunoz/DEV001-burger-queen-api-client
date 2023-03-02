@@ -1,0 +1,25 @@
+<div class="card" *ngFor="let item of ordersFromApi"  style="width: 18rem;">
+    <div class="card-body">
+      <div>
+        <p> Waiter : {{item.data.waiter}}</p>
+        <p>Table: {{item.data.table}}</p>
+        <p class="card-subtitle mb-2 text-muted"> Date: {{item.date}}</p>
+      </div>
+      <div class="d-flex">
+        <div>
+      <p class="card-text" *ngFor="let product of item.order">{{product.producto}}</p>
+    </div>
+    <div>
+      <p class="card-text" *ngFor="let product of item.order">{{product.cantidad}}  <input type="checkbox"></p>
+
+       
+      
+      </div>
+      
+    </div>
+      <div>
+        <button class="submit">Order Ready</button>
+      </div>
+    
+    </div>
+  </div>

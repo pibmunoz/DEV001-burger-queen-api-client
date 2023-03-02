@@ -1,0 +1,44 @@
+.body-kitchen {
+    background-color: #FFFDEC;
+}
+
+.containerName{
+    background-color: #E2CB77;
+    width: 18rem;
+    height: 70%;
+    border-radius: 1em;
+}
+
+.kitchen-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.kitchen-orders {
+    background-color: #F4E6BC;
+    width: 70vw;
+    height: 70vh;
+    border-radius: 25px;
+    align-content: center;
+    padding: 1rem;
+}
+
+.kitchen-card {
+    background-color: #FFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 95%;
+    border-radius: 25px;
+}
+
+.btn-danger{
+    font-size: small;
+    font-weight: 800;
+}
+
+.waiterTitle{
+    font-size: medium;
+    font-weight: 900;
+}

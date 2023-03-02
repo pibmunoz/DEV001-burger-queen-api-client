@@ -23,14 +23,7 @@ export class CardOfProductComponent {
 
   @Output() 
   eventoEnviarData = new EventEmitter<ProductI>();
-  // ngOnInit() {
 
-  // }
-
-
-  // addNewItem(id: number) {
-  //   this.idProduct.emit(id);
-  // }
 
 addItemsToWaiterOrder(value:ProductI){
   this.eventoEnviarData.emit(value)
@@ -38,15 +31,6 @@ addItemsToWaiterOrder(value:ProductI){
 
 }
 
-  // addClickedItem(id:number) {
-  //   this.breakfastForChild.forEach((item) => {
-  //     if (id === item.id) {
-  //       this.arrOfProductsClicked.push(item)
-  //     }
-
-  //   })
-  //   return this.arrOfProductsClicked
-  // }
 
 }
 
