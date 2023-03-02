@@ -3,6 +3,7 @@ import { LoginI } from 'src/app/models/login.interface';
 import { ResponseI } from 'src/app/models/response.interface';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,7 @@ export class ApiService {
 
 
   loginByEmail(form:LoginI):Observable<ResponseI>{
-    let urlApi = this.url + 'auth';
+    let urlApi = this.url + 'users';
     return this.http.post<ResponseI>(urlApi, form)
     }
 

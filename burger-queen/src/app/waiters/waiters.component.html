@@ -41,7 +41,7 @@
 
                 <h2>BREAKFAST</h2>
                 <div id="cardsBreakfast" class="cardsB">
-                    <app-card-of-product [breakfastForChild]="breakfast"
+                    <app-card-of-product [menuItems]="breakfast"
                         (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
                 </div>
 
@@ -50,7 +50,7 @@
 
                 <h2>ALL DAY</h2>
                 <div id="cardsMeal" class="cardsM parent">
-                    <app-card-of-product [mealForChild]="meal"
+                    <app-card-of-product [menuItems]="meal"
                         (eventoEnviarData)="getProductsClick($event)"></app-card-of-product>
 
                 </div>

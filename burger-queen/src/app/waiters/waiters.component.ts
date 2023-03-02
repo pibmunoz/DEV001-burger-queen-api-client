@@ -3,7 +3,7 @@ import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/co
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
-import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderI } from '../models/order.interface';
 import Swal from 'sweetalert2';
 
@@ -16,17 +16,18 @@ import Swal from 'sweetalert2';
 })
 
 export class WaitersComponent implements OnInit {
+
   myForm: FormGroup;
 
-  constructor(private products: ProductsService, public fb: FormBuilder, ) { 
+  constructor(private products: ProductsService, public fb: FormBuilder,) {
     this.myForm = this.fb.group({
       customerName: ['', [Validators.required, Validators.minLength(3)]],
-      waiterName: ['', [Validators.required,  Validators.minLength(3)]],
-      tableNumber: ['', [Validators.required,  Validators.minLength(1)]],
+      waiterName: ['', [Validators.required, Validators.minLength(3)]],
+      tableNumber: ['', [Validators.required, Validators.minLength(1)]],
     });
   }
 
-  get m(){
+  get m() {
     return this.myForm.controls;
   }
 
@@ -39,41 +40,47 @@ export class WaitersComponent implements OnInit {
 
   ngOnInit(): void {
     this.arrayOfTheProducts()
-   
-
-
   }
 
   // guardar info del mesero, mesa, etc 
-  public dataForTheOrder :Object = {}
+  public dataForTheOrder: Object = {}
 
-  saveData(){
-    if(this.myForm.valid){
+  saveData() {
+    if (this.myForm.valid) {
 
       let objetoForm = {
-        customer : this.myForm.value.customerName,
-        waiter : this.myForm.value.waiterName,
+        customer: this.myForm.value.customerName,
+        waiter: this.myForm.value.waiterName,
         table: this.myForm.value.tableNumber
+
       }
-          this.dataForTheOrder = objetoForm
+      this.dataForTheOrder = objetoForm
+      Swal.fire(
+        'Good job!',
+        'Customer Data send',
+        'success'
+      )
     }
-    else if(this.myForm.invalid){
-      // this.toast.warning('Please be cautious!')
-      // y presionar botón enviar data
+    else if (this.myForm.invalid) {
       Swal.fire({
         title: 'Error!',
-        text: 'No valid data',
+        text: 'Please complete the info before taking the order',
         icon: 'error',
       })
     }
+
+
   }
-  
+
 
 
 
   @ViewChild(CardOfProductComponent) cards: CardOfProductComponent;
 
-  
+  ngAfterViewInit() {
+
+  }
+
 
 
   arrayOfTheProducts() {
@@ -101,29 +108,28 @@ export class WaitersComponent implements OnInit {
   }
 
   totalTot: number = 0
-  getProductsClick(item: any) {
-    let repetido = false;
 
-    for (let i = 0; i < this.arrProductsSelected.length; i++) {
-      if (this.arrProductsSelected[i].id == item.id) {
-        this.arrProductsSelected[i].quantity++;
-        repetido = true;
-        item.subprice = this.arrProductsSelected[i].price * item.quantity;
-      }
+  getProductsClick(item: any) {
+    const arr = this.arrProductsSelected.map((prod) => {
+      return prod
+    })
+    if (!arr.includes(item)) {
+      item.subprice = item.price
+      this.arrProductsSelected.push(item)
     }
-    if (repetido == false) {
-      this.arrProductsSelected.push(item);
+    else {
+      item.quantity++
+      item.subprice = item.price * item.quantity;
     }
 
     this.totalTot = this.sumaTotal(this.arrProductsSelected)
-
   }
 
 
 
   sumaTotal(arr: ProductI[]) {
-    const subtotal = this.arrProductsSelected.map((prod) => prod.price * prod.quantity)
-    return subtotal.reduce((act, acum) => act + acum, 0)
+    const total = arr.reduce((total, item) => total + item.subprice, 0);
+    return total
 
   }
 
@@ -181,7 +187,7 @@ export class WaitersComponent implements OnInit {
     })
   }
 
- 
+
 
   submitOrder() {
     const arrProductsToKitchen = this.arrProductsSelected.map((products) => {
@@ -195,24 +201,33 @@ export class WaitersComponent implements OnInit {
       order: arrProductsToKitchen,
 
     }
-    if(Object.entries(objOrder.data).length === 0 || objOrder.order.length < 1){
-      alert("you need to fill all the fields, please")
+    if (Object.entries(objOrder.data).length === 0 || objOrder.order.length < 1) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'you need to fill all the fields, please',
+        icon: 'error',
+      })
     }
-    else{
+    else {
       this.pedidos.push(objOrder)
       this.sendOrderToKitchen(this.pedidos)
     }
   }
 
-  sendOrderToKitchen(pedidos: OrderI[]){
+  sendOrderToKitchen(pedidos: OrderI[]) {
     localStorage.setItem('orderToKitchen', JSON.stringify(pedidos));
     this.arrProductsSelected = [];
     this.totalTot = 0
-    
+    this.products.postOrder(pedidos).subscribe({
+      next: (response) =>{
+       response
+      }
+    })
+
     this.myForm.reset();
   }
 
 
- 
+
 
 }
