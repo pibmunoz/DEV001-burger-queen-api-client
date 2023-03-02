@@ -45,14 +45,11 @@ export class LoginComponent implements OnInit {
                 text: 'Enter the correct email or password',
                 icon: 'error',
               })
+              localStorage.clear()
             }
           }
         })
       }
-       else if (this.loginForm.invalid) {
-       localStorage.clear()
-      }
-
   
   }
   public get f(): any {

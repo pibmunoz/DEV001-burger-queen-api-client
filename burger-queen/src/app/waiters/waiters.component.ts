@@ -5,6 +5,7 @@ import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
 import { FormControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { OrderI } from '../models/order.interface';
+import Swal from 'sweetalert2';
 
 
 
@@ -15,13 +16,6 @@ import { OrderI } from '../models/order.interface';
 })
 
 export class WaitersComponent implements OnInit {
-  // myForm = new FormGroup({
-  //   customerName: new FormControl('', [Validators.required]),
-  //   waiterName: new FormControl('', [Validators.required]),
-  //   tableNumber: new FormControl('', [Validators.required]),
-  //   // password: new FormControl('', [Validators.required, Validators.minLength(6)])
-  // })
-
   myForm: FormGroup;
 
   constructor(private products: ProductsService, public fb: FormBuilder, ) { 
@@ -39,8 +33,9 @@ export class WaitersComponent implements OnInit {
   public productos: ProductI[] = []
   public breakfast: ProductI[] = []
   public meal: ProductI[] = []
-
   arrProductsSelected: ProductI[] = []
+  public ordersToKitchen: Object[] = [];
+  pedidos: OrderI[] = []
 
   ngOnInit(): void {
     this.arrayOfTheProducts()
@@ -65,28 +60,12 @@ export class WaitersComponent implements OnInit {
     else if(this.myForm.invalid){
       // this.toast.warning('Please be cautious!')
       // y presionar botón enviar data
-      alert("nono")
+      Swal.fire({
+        title: 'Error!',
+        text: 'No valid data',
+        icon: 'error',
+      })
     }
-
-    // customToast() {
-    //   this.toast.success('Look at my styles, and I also need more time!', {
-    //     duration: 5000,
-    //     style: {
-    //       border: '1px solid #713200',
-    //       padding: '16px',
-    //       color: '#713200',
-
-    //     },
-    //     iconTheme: {
-    //       primary: '#713200',
-    //       secondary: '#FFFAEE',
-    //     },
-    //   });
-    // }
-
-
-
-
   }
   
 
@@ -94,15 +73,7 @@ export class WaitersComponent implements OnInit {
 
   @ViewChild(CardOfProductComponent) cards: CardOfProductComponent;
 
-  ngAfterViewInit () {
-   
-  }
-
-  arrayOfProductsSelected : number[]= []
-
-obtainProductClick(id:number){
-  this.arrayOfProductsSelected.push(id)
- }
+  
 
 
   arrayOfTheProducts() {
@@ -157,7 +128,7 @@ obtainProductClick(id:number){
   }
 
   clickDelete(id: number) {
-    this.arrProductsSelected.forEach((el, index) => {
+    this.arrProductsSelected.forEach((el) => {
       if (el.id === id) {
         if (el.quantity === 1) {
           for (let i = 0; i < this.arrProductsSelected.length; i++) {
@@ -194,15 +165,11 @@ obtainProductClick(id:number){
     })
   }
 
-
-
-
   deleteForever(id: number) {
-    this.arrProductsSelected.forEach((el, index) => {
+    this.arrProductsSelected.forEach((el) => {
       if (el.id === id) {
         if (el.quantity >= 1) {
           for (let i = 0; i < this.arrProductsSelected.length; i++) {
-
             if (this.arrProductsSelected[i] === el) {
               this.arrProductsSelected.splice(i, 1);
               i--;
@@ -214,9 +181,7 @@ obtainProductClick(id:number){
     })
   }
 
-  public ordersToKitchen: Object[] = [];
-
-
+ 
 
   submitOrder() {
     const arrProductsToKitchen = this.arrProductsSelected.map((products) => {
@@ -230,21 +195,21 @@ obtainProductClick(id:number){
       order: arrProductsToKitchen,
 
     }
-    if(Object.entries(objOrder.data).length === 0){
+    if(Object.entries(objOrder.data).length === 0 || objOrder.order.length < 1){
       alert("you need to fill all the fields, please")
     }
     else{
-      console.log("orden", objOrder);
-      localStorage.setItem('orderToKitchen', JSON.stringify(objOrder));
-      // this.arrProductsSelected.splice(0,-1)
-      this.arrProductsSelected = [];
-      this.totalTot = 0
-      
-      this.myForm.reset();
+      this.pedidos.push(objOrder)
+      this.sendOrderToKitchen(this.pedidos)
     }
-    
-    // this.renderer.setProperty(this.customerName.nativeElement, 'innerHTML', "38495793487");
+  }
 
+  sendOrderToKitchen(pedidos: OrderI[]){
+    localStorage.setItem('orderToKitchen', JSON.stringify(pedidos));
+    this.arrProductsSelected = [];
+    this.totalTot = 0
+    
+    this.myForm.reset();
   }
 
 
