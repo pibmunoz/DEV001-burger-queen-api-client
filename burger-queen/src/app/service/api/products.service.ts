@@ -19,7 +19,7 @@ export class ProductsService {
     return this.dataServices.getItems();
   }
 
-  postOrder(valor: OrderI[]) {
+  postOrder(valor: OrderI) {
     let urlDos: string = "http://localhost:3000/orders";
     return this.http.post(urlDos, valor)
   }

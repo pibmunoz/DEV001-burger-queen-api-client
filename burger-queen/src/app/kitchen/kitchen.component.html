@@ -21,10 +21,10 @@
             </div>
         </div>
     </header>
-    <section class="container kitchen-container text-center">
-        <div class="row kitchen-orders">
-            <div class="col kitchen-card">
-                <app-orders  [ordersFromApi]="ordersSendToKitchen"></app-orders>
+    <section class=" kitchen-container text-center">
+        <div class="kitchen-orders">
+            <div class=" kitchen-card  p-2 container flex-wrap">
+                <app-orders class=" row gap-2 w-99 justify-content-center" [ordersFromApi]="ordersSendToKitchen"></app-orders>
             </div>
         </div>
     </section>

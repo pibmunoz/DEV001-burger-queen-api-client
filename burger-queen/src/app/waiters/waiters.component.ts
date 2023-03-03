@@ -37,7 +37,7 @@ export class WaitersComponent implements OnInit {
 
   arrProductsSelected: ProductI[] = []
   public ordersToKitchen: Object[] = [];
-  pedidos: OrderI[] = []
+  pedidos: OrderI
 
   ngOnInit(): void {
     this.arrayOfTheProducts()
@@ -215,14 +215,13 @@ export class WaitersComponent implements OnInit {
       })
     }
     else {
-      this.pedidos.push(objOrder)
+      this.pedidos = objOrder
       this.sendOrderToKitchen(this.pedidos)
     }
   }
 
-  sendOrderToKitchen(pedidos: OrderI[]) {
+  sendOrderToKitchen(pedidos: OrderI) {
     localStorage.setItem('orderToKitchen', JSON.stringify(pedidos));
-    this.arrProductsSelected = [];
     this.totalTot = 0
     this.products.postOrder(pedidos).subscribe({
       next: (response) =>{
