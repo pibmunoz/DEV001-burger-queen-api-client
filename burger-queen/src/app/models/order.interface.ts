@@ -3,4 +3,5 @@ export interface OrderI{
     waiterName?: string | undefined | null;
     tableNumber?: string | undefined | null;
     order: Object[],
+    date: string,
 }

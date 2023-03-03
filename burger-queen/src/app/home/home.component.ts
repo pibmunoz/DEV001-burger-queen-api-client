@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  token: string = "";
+  token: string = '';
   onLogin(form: LoginI) {
     // console.log("entro holi")
     if (this.loginForm.valid) {
@@ -33,8 +33,9 @@ export class LoginComponent implements OnInit {
         next: (data: ResponseI) => {
           console.log(data)
           let dataResponse: ResponseI = data
-          this.token = dataResponse.id
+          this.token = dataResponse.accessToken
           console.log("este es el token", this.token)
+          console.log("this is the response", data)
           localStorage.setItem('token', this.token);
           this.switchData(dataResponse, this.router)
         },
@@ -64,7 +65,7 @@ export class LoginComponent implements OnInit {
   }
 
   switchData(dataResponse: ResponseI, router: Router) {
-    switch (dataResponse.role) {
+    switch (dataResponse.user.role) {
       case 'admin':
         router.navigate(['admin'])
         break;

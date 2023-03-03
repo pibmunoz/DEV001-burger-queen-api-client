@@ -12,9 +12,8 @@ export class ApiService {
   url: string = "http://localhost:3000/";
   constructor(private http:HttpClient) { }
 
-
   loginByEmail(form:LoginI):Observable<ResponseI>{
-    let urlApi = this.url + 'users';
+    let urlApi = this.url + 'login';
     return this.http.post<ResponseI>(urlApi, form)
     }
 
