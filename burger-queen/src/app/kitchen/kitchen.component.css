@@ -17,7 +17,8 @@
 .kitchen-orders {
     background-color: #F4E6BC;
     width: 70vw;
-    height: 70vh;
+    /* height: 70vh; */
+    height: fit-content;
     border-radius: 25px;
     align-content: center;
     padding: 1rem;
@@ -29,7 +30,8 @@
     align-items: center;
     justify-content: center;
     width: 90%;
-    height: 95%;
+    /* height: 95%; */
+    height: fit-content;
     border-radius: 25px;
 }
 

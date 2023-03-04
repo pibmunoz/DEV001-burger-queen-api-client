@@ -1,0 +1,62 @@
+.card {
+    background-color: #E2CB77;
+    display: flex;
+    padding: .5rem;
+}
+.card-body {
+    background-color: #FFFF;
+}
+
+.info-order {
+    display: flex;
+    text-align: justify;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.info-order span {
+    color: #DA4B4B;
+    font-weight: bold;
+}
+
+.products-order {
+    text-align: justify;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25%;
+    gap: 30%;
+    font-weight: bold;
+}
+.card-text {
+    display: flex;
+    align-items: stretch;
+    gap: 15%;
+}
+
+.button-ready {
+    background-color: #DA4B4B;
+    color: #FFFF;
+    border: none;
+    border-radius: 5px;
+    padding: 0;
+    bottom: 0;
+    width: 100%;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+}
+
+.card-body button {
+    background-color: #DA4B4B;
+    color: #FFFF;
+    border: none;
+    border-radius: 0 0 5px 5px;
+    padding: .5rem;
+    bottom: 0;
+    position: absolute;
+    margin-top: 1rem;
+    width: 100%;
+    align-items: center;
+}
