@@ -1,11 +1,12 @@
 .card {
-    background-color: #E2CB77;
+    border-color:  #E2CB77;
     display: flex;
     padding: .5rem;
-}
-.card-body {
     background-color: #FFFF;
+    border-width: 0.3em;
+    position: relative;
 }
+
 
 .info-order {
     display: flex;
@@ -13,50 +14,33 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    gap:1em;
 }
 
 .info-order span {
     color: #DA4B4B;
     font-weight: bold;
+    font-size:small;
+}
+.info-order p{
+    font-size:small;
 }
 
-.products-order {
-    text-align: justify;
+.sixe{
+    font-weight: 500;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25%;
-    gap: 30%;
-    font-weight: bold;
-}
-.card-text {
-    display: flex;
-    align-items: stretch;
-    gap: 15%;
+    margin-bottom: 0;
+    justify-content: space-between;
+    padding-bottom: 0;
+    height:1.5em
 }
 
-.button-ready {
-    background-color: #DA4B4B;
-    color: #FFFF;
-    border: none;
-    border-radius: 5px;
-    padding: 0;
-    bottom: 0;
-    width: 100%;
-    font-weight: bold;
-    display: flex;
-    justify-content: center;
-}
-
-.card-body button {
-    background-color: #DA4B4B;
-    color: #FFFF;
-    border: none;
-    border-radius: 0 0 5px 5px;
-    padding: .5rem;
-    bottom: 0;
+.card button{
     position: absolute;
-    margin-top: 1rem;
-    width: 100%;
-    align-items: center;
+    left: 0;
+    bottom: 0;
+    margin-top: 2em;
+   
+    
 }
+
