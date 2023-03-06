@@ -44,3 +44,8 @@
     
 }
 
+.inputsDiv{
+    display: flex;
+    gap: 1em;
+}
+

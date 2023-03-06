@@ -1,28 +1,26 @@
 <section class="card" *ngFor="let item of ordersFromApi">
-    <div class="card-body">
-      <div class="info-order">
-        <p class="data"><span>Table:</span> {{item.data.table}}</p>
-        <p class="data"><span>Time:</span> {{item.date}}</p>
-        <p class="data"><span>Waiter:</span> {{item.data.waiter}}</p>
-      </div>
-      <div >
-      <div class="sixe" *ngFor="let product of item.order">
+  <div class="card-body">
+    <div class="info-order">
+      <p class="data"><span>Table:</span> {{item.data.table}}</p>
+      <p class="data"><span>Time:</span> {{item.date}}</p>
+      <p class="data"><span>Waiter:</span> {{item.data.waiter}}</p>
+    </div>
+    <form class="needs-validation form-check" [formGroup]="orderForm" (ngSubmit)="orderReady(item.id)">
+      <div class="sixe " *ngFor="let product of item.order">
         <div>
-      <p  >{{product.producto}}</p>
-    </div>
-    <div>
-      <p  >{{product.cantidad}}   <input type="checkbox" value='{{ product.producto }}' [(ngModel)]="product.selected"  >
-      </p>
-      <div class ="buttonDiv">
-        <button class="submit" [disabled]="!product.selected"   (click)="hello()">Order Ready</button>
-       
-    </div>
-  </div>
-      
+          <p>{{product.producto}}</p>
+        </div>
+        <div class="inputsDiv">
+          <label for="product" class="form-check-label">{{product.cantidad}}</label>
+          <input type="checkbox" class="form-check-input" value='{{ product.producto }}' formControlName="product">
+        </div>
+        <div class="buttonDiv">
+          <button class="btn btn-primary" id="item.data.date">Order Ready</button>
+
+        </div>
       </div>
-      
-    </div>
-    
-    
-    </div>
-  </section>
+    </form>
+
+
+  </div>
+</section>

@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Injectable, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Injectable, Input, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { OrderI } from '../models/order.interface';
 import { ProductsService } from '../service/api/products.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -10,30 +10,60 @@ import { ProductsService } from '../service/api/products.service';
 })
 
 @Injectable()
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
   orderForm = new FormGroup({
-    checkBox: new FormControl([false, Validators.requiredTrue]),
+    product: new FormControl(false, [Validators.requiredTrue]),
   })
 
   constructor(private products: ProductsService) { }
 
-  ngOnInit(): void {
-  }
 
   @Input() ordersFromApi: any;
 
-  ngAfterViewInit() {
-
-  }
   // @Output() 
   // eventoEnviarOrdenes = new EventEmitter<OrderI>();
-
-
-
-  
-  hello(){
-    alert("hola")
-  }
-  
+  ngOnInit(): void {
 
   }
+  orderReady(id: any) {
+    Swal.fire({
+      title: 'Do you want to send the order?',
+      showCancelButton: true,
+      confirmButtonText: 'Yes',
+      customClass: {
+        actions: 'my-actions',
+        cancelButton: 'order-1 right-gap',
+        confirmButton: 'order-2',
+      }
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        Swal.fire('Sent!', '', 'success')
+        this.deleteOrderFromApi(id)
+
+        // aqui se envia 
+
+      } else if (result.isDenied) {
+        Swal.fire('Not sent', '', 'info')
+      }
+    })
+
+
+
+  }
+
+  deleteOrderFromApi(id: any) {
+    this.products.deleteOrder(id).subscribe({
+      next: (data: any) => {
+        Swal.fire(
+          'Deleted!',
+          `Your order has been deleted. ${id}`,
+          'success'
+        );
+
+      }
+    })
+
+  }
+
+
+}

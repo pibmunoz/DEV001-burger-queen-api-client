@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ElementRef, ViewChild, Renderer2 } from '@angular/core';
+import { Component, OnInit, ViewChild, } from '@angular/core';
 import { ProductI } from '../models/product.interface';
 import { ProductsService } from '../service/api/products.service';
 import { CardOfProductComponent } from '../card-of-product/card-of-product.component'
@@ -190,7 +190,7 @@ export class WaitersComponent implements OnInit {
 
 
   submitOrder() {
-    const dateOrder = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(new Date())
+    const dateOrder = Intl.DateTimeFormat('en', { month: "short", day: "numeric", hour: "numeric", minute: "numeric", hour12: true }).format(new Date())
     const arrProductsToKitchen = this.arrProductsSelected.map((products) => {
       return {
         producto: products.name,
@@ -219,15 +219,15 @@ export class WaitersComponent implements OnInit {
     localStorage.setItem('orderToKitchen', JSON.stringify(pedidos));
     this.totalTot = 0
     this.products.postOrder(pedidos).subscribe({
-      next: (response) =>{
+      next: (response) => {
         console.log(response)
-      Swal.fire({
-        title: 'Good job!',
-        text: 'Customer Data send',
-        icon: 'success'
-      })
+        Swal.fire({
+          title: 'Good job!',
+          text: 'Customer Data send',
+          icon: 'success'
+        })
       },
-      error: (error) =>{
+      error: (error) => {
         console.log(error)
         Swal.fire({
           title: 'Error!',
