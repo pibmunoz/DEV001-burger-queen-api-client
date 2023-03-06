@@ -1,25 +1,28 @@
-<div class="card col-md-3 col-1" *ngFor="let item of ordersFromApi">
+<section class="card" *ngFor="let item of ordersFromApi">
     <div class="card-body">
       <div class="info-order">
-        <p class="text-sm"><span>Table:</span> {{item.data.table}}</p>
-        <p class="text-sm"><span>Time:</span> {{item.date}}</p>
-        <p class="text-sm"><span>Waiter:</span> {{item.data.waiter}}</p>
+        <p class="data"><span>Table:</span> {{item.data.table}}</p>
+        <p class="data"><span>Time:</span> {{item.date}}</p>
+        <p class="data"><span>Waiter:</span> {{item.data.waiter}}</p>
       </div>
-      <div class="d-flex products-order" *ngIf=" ">
+      <div >
+      <div class="sixe" *ngFor="let product of item.order">
         <div>
-      <p class="card-text" *ngFor="let product of item.order">{{product.producto}}</p>
+      <p  >{{product.producto}}</p>
     </div>
     <div>
-      <p class="card-text" *ngFor="let product of item.order" id ="chechBox" #checkbox>{{product.cantidad}}   <input type="checkbox"></p>
-
+      <p  >{{product.cantidad}}   <input type="checkbox" value='{{ product.producto }}' [(ngModel)]="product.selected"  >
+      </p>
+      <div class ="buttonDiv">
+        <button class="submit" [disabled]="!product.selected"   (click)="hello()">Order Ready</button>
        
-      
-      </div>
-      
-    </div>
-      <div class="button-ready">
-        <button class="submit">Order Ready</button>
-      </div>
-    
     </div>
   </div>
+      
+      </div>
+      
+    </div>
+    
+    
+    </div>
+  </section>

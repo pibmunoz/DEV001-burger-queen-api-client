@@ -34,7 +34,6 @@ export class WaitersComponent implements OnInit {
   public productos: ProductI[] = []
   public breakfast: ProductI[] = []
   public meal: ProductI[] = []
-
   arrProductsSelected: ProductI[] = []
   public ordersToKitchen: Object[] = [];
   pedidos: OrderI
@@ -135,7 +134,7 @@ export class WaitersComponent implements OnInit {
   }
 
   clickDelete(id: number) {
-    this.arrProductsSelected.forEach((el, index) => {
+    this.arrProductsSelected.forEach((el) => {
       if (el.id === id) {
         if (el.quantity === 1) {
           for (let i = 0; i < this.arrProductsSelected.length; i++) {
@@ -172,15 +171,11 @@ export class WaitersComponent implements OnInit {
     })
   }
 
-
-
-
   deleteForever(id: number) {
-    this.arrProductsSelected.forEach((el, index) => {
+    this.arrProductsSelected.forEach((el) => {
       if (el.id === id) {
         if (el.quantity >= 1) {
           for (let i = 0; i < this.arrProductsSelected.length; i++) {
-
             if (this.arrProductsSelected[i] === el) {
               this.arrProductsSelected.splice(i, 1);
               i--;
