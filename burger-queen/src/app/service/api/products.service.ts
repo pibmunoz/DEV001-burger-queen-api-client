@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataServicesService } from './data-services.service';
 import { ProductI } from 'src/app/models/product.interface';
 import { OrderI } from 'src/app/models/order.interface';
-import { timer,  switchMap } from 'rxjs';
+import { Observable, retry, share, switchMap, timer } from 'rxjs';
 
 
 @Injectable({
@@ -13,9 +13,13 @@ import { timer,  switchMap } from 'rxjs';
 
 export class ProductsService {
 
+  private ordersActual : Observable<OrderI[]>;
 
-
-  constructor(private dataServices: DataServicesService, private http: HttpClient) { }
+  constructor(private dataServices: DataServicesService, private http: HttpClient) { 
+    this.ordersActual =  timer(1, 5000) .pipe( 
+      switchMap (() => this.http.get<OrderI[]>("http://localhost:3000/orders")) ,
+      retry(), share());
+  }
 
   obtainProducts() {
     return this.dataServices.getItems();
@@ -26,13 +30,12 @@ export class ProductsService {
     return this.http.post(urlDos, valor)
   }
 
-  getOrders() {
-    let urlDos: string = "http://localhost:3000/orders";
-    return this.http.get(urlDos)
+
+  obtainTheOrdersFromApi(): Observable<OrderI[]>{
+   return this.ordersActual
   }
 
-
-
+ 
 
 
   deleteOrder(id:any){

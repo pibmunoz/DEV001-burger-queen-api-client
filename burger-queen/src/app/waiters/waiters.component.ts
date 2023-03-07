@@ -212,6 +212,7 @@ export class WaitersComponent implements OnInit {
     else {
       this.pedidos = objOrder
       this.sendOrderToKitchen(this.pedidos)
+
     }
   }
 
@@ -238,6 +239,7 @@ export class WaitersComponent implements OnInit {
     })
 
     this.myForm.reset();
+    this.arrProductsSelected = []
   }
 
 

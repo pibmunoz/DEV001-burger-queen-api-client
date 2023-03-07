@@ -1,5 +1,5 @@
 .card {
-    border-color:  #E2CB77;
+    border-color: #E2CB77;
     display: flex;
     padding: .5rem;
     background-color: #FFFF;
@@ -14,38 +14,46 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap:1em;
+    gap: 1em;
 }
 
 .info-order span {
     color: #DA4B4B;
     font-weight: bold;
-    font-size:small;
-}
-.info-order p{
-    font-size:small;
+    font-size: small;
 }
 
-.sixe{
+.info-order p {
+    font-size: small;
+}
+
+.sixe {
     font-weight: 500;
     display: flex;
     margin-bottom: 0;
     justify-content: space-between;
     padding-bottom: 0;
-    height:1.5em
+    height: 1.5em
 }
 
-.card button{
+.card button {
     position: absolute;
     left: 0;
     bottom: 0;
     margin-top: 2em;
-   
-    
+    background-color: #DA4B4B;
+    color: #FFFF;
+    border: none;
+    border-radius: 0 0 5px 5px;
+    padding: .5rem;
+    width: 100%;
+    align-items: center;
+
 }
 
-.inputsDiv{
+.inputsDiv {
     display: flex;
     gap: 1em;
+    margin-bottom: 2em;
+    height: min-content;
 }
-

@@ -18,13 +18,27 @@ export class OrdersComponent implements OnInit {
   constructor(private products: ProductsService) { }
 
 
-  @Input() ordersFromApi: any;
+  // @Input() ordersFromApi: any;
 
   // @Output() 
   // eventoEnviarOrdenes = new EventEmitter<OrderI>();
   ngOnInit(): void {
-
+this.obtainOrdersFromResApi()
   }
+obtainOrders: OrderI[] = []
+
+obtainOrdersFromResApi(){
+  this.products.obtainTheOrdersFromApi().subscribe({
+    next: (response) =>{
+this.obtainOrders = response
+
+console.log("la respuesta", this.obtainOrders)
+    }
+  })
+}
+
+
+
   orderReady(id: any) {
     Swal.fire({
       title: 'Do you want to send the order?',
@@ -38,6 +52,7 @@ export class OrdersComponent implements OnInit {
     }).then((result: any) => {
       if (result.isConfirmed) {
         Swal.fire('Sent!', '', 'success')
+        
         this.deleteOrderFromApi(id)
 
         // aqui se envia 
