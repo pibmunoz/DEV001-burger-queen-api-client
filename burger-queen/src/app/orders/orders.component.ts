@@ -17,29 +17,36 @@ export class OrdersComponent implements OnInit {
 
   constructor(private products: ProductsService) { }
 
+  @Output()
+  eventoEnviarOrdenes = new EventEmitter<OrderI>();
 
-  // @Input() ordersFromApi: any;
 
-  // @Output() 
-  // eventoEnviarOrdenes = new EventEmitter<OrderI>();
   ngOnInit(): void {
-this.obtainOrdersFromResApi()
+    this.obtainOrdersFromResApi()
   }
-obtainOrders: OrderI[] = []
+  obtainOrders: OrderI[] = []
+  filterOrders: OrderI[] = []
 
-obtainOrdersFromResApi(){
-  this.products.obtainTheOrdersFromApi().subscribe({
-    next: (response) =>{
-this.obtainOrders = response
+  obtainOrdersFromResApi() {
+    this.products.obtainTheOrdersFromApi().subscribe({
+      next: (response) => {
+        this.obtainOrders = response
+        this.filterOrders = this.filterOrdersPerDay(this.obtainOrders)
+        console.log("la respuesta", this.obtainOrders)
+      }
+    })
+  }
 
-console.log("la respuesta", this.obtainOrders)
-    }
-  })
-}
+  filterOrdersPerDay(ordersArr: Object[]){
+    const dateOrder = Intl.DateTimeFormat('en', {month: "short", day:"numeric"}).format(new Date())
+    console.log(dateOrder)
+    const filterok = this.obtainOrders.filter((order: any) => order.date.includes(dateOrder))
+    return filterok
+  }
 
 
 
-  orderReady(id: any) {
+  orderReady(valueItem: any) {
     Swal.fire({
       title: 'Do you want to send the order?',
       showCancelButton: true,
@@ -53,7 +60,7 @@ console.log("la respuesta", this.obtainOrders)
       if (result.isConfirmed) {
         Swal.fire('Sent!', '', 'success')
         
-        this.deleteOrderFromApi(id)
+        this.deleteOrderFromApi(valueItem)
 
         // aqui se envia 
 
@@ -66,19 +73,24 @@ console.log("la respuesta", this.obtainOrders)
 
   }
 
-  deleteOrderFromApi(id: any) {
-    this.products.deleteOrder(id).subscribe({
+  deleteOrderFromApi(item: any) {
+    this.eventoEnviarOrdenes.emit(item.data);
+    this.products.deleteOrder(item.id).subscribe({
       next: (data: any) => {
         Swal.fire(
           'Deleted!',
-          `Your order has been deleted. ${id}`,
+          `Your order has been deleted. ${item.id}`,
           'success'
         );
+        
 
       }
     })
 
   }
+
+
+
 
 
 }

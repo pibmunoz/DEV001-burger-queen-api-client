@@ -34,12 +34,4 @@ export class KitchenComponent {
 //    return this.ordersActual
 //   }
 
-
-filterOrdersPerDay(ordersArr: Object[]){
-  const dateOrder = Intl.DateTimeFormat('en', {month: "short", day:"numeric"}).format(new Date())
-  console.log(dateOrder)
-  const filterok = this.allOrders.filter((order: any) => order.date.includes(dateOrder))
-  return filterok
-}
-
 }

@@ -242,7 +242,12 @@ export class WaitersComponent implements OnInit {
     this.arrProductsSelected = []
   }
 
+ordersReady: any[] = []
 
+  addItem(newItem: any) {
+    this.ordersReady.push(newItem);
+    console.log("esto es addItem", this.ordersReady)
+  }
 
 
 }

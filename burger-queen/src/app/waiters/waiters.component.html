@@ -99,8 +99,8 @@
                 <div class="col kitchen">
                     <h3 class="titleResume">ORDERS READY</h3>
                     <div class="containerOrders">
-                        <p class="orderReady">Mesa 2</p>
-                        <p class="check">Listo</p>
+                        <app-orders (newItemEvent)="addItem($event)">  </app-orders>
+                       
                     </div>
                 </div>
             </section>

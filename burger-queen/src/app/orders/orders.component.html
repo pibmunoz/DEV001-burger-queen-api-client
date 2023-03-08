@@ -1,11 +1,11 @@
-<section class="card" *ngFor="let item of obtainOrders">
+<section class="card" *ngFor="let item of filterOrders">
   <div class="card-body">
     <div class="info-order">
       <p class="data"><span>Table:</span> {{item.data.table}}</p>
       <p class="data"><span>Time:</span> {{item.date}}</p>
       <p class="data"><span>Waiter:</span> {{item.data.waiter}}</p>
     </div>
-    <form class="needs-validation form-check" [formGroup]="orderForm" (ngSubmit)="orderReady(item.id)">
+    <form class="needs-validation form-check" [formGroup]="orderForm" (ngSubmit)="orderReady(item)">
       <div class="sixe " *ngFor="let product of item.order">
         <div>
           <p>{{product.producto}}</p>
@@ -15,7 +15,7 @@
           <input type="checkbox" class="form-check-input" value='{{ product.producto }}' formControlName="product">
         </div>
         <div class="buttonDiv">
-          <button class="btn btn-primary" id="item.data.date">Order Ready</button>
+          <button class="btn btn-primary"  [disabled]="orderForm.invalid"  id="item.data.date">Order Ready</button>
 
         </div>
       </div>
