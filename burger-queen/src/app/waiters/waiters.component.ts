@@ -39,12 +39,12 @@ export class WaitersComponent implements OnInit {
   pedidos: OrderI
 
   ngOnInit(): void {
-    this.arrayOfTheProducts()
+    this.arrayOfTheProducts();
+    this.obtainOrdersFromResApi()
   }
 
   // guardar info del mesero, mesa, etc 
   public dataForTheOrder: Object = {}
-
   saveData() {
     if (this.myForm.valid) {
 
@@ -70,6 +70,15 @@ export class WaitersComponent implements OnInit {
     }
 
 
+  }
+
+  obtainOrders: OrderI[] = []
+  obtainOrdersFromResApi() {
+    this.products.obtainTheOrdersFromApi().subscribe({
+      next: (response) => {
+        this.obtainOrders = response
+      }
+    })
   }
 
 
@@ -200,7 +209,8 @@ export class WaitersComponent implements OnInit {
     const objOrder: any = {
       data: this.dataForTheOrder,
       order: arrProductsToKitchen,
-      date: dateOrder
+      date: dateOrder,
+      status: "pending"
     }
     if (Object.entries(objOrder.data).length === 0 || objOrder.order.length < 1) {
       Swal.fire({
@@ -242,11 +252,11 @@ export class WaitersComponent implements OnInit {
     this.arrProductsSelected = []
   }
 
-ordersReady: any[] = []
+// ordersReady: any[] = []
 
   addItem(newItem: any) {
-    this.ordersReady.push(newItem);
-    console.log("esto es addItem", this.ordersReady)
+    this.obtainOrders.push(newItem);
+    console.log("esto es addItem", this.obtainOrders)
   }
 
 

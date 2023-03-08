@@ -7,5 +7,6 @@ export interface OrderI{
         producto: string}
     ],
     date: string,
-    id: number
+    id: number,
+    status: string
 }

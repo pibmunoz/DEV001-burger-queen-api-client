@@ -32,7 +32,6 @@ export class OrdersComponent implements OnInit {
       next: (response) => {
         this.obtainOrders = response
         this.filterOrders = this.filterOrdersPerDay(this.obtainOrders)
-        console.log("la respuesta", this.obtainOrders)
       }
     })
   }
@@ -59,7 +58,7 @@ export class OrdersComponent implements OnInit {
     }).then((result: any) => {
       if (result.isConfirmed) {
         Swal.fire('Sent!', '', 'success')
-        
+        valueItem.status = "ready"
         this.deleteOrderFromApi(valueItem)
 
         // aqui se envia 
@@ -75,8 +74,11 @@ export class OrdersComponent implements OnInit {
 
   deleteOrderFromApi(item: any) {
     this.eventoEnviarOrdenes.emit(item.data);
-    this.products.deleteOrder(item.id).subscribe({
+    this.products.updateStatusOrder(item.id, item)
+    .subscribe({
       next: (data: any) => {
+        data.status = "ready"
+        console.log(data)
         Swal.fire(
           'Deleted!',
           `Your order has been deleted. ${item.id}`,

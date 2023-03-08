@@ -43,7 +43,9 @@ export class ProductsService {
     return this.http.delete(`http://localhost:3000/orders/${id}`)
   }
 
-
+  updateStatusOrder(id:any, valor: OrderI){
+    return this.http.put(`http://localhost:3000/orders/${id}`, valor)
+  }
 
 
 
