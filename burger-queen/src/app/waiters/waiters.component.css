@@ -354,4 +354,15 @@ h2{
     font-size: 0.8em;
 }
 
+.orderToDeliver{
+    display: flex;
+    width: 98%;
+    gap:1em;
+    border-style: solid;
+    border-color: aqua;
+    border-radius: 0.6em;
+    padding: 0.3em;
+    justify-content: space-around;
+}
+
 /* card orders */

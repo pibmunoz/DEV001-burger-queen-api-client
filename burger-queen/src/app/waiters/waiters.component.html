@@ -98,10 +98,15 @@
                 </div>
                 <div class="col kitchen">
                     <h3 class="titleResume">ORDERS READY</h3>
-                    <div class="containerOrders">
-                        <app-orders (newItemEvent)="addItem($event)">  </app-orders>
-                       
-                    </div>
+                    <ng-container class="containerOrders" *ngFor="let order of orderReadyArr">
+                       <div  class="orderToDeliver" *ngIf="order.status ==='ready'">
+                        
+                       <p>Order: {{order.data.table}}</p>
+                       <p>Waiter: {{order.data.waiter}}</p>
+                       <p>Status: {{order.status}}</p>
+                    
+                       </div>
+                    </ng-container>
                 </div>
             </section>
 

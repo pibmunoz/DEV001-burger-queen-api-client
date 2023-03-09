@@ -14,6 +14,7 @@ import { Observable, retry, share, switchMap, timer } from 'rxjs';
 export class ProductsService {
 
   private ordersActual : Observable<OrderI[]>;
+  private orderReady : Observable<OrderI[]>;
 
   constructor(private dataServices: DataServicesService, private http: HttpClient) { 
     this.ordersActual =  timer(1, 5000) .pipe( 
@@ -47,6 +48,11 @@ export class ProductsService {
     return this.http.put(`http://localhost:3000/orders/${id}`, valor)
   }
 
+  getOrdersThatWereMade(): any {
+    return this.orderReady =  timer(1, 5000) .pipe( 
+      switchMap (() => this.http.get<OrderI[]>("http://localhost:3000/orders")) ,
+      retry(), share());
+  }
 
 
 }

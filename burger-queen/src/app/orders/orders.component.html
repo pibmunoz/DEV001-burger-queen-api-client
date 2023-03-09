@@ -6,9 +6,10 @@
       <p class="data"><span>Waiter:</span> {{item.data.waiter}}</p>
     </div>
     <form class="needs-validation form-check" [formGroup]="orderForm" (ngSubmit)="orderReady(item)">
-      <div class="sixe " *ngFor="let product of item.order">
-        <div>
-          <p>{{product.producto}}</p>
+      <div class="containerProductsOfOrder " *ngFor="let product of item.order">
+        <div class="divProduct">
+          <p class="textQuantity">{{product.cantidad}}</p>
+          <p class="textProduct">{{product.producto}}</p>
         </div>
         <div class="inputsDiv">
           <label for="product" class="form-check-label">{{product.cantidad}}</label>

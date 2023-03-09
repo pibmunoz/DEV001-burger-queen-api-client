@@ -41,6 +41,7 @@ export class WaitersComponent implements OnInit {
   ngOnInit(): void {
     this.arrayOfTheProducts();
     this.obtainOrdersFromResApi()
+    this.ordersReady()
   }
 
   // guardar info del mesero, mesa, etc 
@@ -252,12 +253,20 @@ export class WaitersComponent implements OnInit {
     this.arrProductsSelected = []
   }
 
-// ordersReady: any[] = []
+orderReadyArr : any[] = []
 
-  addItem(newItem: any) {
-    this.obtainOrders.push(newItem);
-    console.log("esto es addItem", this.obtainOrders)
-  }
+ordersReady() {
+  this.products.getOrdersThatWereMade().subscribe({
+    next: (response: any[]) =>{
+this.orderReadyArr = response
+console.log("ORDER READYYY", this.orderReadyArr)
+    }
+
+  })
+}
+
+
+
 
 
 }

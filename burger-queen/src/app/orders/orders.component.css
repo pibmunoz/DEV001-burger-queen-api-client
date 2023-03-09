@@ -27,7 +27,22 @@
     font-size: small;
 }
 
-.sixe {
+.divProduct{
+    width:90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.textQuantity, .textProduct {
+    flex-direction: column;
+}
+.textQuantity {
+    color: #DA4B4B;
+}
+
+
+.containerProductsOfOrder{
     font-weight: 500;
     display: flex;
     margin-bottom: 0;
