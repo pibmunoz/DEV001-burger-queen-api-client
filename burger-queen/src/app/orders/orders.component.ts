@@ -46,6 +46,7 @@ export class OrdersComponent implements OnInit {
 
 
   orderReady(valueItem: any) {
+    const dateKit = Intl.DateTimeFormat('en', { hour: "numeric", minute: "numeric", hour12: true }).format(new Date())
     Swal.fire({
       title: 'Do you want to send the order?',
       showCancelButton: true,
@@ -59,6 +60,8 @@ export class OrdersComponent implements OnInit {
       if (result.isConfirmed) {
         Swal.fire('Sent!', '', 'success')
         valueItem.status = "ready"
+        valueItem.dateKitchen = dateKit;
+
         this.deleteOrderFromApi(valueItem)
 
         // aqui se envia 
@@ -73,6 +76,7 @@ export class OrdersComponent implements OnInit {
   }
 
   deleteOrderFromApi(item: any) {
+    
     this.eventoEnviarOrdenes.emit(item.data);
     this.products.updateStatusOrder(item.id, item)
     .subscribe({

@@ -357,12 +357,22 @@ h2{
 .orderToDeliver{
     display: flex;
     width: 98%;
-    gap:1em;
-    border-style: solid;
-    border-color: aqua;
-    border-radius: 0.6em;
+    gap:0.4em;
+    border-width: 0 0 0.2em 0;
+    border-style: dotted;
     padding: 0.3em;
-    justify-content: space-around;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* line-height: .5em; */
+    font-size: small;
+    margin-top: 0.2em;
+
+}
+
+.orderText{
+    margin-bottom: 0.2em;
+    word-spacing: 0.2em;
 }
 
 /* card orders */

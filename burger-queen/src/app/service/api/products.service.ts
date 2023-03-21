@@ -49,7 +49,7 @@ export class ProductsService {
   }
 
   getOrdersThatWereMade(): any {
-    return this.orderReady =  timer(1, 5000) .pipe( 
+    return this.orderReady =  timer(1, 5000).pipe( 
       switchMap (() => this.http.get<OrderI[]>("http://localhost:3000/orders")) ,
       retry(), share());
   }

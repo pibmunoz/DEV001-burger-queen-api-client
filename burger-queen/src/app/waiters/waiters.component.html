@@ -99,11 +99,13 @@
                 <div class="col kitchen">
                     <h3 class="titleResume">ORDERS READY</h3>
                     <ng-container class="containerOrders" *ngFor="let order of orderReadyArr">
-                       <div  class="orderToDeliver" *ngIf="order.status ==='ready'">
+                       <div class="orderToDeliver" *ngIf="order.status ==='ready'">
                         
-                       <p>Order: {{order.data.table}}</p>
-                       <p>Waiter: {{order.data.waiter}}</p>
-                       <p>Status: {{order.status}}</p>
+                       <p class="orderText">Order: {{order.data.table}}</p>
+                       <p class="orderText">Waiter: {{order.data.waiter}}</p>
+                       <p class="orderText">Status: {{order.status}}</p>
+                       <p class="orderText">Date: {{order.dateKitchen}}</p>
+                       <button class="btn btn-primary btn-sm" type="button">Delivered</button>
                     
                        </div>
                     </ng-container>

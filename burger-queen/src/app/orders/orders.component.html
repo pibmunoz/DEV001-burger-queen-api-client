@@ -1,4 +1,5 @@
-<section class="card" *ngFor="let item of filterOrders">
+<ng-container  *ngFor="let item of filterOrders">
+  <section class="card" *ngIf="item.status ==='pending'">
   <div class="card-body">
     <div class="info-order">
       <p class="data"><span>Table:</span> {{item.data.table}}</p>
@@ -25,3 +26,4 @@
 
   </div>
 </section>
+</ng-container>

@@ -5,8 +5,8 @@
     background-color: #FFFF;
     border-width: 0.3em;
     position: relative;
+    flex-direction: column;
 }
-
 
 .info-order {
     display: flex;
@@ -75,4 +75,5 @@
 
 .card-body{
     margin-bottom: 10%;
+    background-color: red;
 }
