@@ -28,7 +28,7 @@
 					<div class="card shadow-lg">
 						<div class="card-body p-5">
 
-							<form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value)"
+							<form class="needs-validation" [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm.value.email, loginForm.value.password)"
 								novalidate="" autocomplete="off">
 								<div class="mb-3">
 									<label class="mb-2 font-weight-bold" for="email"><strong>E-mail</strong></label>

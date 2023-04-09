@@ -16,6 +16,9 @@ import { CardOfProductComponent } from './card-of-product/card-of-product.compon
 import { AuthGuard } from './service/api/auth.guard';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { OrdersComponent } from './orders/orders.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 export const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -43,7 +46,9 @@ export const appRoutes: Routes = [
     ReactiveFormsModule,
     FormsModule,
     HttpClientModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideFirestore(() => getFirestore())
   ],
   providers:[ApiService, DataServicesService, ProductsService, AuthGuard],
   bootstrap: [AppComponent]

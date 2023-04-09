@@ -6,6 +6,8 @@ import { LoginI } from '../models/login.interface';
 import { Router } from '@angular/router';
 import { ResponseI } from '../models/response.interface';
 import Swal from 'sweetalert2';
+import firebase from 'firebase/compat/app'
+import 'firebase/compat/auth'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -23,34 +25,55 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  token: string = '';
-  onLogin(form: LoginI) {
+  token: string;
+  onLogin(email: any, password:any) {
     // console.log("entro holi")
     if (this.loginForm.valid) {
-      console.log("aqui entro")
-      const userAuth = form
-      this.api.loginByEmail(userAuth).subscribe({
-        next: (data: ResponseI) => {
-          console.log(data)
-          let dataResponse: ResponseI = data
-          this.token = dataResponse.accessToken
-          console.log("este es el token", this.token)
-          console.log("this is the response", data)
-          localStorage.setItem('token', this.token);
-          this.switchData(dataResponse, this.router)
-        },
-        error: (error) => {
-          if (error.name == 'HttpErrorResponse') {
-            console.log("aqui esta el error", error)
-            Swal.fire({
-              title: 'Error!',
-              text: 'Enter the correct email or password',
-              icon: 'error',
+    
+      const userEmail:string = email!;
+      const userPassword: string = password!;
+      this.api.loginByEmail(userEmail, userPassword).then((data) =>{
+        firebase.auth().currentUser?.getIdToken().then( 
+          token => {
+            this.token = token;
+            console.log("este es el token", this.token)
+            localStorage.setItem('token', this.token);
+            this.api.getUser(email).then( data =>{
+              console.log("veamos", data)
             })
-            localStorage.clear()
+
+            console.log("wata es la data", data)
+           //this.switchData(data, this.router)
+
+
+
           }
-        }
+        )
       })
+      
+      
+      // .subscribe({
+      //   next: (data: ResponseI) => {
+      //     console.log(data)
+      //     let dataResponse: ResponseI = data
+      //     this.token = dataResponse.accessToken
+      //     console.log("este es el token", this.token)
+      //     console.log("this is the response", data)
+      //     localStorage.setItem('token', this.token);
+      //     this.switchData(dataResponse, this.router)
+      //   },
+      //   error: (error) => {
+      //     if (error.name == 'HttpErrorResponse') {
+      //       console.log("aqui esta el error", error)
+      //       Swal.fire({
+      //         title: 'Error!',
+      //         text: 'Enter the correct email or password',
+      //         icon: 'error',
+      //       })
+      //       localStorage.clear()
+      //     }
+      //   }
+      // })
     }
     
 

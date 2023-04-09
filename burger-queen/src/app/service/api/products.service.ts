@@ -13,12 +13,12 @@ import { Observable, retry, share, switchMap, timer } from 'rxjs';
 
 export class ProductsService {
 
-  private ordersActual : Observable<OrderI[]>;
-  private orderReady : Observable<OrderI[]>;
+  private ordersActual: Observable<OrderI[]>;
+  private orderReady: Observable<OrderI[]>;
 
-  constructor(private dataServices: DataServicesService, private http: HttpClient) { 
-    this.ordersActual =  timer(1, 5000) .pipe( 
-      switchMap (() => this.http.get<OrderI[]>("http://localhost:3000/orders")) ,
+  constructor(private dataServices: DataServicesService, private http: HttpClient) {
+    this.ordersActual = timer(1, 5000).pipe(
+      switchMap(() => this.http.get<OrderI[]>("https://mock-api-liart.vercel.app/orders")),
       retry(), share());
   }
 
@@ -27,30 +27,29 @@ export class ProductsService {
   }
 
   postOrder(valor: OrderI) {
-    let urlDos: string = "http://localhost:3000/orders";
+    let urlDos: string = "https://mock-api-liart.vercel.app/orders";
     return this.http.post(urlDos, valor)
   }
 
 
-  obtainTheOrdersFromApi(): Observable<OrderI[]>{
-   return this.ordersActual
+  obtainTheOrdersFromApi(): Observable<OrderI[]> {
+    return this.ordersActual
   }
 
- 
 
 
-  deleteOrder(id:any){
-    
-    return this.http.delete(`http://localhost:3000/orders/${id}`)
+
+  deleteOrder(id: any) {
+    return this.http.delete(`https://mock-api-liart.vercel.app/${id}`)
   }
 
-  updateStatusOrder(id:any, valor: OrderI){
-    return this.http.put(`http://localhost:3000/orders/${id}`, valor)
+  updateStatusOrder(id: any, valor: OrderI) {
+    return this.http.put(`https://mock-api-liart.vercel.app/${id}`, valor)
   }
 
   getOrdersThatWereMade(): any {
-    return this.orderReady =  timer(1, 5000).pipe( 
-      switchMap (() => this.http.get<OrderI[]>("http://localhost:3000/orders")) ,
+    return this.orderReady = timer(1, 5000).pipe(
+      switchMap(() => this.http.get<OrderI[]>("https://mock-api-liart.vercel.app/orders")),
       retry(), share());
   }
 

@@ -11,7 +11,7 @@ export class DataServicesService {
 
   constructor(private http: HttpClient) { }
 
-  url: string = "http://localhost:3000/";
+  url: string = "https://mock-api-liart.vercel.app/";
   getItems(){
     console.log("esto es lo que devuelve", this.http.get(this.url + "products"))
     return this.http.get(this.url + "products");

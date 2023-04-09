@@ -361,7 +361,7 @@ h2{
     border-width: 0 0 0.2em 0;
     border-style: dotted;
     padding: 0.3em;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     /* line-height: .5em; */

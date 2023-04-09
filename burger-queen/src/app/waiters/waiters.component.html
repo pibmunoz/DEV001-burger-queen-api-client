@@ -101,11 +101,11 @@
                     <ng-container class="containerOrders" *ngFor="let order of orderReadyArr">
                        <div class="orderToDeliver" *ngIf="order.status ==='ready'">
                         
-                       <p class="orderText">Order: {{order.data.table}}</p>
-                       <p class="orderText">Waiter: {{order.data.waiter}}</p>
-                       <p class="orderText">Status: {{order.status}}</p>
-                       <p class="orderText">Date: {{order.dateKitchen}}</p>
-                       <button class="btn btn-primary btn-sm" type="button">Delivered</button>
+                       <p class="orderText"><strong>Table:</strong> {{order.data.table}}</p>
+                       <p class="orderText"><strong>Waiter:</strong> {{order.data.waiter}}</p>
+                       <p class="orderText"><strong>Status:</strong> {{order.status}}</p>
+                       <p class="orderText"><strong>Date:</strong> {{order.dateKitchen}}</p>
+                       <button class="btn btn-primary btn-sm" type="button" (click)="deleteOrderReady(order.id)">Delivered</button>
                     
                        </div>
                     </ng-container>

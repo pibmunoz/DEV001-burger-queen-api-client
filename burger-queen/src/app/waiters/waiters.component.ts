@@ -265,7 +265,19 @@ console.log("ORDER READYYY", this.orderReadyArr)
   })
 }
 
-
+deleteOrderReady(id:number){
+this.products.deleteOrder(id).subscribe({
+  next: data =>{
+    console.log("erased", id)
+    Swal.fire({
+      title: 'Order delivered!',
+      text: 'Order delivered to the customer',
+      icon: 'success'
+    })
+  }
+})
+  
+}
 
 
 
